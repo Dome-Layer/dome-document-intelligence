@@ -44,7 +44,7 @@ The key differentiator within the Dome portfolio: this tool is designed to run w
 
 ```bash
 # Clone
-git clone https://github.com/dome-layer/dome-document-intelligence.git
+git clone https://github.com/Dome-Layer/dome-document-intelligence.git
 cd dome-document-intelligence
 
 # Backend
