@@ -31,8 +31,12 @@ out/
 # ── IDEs ──────────────────────────────────────────────────────────────────────
 .idea/
 .vscode/
+.claude/
 *.swp
 *.swo
+
+# ── Claude Code context (internal dev file — not for public repo) ─────────────
+TOOL_CONTEXT.md
 
 # ── Logs ──────────────────────────────────────────────────────────────────────
 *.log

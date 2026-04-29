@@ -36,6 +36,15 @@ CREATE INDEX IF NOT EXISTS idx_governance_rules_user_id ON governance_rules (use
 CREATE INDEX IF NOT EXISTS idx_governance_events_user_id ON governance_events (user_id);
 CREATE INDEX IF NOT EXISTS idx_governance_events_timestamp ON governance_events (timestamp DESC);
 
--- Row Level Security (recommended — backend uses service_role key which bypasses RLS)
+-- Row Level Security
+-- The backend uses the service_role key which bypasses RLS for all writes.
+-- These policies are intentionally defined so that any future direct client
+-- access (e.g. Supabase JS SDK) is isolated to the authenticated user.
 ALTER TABLE governance_rules ENABLE ROW LEVEL SECURITY;
 ALTER TABLE governance_events ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY rules_user_isolation ON governance_rules
+  FOR ALL USING (auth.uid() = user_id);
+
+CREATE POLICY events_user_isolation ON governance_events
+  FOR ALL USING (auth.uid() = user_id);

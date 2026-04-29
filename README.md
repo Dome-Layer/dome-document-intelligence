@@ -2,7 +2,7 @@
 
 *Extracts structured data from any business document — with per-field confidence scores, governance validation, and a full audit trail — without storing the document.*
 
-Part of the Dome portfolio. For full tool specification see [`TOOL_CONTEXT.md`](./TOOL_CONTEXT.md). For cross-cutting Dome context see [dome-docs](../dome-docs/).
+Covers the **Orchestrate & Model** phases of the DOME method. Part of the [Dome portfolio](../dome-docs/). For cross-cutting Dome context see [dome-docs](../dome-docs/).
 
 ---
 
@@ -25,7 +25,7 @@ The key differentiator within the Dome portfolio: this tool is designed to run w
 | Layer | Status |
 |---|---|
 | Backend (FastAPI) | Complete |
-| Frontend (Next.js) | Not yet built |
+| Frontend (Next.js) | Complete |
 | Claude provider | Working |
 | Ollama provider | Stubbed — in progress |
 | Azure OpenAI provider | Stubbed |
@@ -37,14 +37,14 @@ The key differentiator within the Dome portfolio: this tool is designed to run w
 ### Requirements
 
 - Python 3.12
-- Node.js 20+ *(once frontend is built)*
+- Node.js 20+
 - Ollama *(optional — for local AI mode)*
 
 ### Setup
 
 ```bash
 # Clone
-git clone https://github.com/dome-layer/[repo-name].git
+git clone https://github.com/dome-layer/dome-document-intelligence.git
 cd dome-document-intelligence
 
 # Backend
@@ -63,11 +63,14 @@ cp .env.example .env
 ```bash
 # Backend (from backend/)
 uvicorn app.main:app --reload --port 8000
+
+# Frontend (from frontend/)
+npm install
+npm run dev
 ```
 
-API will be available at `http://localhost:8000`. Health check: `GET /api/health`.
-
-*Frontend not yet built. Use a REST client (curl, Bruno, Postman) to call the API directly during development.*
+Backend API: `http://localhost:8000`. Health check: `GET /api/health`.
+Frontend: `http://localhost:3000`.
 
 ---
 
@@ -81,6 +84,7 @@ LLM_PROVIDER=claude              # claude | azure_openai | ollama
 
 # Claude (cloud demo)
 ANTHROPIC_API_KEY=sk-ant-...
+CLAUDE_MODEL=claude-sonnet-4-6   # optional — override the Claude model
 
 # Azure OpenAI (client tenant — not yet implemented)
 AZURE_OPENAI_ENDPOINT=
@@ -155,28 +159,32 @@ Ollama provider not yet implemented. Target models: Llama 3.2 Vision, Qwen2-VL. 
 
 ```
 dome-document-intelligence/
-├── TOOL_CONTEXT.md             Full tool specification (read this first)
 ├── README.md                   This file
-└── backend/                    FastAPI service
-    ├── app/
-    │   ├── main.py             App entry point, lifespan, CORS
-    │   ├── api/                Route handlers (extract, rules, audit)
-    │   ├── core/               Config, DB client, logging
-    │   ├── models/             Pydantic schemas
-    │   ├── providers/          LLM provider implementations
-    │   └── services/           Ingest, extraction, validation, governance
-    ├── supabase_schema.sql     DB setup — run once in Supabase SQL editor
-    ├── Dockerfile
-    ├── railway.toml
-    └── requirements.txt
+├── LICENSE
+├── SECURITY.md
+├── backend/                    FastAPI service
+│   ├── app/
+│   │   ├── main.py             App entry point, lifespan, CORS
+│   │   ├── api/                Route handlers (extract, rules, audit)
+│   │   ├── core/               Config, DB client, logging
+│   │   ├── models/             Pydantic schemas
+│   │   ├── providers/          LLM provider implementations
+│   │   └── services/           Ingest, extraction, validation, governance
+│   ├── supabase_schema.sql     DB setup — run once in Supabase SQL editor
+│   ├── Dockerfile
+│   ├── railway.toml
+│   └── requirements.txt
+└── frontend/                   Next.js application
+    ├── app/                    Pages (upload, result, rules, audit)
+    ├── components/             UI components (upload, result, layout, auth)
+    ├── context/                Auth context
+    ├── lib/                    API client, auth helpers, types
+    └── styles/
 ```
-
-*`frontend/` does not exist yet. Planned: Next.js 14 + TypeScript + Tailwind.*
 
 ---
 
 ## Related
 
 - [dome-docs](../dome-docs/) — cross-cutting Dome documentation
-- [`TOOL_CONTEXT.md`](./TOOL_CONTEXT.md) — full spec for this tool
 - [Portfolio status](../dome-docs/PORTFOLIO_STATUS.md)
