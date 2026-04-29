@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { ArrowLeft, Bookmark, BookmarkCheck, Clock } from 'lucide-react'
 import AuthGuard from '@/components/AuthGuard'
@@ -9,12 +9,13 @@ import { DocumentProfileCard } from '@/components/result/DocumentProfileCard'
 import { ExtractionTable } from '@/components/result/ExtractionTable'
 import { GovernanceFlagList } from '@/components/result/GovernanceFlagList'
 import { HumanInLoopBanner } from '@/components/result/HumanInLoopBanner'
-import { saveExtraction, getSavedExtraction, APIError } from '@/lib/api'
+import { saveExtraction, getSavedExtraction } from '@/lib/api'
 import type { DocumentIntelligenceResult, SavedExtractionSummary } from '@/lib/types'
 
 type SaveState = 'idle' | 'saving' | 'saved' | 'error'
 
-export default function ResultPage() {
+// Inner component — uses useSearchParams(), must be inside <Suspense>
+function ResultPageContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -29,7 +30,6 @@ export default function ResultPage() {
     const savedId = searchParams.get('id')
 
     if (savedId) {
-      // Loading from history — fetch from API
       getSavedExtraction(savedId)
         .then(detail => {
           setResult(detail.result)
@@ -46,7 +46,6 @@ export default function ResultPage() {
         const raw = sessionStorage.getItem(sessionKey)
         if (!raw) { setError('Result has expired. Please upload again.'); return }
         const parsed = JSON.parse(raw) as { result: DocumentIntelligenceResult; filename?: string }
-        // Support both wrapped {result, filename} and bare result objects
         if (parsed && 'extraction' in parsed) {
           setResult(parsed as unknown as DocumentIntelligenceResult)
         } else {
@@ -177,16 +176,13 @@ export default function ResultPage() {
             </div>
           )}
 
-          {/* Human-in-loop banner */}
           <HumanInLoopBanner status={human_in_loop} />
 
-          {/* Document profile */}
           <DocumentProfileCard
             profile={extraction.document_profile}
             overallConfidence={extraction.overall_confidence}
           />
 
-          {/* Reference keys */}
           {Object.keys(extraction.reference_keys).length > 0 && (
             <div className="rounded-xl border border-dome-border bg-dome-surface p-5">
               <p className="eyebrow mb-3">Reference keys</p>
@@ -201,13 +197,11 @@ export default function ResultPage() {
             </div>
           )}
 
-          {/* Extracted fields */}
           <div>
             <p className="eyebrow mb-3">Extracted fields</p>
             <ExtractionTable fields={extraction.fields} />
           </div>
 
-          {/* Governance flags */}
           <div>
             <p className="eyebrow mb-3">Governance flags</p>
             <GovernanceFlagList flags={flags} />
@@ -215,5 +209,20 @@ export default function ResultPage() {
         </div>
       </PageContent>
     </AuthGuard>
+  )
+}
+
+// Outer shell — wraps the inner component in Suspense as required by Next.js 14
+export default function ResultPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center py-20">
+          <div className="spinner spinner-lg" />
+        </div>
+      }
+    >
+      <ResultPageContent />
+    </Suspense>
   )
 }
