@@ -2,6 +2,6 @@
 builder = "nixpacks"
 
 [deploy]
-startCommand = "sh -c 'uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 2'"
+startCommand = "bash start.sh"
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 3
