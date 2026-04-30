@@ -44,4 +44,4 @@ This repo follows the Dome portfolio standard:
 
 | Date | Reason | Notes |
 |------|--------|-------|
-| 2026-04 | Pre-publication audit — repo made public | Maintainer to populate without naming key values |
+| 2026-04 | Pre-publication audit — repo made public | Keys rotated as part of pre-publication hardening |
