@@ -134,7 +134,7 @@ curl -X POST http://localhost:8000/api/extract \
 
 ## Database setup
 
-Run [`backend/supabase_schema.sql`](./backend/supabase_schema.sql) in your Supabase SQL editor to create the required tables (`governance_rules`, `governance_events`) and indexes. Governance rules for each user are seeded automatically on first `GET /api/rules`.
+Run the canonical DOME governance schema — [`dome-docs/templates/governance_schema.sql`](../dome-docs/templates/governance_schema.sql) — in your Supabase SQL editor to create the required tables (`governance_rules`, `governance_events`) and indexes. For in-place upgrades to an existing deployment, apply the numbered files in [`dome-docs/migrations/`](../dome-docs/migrations/). Governance rules for each user are seeded automatically on first `GET /api/rules`.
 
 ---
 
@@ -170,7 +170,7 @@ dome-document-intelligence/
 │   │   ├── models/             Pydantic schemas
 │   │   ├── providers/          LLM provider implementations
 │   │   └── services/           Ingest, extraction, validation, governance
-│   ├── supabase_schema.sql     DB setup — run once in Supabase SQL editor
+│   ├── supabase_schema.sql     Pointer stub — canonical schema lives in dome-docs/templates/
 │   ├── Dockerfile
 │   ├── railway.toml
 │   └── requirements.txt

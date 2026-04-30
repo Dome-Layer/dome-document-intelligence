@@ -1,50 +1,7 @@
--- Run this in your Supabase SQL editor to set up the Document Intelligence schema.
-
--- Governance rules (per-user, seeded on first /api/rules request)
-CREATE TABLE IF NOT EXISTS governance_rules (
-    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id     UUID REFERENCES auth.users ON DELETE CASCADE,
-    rule_id     TEXT NOT NULL,
-    name        TEXT NOT NULL,
-    description TEXT,
-    severity    TEXT NOT NULL CHECK (severity IN ('info', 'warning', 'error')),
-    enabled     BOOLEAN DEFAULT TRUE,
-    config      JSONB DEFAULT '{}',
-    created_at  TIMESTAMPTZ DEFAULT NOW(),
-    UNIQUE (user_id, rule_id)
-);
-
--- Governance audit log (metadata only — no document content ever stored)
-CREATE TABLE IF NOT EXISTS governance_events (
-    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    agent_id        TEXT NOT NULL,
-    action_type     TEXT NOT NULL,
-    timestamp       TIMESTAMPTZ NOT NULL,
-    input_hash      TEXT NOT NULL,
-    input_type      TEXT NOT NULL,
-    output_summary  TEXT NOT NULL,
-    rules_applied   TEXT[] DEFAULT '{}',
-    rules_triggered TEXT[] DEFAULT '{}',
-    confidence      FLOAT,
-    human_in_loop   TEXT,
-    user_id         UUID REFERENCES auth.users ON DELETE SET NULL,
-    metadata        JSONB DEFAULT '{}'
-);
-
--- Indexes for common query patterns
-CREATE INDEX IF NOT EXISTS idx_governance_rules_user_id ON governance_rules (user_id);
-CREATE INDEX IF NOT EXISTS idx_governance_events_user_id ON governance_events (user_id);
-CREATE INDEX IF NOT EXISTS idx_governance_events_timestamp ON governance_events (timestamp DESC);
-
--- Row Level Security
--- The backend uses the service_role key which bypasses RLS for all writes.
--- These policies are intentionally defined so that any future direct client
--- access (e.g. Supabase JS SDK) is isolated to the authenticated user.
-ALTER TABLE governance_rules ENABLE ROW LEVEL SECURITY;
-ALTER TABLE governance_events ENABLE ROW LEVEL SECURITY;
-
-CREATE POLICY rules_user_isolation ON governance_rules
-  FOR ALL USING (auth.uid() = user_id);
-
-CREATE POLICY events_user_isolation ON governance_events
-  FOR ALL USING (auth.uid() = user_id);
+-- This tool's database schema is now part of the canonical DOME governance schema.
+-- See: dome-docs/templates/governance_schema.sql
+--
+-- For in-place upgrades to existing deployments, see:
+-- dome-docs/migrations/
+--
+-- This file is retained as a stub so existing README links don't 404.

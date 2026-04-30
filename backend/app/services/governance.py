@@ -56,6 +56,7 @@ async def emit_governance_event(
             "confidence": event.confidence,
             "human_in_loop": event.human_in_loop,
             "user_id": event.user_id,
+            "workflow_run_id": event.workflow_run_id,
             "metadata": event.metadata,
         }
         db.table("governance_events").insert(payload).execute()

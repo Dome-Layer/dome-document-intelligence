@@ -58,6 +58,7 @@ class GovernanceEvent(BaseModel):
     confidence: Optional[float] = None
     human_in_loop: str
     user_id: Optional[str] = None
+    workflow_run_id: Optional[str] = None
     metadata: dict = {}
 
 
