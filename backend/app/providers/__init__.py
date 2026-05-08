@@ -1,6 +1,6 @@
+from .azure_openai import AzureOpenAIProvider
 from .base import LLMProvider
 from .claude import ClaudeProvider
-from .azure_openai import AzureOpenAIProvider
 from .ollama import OllamaProvider
 
 
@@ -21,4 +21,10 @@ def get_llm_provider() -> LLMProvider:
     raise ValueError(f"Unknown LLM provider: {provider}")
 
 
-__all__ = ["LLMProvider", "ClaudeProvider", "AzureOpenAIProvider", "OllamaProvider", "get_llm_provider"]
+__all__ = [
+    "LLMProvider",
+    "ClaudeProvider",
+    "AzureOpenAIProvider",
+    "OllamaProvider",
+    "get_llm_provider",
+]

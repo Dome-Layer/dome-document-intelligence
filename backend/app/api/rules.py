@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from ..api.deps import get_current_user
 from ..core.db import get_db
 from ..core.logging import get_logger
-from ..models.schemas import GovernanceRule, RuleToggleRequest, RulesListResponse
+from ..models.schemas import GovernanceRule, RulesListResponse, RuleToggleRequest
 from ..services.validation import RULES_DEFINITIONS
 
 logger = get_logger(__name__)
@@ -76,7 +76,9 @@ async def toggle_rule(
         .execute()
     )
     if not rows.data:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Rule '{rule_id}' not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=f"Rule '{rule_id}' not found"
+        )
 
     updated = (
         db.table("governance_rules")

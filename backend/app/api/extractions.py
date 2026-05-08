@@ -1,14 +1,15 @@
-from fastapi import APIRouter, Depends, HTTPException, status
 from typing import Optional
+
+from fastapi import APIRouter, Depends, HTTPException, status
 
 from ..api.deps import get_current_user
 from ..core.db import get_db
 from ..core.logging import get_logger
 from ..models.schemas import (
-    SaveExtractionRequest,
-    SavedExtractionSummary,
     SavedExtractionDetail,
     SavedExtractionsListResponse,
+    SavedExtractionSummary,
+    SaveExtractionRequest,
 )
 
 logger = get_logger(__name__)
@@ -17,7 +18,9 @@ router = APIRouter()
 PAGE_SIZE_MAX = 50
 
 
-@router.post("/extractions", response_model=SavedExtractionSummary, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/extractions", response_model=SavedExtractionSummary, status_code=status.HTTP_201_CREATED
+)
 async def save_extraction(
     body: SaveExtractionRequest,
     user_id: str = Depends(get_current_user),
@@ -56,7 +59,10 @@ async def list_extractions(
     db = get_db()
     query = (
         db.table("saved_extractions")
-        .select("id,filename,doc_type,industry_hint,overall_confidence,human_in_loop,processing_time_ms,saved_at", count="exact")
+        .select(
+            "id,filename,doc_type,industry_hint,overall_confidence,human_in_loop,processing_time_ms,saved_at",
+            count="exact",
+        )
         .eq("user_id", user_id)
         .order("saved_at", desc=True)
     )

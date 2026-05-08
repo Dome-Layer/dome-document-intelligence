@@ -6,8 +6,8 @@ from typing import Optional
 
 import anthropic
 
-from .base import LLMProvider
 from ..core.logging import get_logger
+from .base import LLMProvider
 
 logger = get_logger(__name__)
 
@@ -38,7 +38,9 @@ class ClaudeProvider(LLMProvider):
                 await asyncio.sleep(2**attempt)
         raise RuntimeError("Unreachable")
 
-    async def generate_structured(self, prompt: str, schema: dict, system: Optional[str] = None) -> dict:
+    async def generate_structured(
+        self, prompt: str, schema: dict, system: Optional[str] = None
+    ) -> dict:
         sys_prompt = (system or "") + _JSON_INSTRUCTION
         text = await self.generate(prompt, system=sys_prompt)
         return _parse_json(text)

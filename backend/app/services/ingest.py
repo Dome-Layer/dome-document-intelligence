@@ -9,7 +9,7 @@ from ..core.logging import get_logger
 logger = get_logger(__name__)
 
 _VISION_THRESHOLD = 100  # chars — below this the PDF is treated as scanned
-_PDF_RENDER_ZOOM = 2.0   # 2× zoom when rasterising a scanned PDF page
+_PDF_RENDER_ZOOM = 2.0  # 2× zoom when rasterising a scanned PDF page
 
 
 class IngestResult:
@@ -42,13 +42,10 @@ class IngestService:
         if ct == "image/png" or fn.endswith(".png"):
             return IngestResult(None, data, "image/png", "image")
 
-        if (
-            ct in (
-                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                "application/vnd.ms-excel",
-            )
-            or fn.endswith((".xlsx", ".xls"))
-        ):
+        if ct in (
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "application/vnd.ms-excel",
+        ) or fn.endswith((".xlsx", ".xls")):
             return await self._process_xlsx(data)
 
         raise ValueError(f"Unsupported file type: {content_type} / {filename}")

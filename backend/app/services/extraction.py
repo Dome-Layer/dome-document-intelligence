@@ -1,10 +1,9 @@
 import json
-from typing import Optional
 
+from ..core.logging import get_logger
 from ..models.schemas import DocumentProfile, ExtractedField, ExtractionResult
 from ..providers import LLMProvider
 from ..services.ingest import IngestResult
-from ..core.logging import get_logger
 
 logger = get_logger(__name__)
 
@@ -150,7 +149,9 @@ class ExtractionService:
 
     # ── Pass 2: field extraction ──────────────────────────────────────────────
 
-    async def _extract_fields(self, ingested: IngestResult, profile: DocumentProfile) -> ExtractionResult:
+    async def _extract_fields(
+        self, ingested: IngestResult, profile: DocumentProfile
+    ) -> ExtractionResult:
         if ingested.image_bytes:
             raw = await self._provider.generate_vision(
                 _field_extraction_vision_prompt(profile),
@@ -170,6 +171,7 @@ class ExtractionService:
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
+
 def _parse_json_from_text(text: str) -> dict:
     text = text.strip()
     if text.startswith("```"):
@@ -177,6 +179,7 @@ def _parse_json_from_text(text: str) -> dict:
         text = "\n".join(lines[1:])
         text = text.rsplit("```", 1)[0]
     import json as _json
+
     try:
         return _json.loads(text)
     except _json.JSONDecodeError as e:

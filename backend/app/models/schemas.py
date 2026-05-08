@@ -1,9 +1,10 @@
 from datetime import datetime
 from typing import Optional
+
 from pydantic import BaseModel
 
-
 # ── Document extraction models ────────────────────────────────────────────────
+
 
 class DocumentProfile(BaseModel):
     doc_type: str
@@ -46,6 +47,7 @@ class DocumentIntelligenceResult(BaseModel):
 
 # ── Governance models ─────────────────────────────────────────────────────────
 
+
 class GovernanceEvent(BaseModel):
     agent_id: str
     action_type: str
@@ -64,6 +66,7 @@ class GovernanceEvent(BaseModel):
 
 # ── Rules models ──────────────────────────────────────────────────────────────
 
+
 class GovernanceRule(BaseModel):
     id: str
     rule_id: str
@@ -79,6 +82,7 @@ class RuleToggleRequest(BaseModel):
 
 
 # ── API response models ───────────────────────────────────────────────────────
+
 
 class RulesListResponse(BaseModel):
     rules: list[GovernanceRule]
@@ -97,6 +101,7 @@ class HealthResponse(BaseModel):
 
 
 # ── Saved extractions models ──────────────────────────────────────────────────
+
 
 class SaveExtractionRequest(BaseModel):
     filename: Optional[str] = None

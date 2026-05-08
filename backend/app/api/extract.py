@@ -1,14 +1,15 @@
 import time
+
 from fastapi import APIRouter, Depends, File, HTTPException, Request, UploadFile, status
 
 from ..api.deps import get_current_user
-from ..core.limiter import limiter
 from ..core.config import settings
+from ..core.limiter import limiter
 from ..core.logging import get_logger
 from ..models.schemas import DocumentIntelligenceResult, GovernanceRule
 from ..providers import get_llm_provider
-from ..services.governance import emit_governance_event
 from ..services.extraction import ExtractionService
+from ..services.governance import emit_governance_event
 from ..services.ingest import IngestService
 from ..services.validation import ValidationService
 from .rules import get_or_seed_rules
@@ -52,7 +53,10 @@ async def extract(
         raise HTTPException(status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, detail=str(e))
     except Exception as e:
         logger.error("ingest_error", error=str(e))
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=f"Document processing failed: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=f"Document processing failed: {e}",
+        )
 
     # ── Extract ───────────────────────────────────────────────────────────────
     provider = get_llm_provider()
@@ -73,7 +77,9 @@ async def extract(
             user_id=user_id,
             metadata={"error": str(e), "filename": filename},
         )
-        raise HTTPException(status_code=status.HTTP_502_BAD_GATEWAY, detail=f"Extraction failed: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY, detail=f"Extraction failed: {e}"
+        )
 
     # ── Validate ──────────────────────────────────────────────────────────────
     active_rules: list[GovernanceRule] = await get_or_seed_rules(user_id)

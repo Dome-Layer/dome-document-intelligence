@@ -11,7 +11,9 @@ class LLMProvider(ABC):
         ...
 
     @abstractmethod
-    async def generate_structured(self, prompt: str, schema: dict, system: Optional[str] = None) -> dict:
+    async def generate_structured(
+        self, prompt: str, schema: dict, system: Optional[str] = None
+    ) -> dict:
         """Generate structured JSON output matching schema."""
         ...
 

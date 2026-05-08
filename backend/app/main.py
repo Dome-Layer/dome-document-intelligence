@@ -7,14 +7,14 @@ from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from starlette.middleware.base import BaseHTTPMiddleware
 
+from .api.audit import router as audit_router
+from .api.extract import router as extract_router
+from .api.extractions import router as extractions_router
+from .api.rules import router as rules_router
 from .core.config import settings
 from .core.limiter import limiter
 from .core.logging import configure_logging, get_logger
 from .models.schemas import HealthResponse
-from .api.extract import router as extract_router
-from .api.rules import router as rules_router
-from .api.audit import router as audit_router
-from .api.extractions import router as extractions_router
 
 configure_logging()
 logger = get_logger(__name__)
@@ -35,9 +35,7 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
         response.headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()"
         if settings.environment == "production":
-            response.headers["Strict-Transport-Security"] = (
-                "max-age=63072000; includeSubDomains"
-            )
+            response.headers["Strict-Transport-Security"] = "max-age=63072000; includeSubDomains"
         return response
 
 
@@ -72,6 +70,7 @@ app.include_router(extractions_router, prefix="/api")
 async def health() -> HealthResponse:
     try:
         from .core.db import get_db
+
         db = get_db()
         db.table("governance_rules").select("id").limit(1).execute()
         return HealthResponse(status="ok")

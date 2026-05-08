@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 
@@ -23,10 +22,7 @@ async def list_audit_events(
 
     # Total count
     count_resp = (
-        db.table("governance_events")
-        .select("id", count="exact")
-        .eq("user_id", user_id)
-        .execute()
+        db.table("governance_events").select("id", count="exact").eq("user_id", user_id).execute()
     )
     total = count_resp.count or 0
 

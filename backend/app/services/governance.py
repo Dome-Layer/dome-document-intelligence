@@ -60,7 +60,9 @@ async def emit_governance_event(
             "metadata": event.metadata,
         }
         db.table("governance_events").insert(payload).execute()
-        logger.info("governance_event_emitted", input_hash=event.input_hash, human_in_loop=human_in_loop)
+        logger.info(
+            "governance_event_emitted", input_hash=event.input_hash, human_in_loop=human_in_loop
+        )
     except Exception as e:
         # Governance logging must never break the main flow
         logger.error("governance_event_failed", error=str(e))

@@ -25,17 +25,23 @@ async def get_current_user(
         return "00000000-0000-0000-0000-000000000000"
 
     if not credentials:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Authorization header required")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Authorization header required"
+        )
 
     token = credentials.credentials
     try:
         db = get_db()
         response = db.auth.get_user(token)
         if not response or not response.user:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired token")
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired token"
+            )
         return str(response.user.id)
     except HTTPException:
         raise
     except Exception as e:
         logger.warning("auth_error", error=str(e))
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Authentication failed")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Authentication failed"
+        )

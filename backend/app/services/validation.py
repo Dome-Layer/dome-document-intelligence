@@ -2,8 +2,8 @@ import re
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 
-from ..models.schemas import ExtractionResult, ValidationFlag, GovernanceRule
 from ..core.logging import get_logger
+from ..models.schemas import ExtractionResult, GovernanceRule, ValidationFlag
 
 logger = get_logger(__name__)
 
@@ -157,10 +157,17 @@ _HISTORICAL_DATE_FIELDS = re.compile(
 )
 
 # Doc types that don't use business-style reference identifiers
-_NON_COMMERCIAL_DOC_TYPES = frozenset({
-    "lab_report", "medical_record", "clinical_form", "prescription",
-    "cv_resume", "personal_document", "patient_record",
-})
+_NON_COMMERCIAL_DOC_TYPES = frozenset(
+    {
+        "lab_report",
+        "medical_record",
+        "clinical_form",
+        "prescription",
+        "cv_resume",
+        "personal_document",
+        "patient_record",
+    }
+)
 
 # Field names indicating a due/expiry date
 _DUE_DATE_FIELDS = re.compile(
@@ -184,7 +191,9 @@ _NUMERIC_RE = re.compile(r"[\d]+(?:[.,]\d+)*")
 class ValidationResult:
     __slots__ = ("flags", "human_in_loop", "rules_triggered")
 
-    def __init__(self, flags: list[ValidationFlag], human_in_loop: str, rules_triggered: list[str]) -> None:
+    def __init__(
+        self, flags: list[ValidationFlag], human_in_loop: str, rules_triggered: list[str]
+    ) -> None:
         self.flags = flags
         self.human_in_loop = human_in_loop
         self.rules_triggered = rules_triggered
@@ -205,9 +214,13 @@ class ValidationService:
 
         rules_triggered = list({f.rule_id for f in flags})
         human_in_loop = _determine_hitl(flags)
-        return ValidationResult(flags=flags, human_in_loop=human_in_loop, rules_triggered=rules_triggered)
+        return ValidationResult(
+            flags=flags, human_in_loop=human_in_loop, rules_triggered=rules_triggered
+        )
 
-    def _evaluate(self, rule_id: str, rule: GovernanceRule, result: ExtractionResult) -> list[ValidationFlag]:
+    def _evaluate(
+        self, rule_id: str, rule: GovernanceRule, result: ExtractionResult
+    ) -> list[ValidationFlag]:
         try:
             if rule_id == "low_confidence_field":
                 return _check_low_confidence_field(rule, result)
@@ -248,6 +261,7 @@ class ValidationService:
 
 # ── Rule implementations ──────────────────────────────────────────────────────
 
+
 def _flag(rule: GovernanceRule, field_name: Optional[str], message: str) -> ValidationFlag:
     return ValidationFlag(
         rule_id=rule.rule_id,
@@ -258,26 +272,44 @@ def _flag(rule: GovernanceRule, field_name: Optional[str], message: str) -> Vali
     )
 
 
-def _check_low_confidence_field(rule: GovernanceRule, result: ExtractionResult) -> list[ValidationFlag]:
+def _check_low_confidence_field(
+    rule: GovernanceRule, result: ExtractionResult
+) -> list[ValidationFlag]:
     threshold = rule.config.get("threshold", 0.70)
     flags = []
     for f in result.fields:
         # Only flag if not already caught by very_low_confidence
         if f.confidence < threshold and f.confidence >= 0.40:
-            flags.append(_flag(rule, f.name, f"Field '{f.name}' has confidence {f.confidence:.0%} (below {threshold:.0%})"))
+            flags.append(
+                _flag(
+                    rule,
+                    f.name,
+                    f"Field '{f.name}' has confidence {f.confidence:.0%} (below {threshold:.0%})",
+                )
+            )
     return flags
 
 
-def _check_very_low_confidence_field(rule: GovernanceRule, result: ExtractionResult) -> list[ValidationFlag]:
+def _check_very_low_confidence_field(
+    rule: GovernanceRule, result: ExtractionResult
+) -> list[ValidationFlag]:
     threshold = rule.config.get("threshold", 0.40)
     flags = []
     for f in result.fields:
         if f.confidence < threshold:
-            flags.append(_flag(rule, f.name, f"Field '{f.name}' has very low confidence {f.confidence:.0%} (below {threshold:.0%}) — manual verification required"))
+            flags.append(
+                _flag(
+                    rule,
+                    f.name,
+                    f"Field '{f.name}' has very low confidence {f.confidence:.0%} (below {threshold:.0%}) — manual verification required",
+                )
+            )
     return flags
 
 
-def _check_missing_critical_value(rule: GovernanceRule, result: ExtractionResult) -> list[ValidationFlag]:
+def _check_missing_critical_value(
+    rule: GovernanceRule, result: ExtractionResult
+) -> list[ValidationFlag]:
     flags = []
     for f in result.fields:
         if f.is_critical and (f.value is None or str(f.value).strip() == ""):
@@ -285,7 +317,9 @@ def _check_missing_critical_value(rule: GovernanceRule, result: ExtractionResult
     return flags
 
 
-def _check_currency_mismatch(rule: GovernanceRule, result: ExtractionResult) -> list[ValidationFlag]:
+def _check_currency_mismatch(
+    rule: GovernanceRule, result: ExtractionResult
+) -> list[ValidationFlag]:
     # Collect currency-type fields and extract currency codes
     currency_codes: set[str] = set()
     if result.document_profile.currency:
@@ -298,11 +332,19 @@ def _check_currency_mismatch(rule: GovernanceRule, result: ExtractionResult) -> 
             currency_codes.update(matches)
 
     if len(currency_codes) > 1:
-        return [_flag(rule, None, f"Multiple currencies detected: {', '.join(sorted(currency_codes))} — verify FX conversion")]
+        return [
+            _flag(
+                rule,
+                None,
+                f"Multiple currencies detected: {', '.join(sorted(currency_codes))} — verify FX conversion",
+            )
+        ]
     return []
 
 
-def _check_future_date_anomaly(rule: GovernanceRule, result: ExtractionResult) -> list[ValidationFlag]:
+def _check_future_date_anomaly(
+    rule: GovernanceRule, result: ExtractionResult
+) -> list[ValidationFlag]:
     days = rule.config.get("days_ahead", 90)
     cutoff = datetime.now(timezone.utc) + timedelta(days=days)
     flags = []
@@ -310,11 +352,19 @@ def _check_future_date_anomaly(rule: GovernanceRule, result: ExtractionResult) -
         if f.data_type == "date" and f.value:
             parsed = _try_parse_date(f.value)
             if parsed and parsed > cutoff:
-                flags.append(_flag(rule, f.name, f"Field '{f.name}' has a date more than {days} days in the future: {f.value}"))
+                flags.append(
+                    _flag(
+                        rule,
+                        f.name,
+                        f"Field '{f.name}' has a date more than {days} days in the future: {f.value}",
+                    )
+                )
     return flags
 
 
-def _check_past_date_anomaly(rule: GovernanceRule, result: ExtractionResult) -> list[ValidationFlag]:
+def _check_past_date_anomaly(
+    rule: GovernanceRule, result: ExtractionResult
+) -> list[ValidationFlag]:
     years = rule.config.get("years_back", 5)
     cutoff = datetime.now(timezone.utc) - timedelta(days=years * 365)
     flags = []
@@ -324,36 +374,89 @@ def _check_past_date_anomaly(rule: GovernanceRule, result: ExtractionResult) -> 
                 continue  # DOB, founding dates, etc. are expected to be old
             parsed = _try_parse_date(f.value)
             if parsed and parsed < cutoff:
-                flags.append(_flag(rule, f.name, f"Field '{f.name}' has a date more than {years} years in the past: {f.value}"))
+                flags.append(
+                    _flag(
+                        rule,
+                        f.name,
+                        f"Field '{f.name}' has a date more than {years} years in the past: {f.value}",
+                    )
+                )
     return flags
 
 
-def _check_overall_low_confidence(rule: GovernanceRule, result: ExtractionResult) -> list[ValidationFlag]:
+def _check_overall_low_confidence(
+    rule: GovernanceRule, result: ExtractionResult
+) -> list[ValidationFlag]:
     threshold = rule.config.get("threshold", 0.60)
     if result.overall_confidence < threshold:
-        return [_flag(rule, None, f"Overall extraction confidence {result.overall_confidence:.0%} is below {threshold:.0%} — manual review recommended")]
+        return [
+            _flag(
+                rule,
+                None,
+                f"Overall extraction confidence {result.overall_confidence:.0%} is below {threshold:.0%} — manual review recommended",
+            )
+        ]
     return []
 
 
-def _check_no_identifiers_found(rule: GovernanceRule, result: ExtractionResult) -> list[ValidationFlag]:
+def _check_no_identifiers_found(
+    rule: GovernanceRule, result: ExtractionResult
+) -> list[ValidationFlag]:
     doc_type = (result.document_profile.doc_type or "").lower().replace("-", "_").replace(" ", "_")
     if doc_type in _NON_COMMERCIAL_DOC_TYPES:
         return []  # Personal/medical docs don't require business identifiers
     if not result.reference_keys:
-        return [_flag(rule, None, "No reference identifiers detected (no invoice number, PO, contract ID, etc.)")]
+        return [
+            _flag(
+                rule,
+                None,
+                "No reference identifiers detected (no invoice number, PO, contract ID, etc.)",
+            )
+        ]
     return []
 
 
-def _check_unsupported_language(rule: GovernanceRule, result: ExtractionResult) -> list[ValidationFlag]:
+def _check_unsupported_language(
+    rule: GovernanceRule, result: ExtractionResult
+) -> list[ValidationFlag]:
     # Check language code and scan field values for non-Latin chars
     lang = result.document_profile.language
-    if lang and lang.lower() not in ("en", "fr", "de", "es", "it", "pt", "nl", "sv", "no", "da", "fi", "pl", "cs", "sk", "hr", "ro"):
-        return [_flag(rule, None, f"Document language '{lang}' may contain non-Latin script — extraction may be partial")]
+    if lang and lang.lower() not in (
+        "en",
+        "fr",
+        "de",
+        "es",
+        "it",
+        "pt",
+        "nl",
+        "sv",
+        "no",
+        "da",
+        "fi",
+        "pl",
+        "cs",
+        "sk",
+        "hr",
+        "ro",
+    ):
+        return [
+            _flag(
+                rule,
+                None,
+                f"Document language '{lang}' may contain non-Latin script — extraction may be partial",
+            )
+        ]
 
     # Scan field values
     for f in result.fields:
         if f.value and _NON_LATIN.search(f.value):
-            return [_flag(rule, f.name, f"Non-Latin characters detected in field '{f.name}' — extraction accuracy may be reduced")]
+            return [
+                _flag(
+                    rule,
+                    f.name,
+                    f"Non-Latin characters detected in field '{f.name}' — extraction accuracy may be reduced",
+                )
+            ]
     return []
 
 
@@ -362,16 +465,23 @@ def _check_amount_zero(rule: GovernanceRule, result: ExtractionResult) -> list[V
     for f in result.fields:
         if f.data_type == "currency":
             if f.value is None or str(f.value).strip() in ("", "0", "0.0", "0.00"):
-                flags.append(_flag(rule, f.name, f"Currency field '{f.name}' has a zero or empty value"))
+                flags.append(
+                    _flag(rule, f.name, f"Currency field '{f.name}' has a zero or empty value")
+                )
     return flags
 
 
 def _check_short_extraction(rule: GovernanceRule, result: ExtractionResult) -> list[ValidationFlag]:
     min_fields = rule.config.get("min_fields", 3)
     if len(result.fields) < min_fields:
-        return [_flag(rule, None,
-            f"Only {len(result.fields)} field(s) extracted (minimum {min_fields}) — "
-            "check scan quality or document format")]
+        return [
+            _flag(
+                rule,
+                None,
+                f"Only {len(result.fields)} field(s) extracted (minimum {min_fields}) — "
+                "check scan quality or document format",
+            )
+        ]
     return []
 
 
@@ -389,47 +499,70 @@ def _check_expired_due_date(rule: GovernanceRule, result: ExtractionResult) -> l
         if f.data_type == "date" and f.value and _DUE_DATE_FIELDS.search(f.name):
             parsed = _try_parse_date(f.value)
             if parsed and parsed < now:
-                flags.append(_flag(rule, f.name,
-                    f"Field '{f.name}' is a past due/expiry date: {f.value}"))
+                flags.append(
+                    _flag(rule, f.name, f"Field '{f.name}' is a past due/expiry date: {f.value}")
+                )
     return flags
 
 
-def _check_large_monetary_amount(rule: GovernanceRule, result: ExtractionResult) -> list[ValidationFlag]:
+def _check_large_monetary_amount(
+    rule: GovernanceRule, result: ExtractionResult
+) -> list[ValidationFlag]:
     threshold = rule.config.get("threshold", 100000)
     flags = []
     for f in result.fields:
         if f.data_type == "currency" and f.value:
             amount = _parse_amount(f.value)
             if amount is not None and amount >= threshold:
-                flags.append(_flag(rule, f.name,
-                    f"Field '{f.name}' contains a large amount ({f.value}) exceeding {threshold:,} — recommend escalation"))
+                flags.append(
+                    _flag(
+                        rule,
+                        f.name,
+                        f"Field '{f.name}' contains a large amount ({f.value}) exceeding {threshold:,} — recommend escalation",
+                    )
+                )
     return flags
 
 
-def _check_potential_personal_data(rule: GovernanceRule, result: ExtractionResult) -> list[ValidationFlag]:
+def _check_potential_personal_data(
+    rule: GovernanceRule, result: ExtractionResult
+) -> list[ValidationFlag]:
     pii_fields = [f.name for f in result.fields if _PII_FIELD_PATTERNS.search(f.name)]
     if pii_fields:
         names = ", ".join(f"'{n}'" for n in pii_fields[:5])
         suffix = f" and {len(pii_fields) - 5} more" if len(pii_fields) > 5 else ""
-        return [_flag(rule, None,
-            f"Personal data fields detected: {names}{suffix} — ensure GDPR/HIPAA compliance")]
+        return [
+            _flag(
+                rule,
+                None,
+                f"Personal data fields detected: {names}{suffix} — ensure GDPR/HIPAA compliance",
+            )
+        ]
     return []
 
 
-def _check_duplicate_field_name(rule: GovernanceRule, result: ExtractionResult) -> list[ValidationFlag]:
+def _check_duplicate_field_name(
+    rule: GovernanceRule, result: ExtractionResult
+) -> list[ValidationFlag]:
     seen: dict[str, str] = {}
     flags = []
     for f in result.fields:
         if f.name in seen:
             if f.value != seen[f.name]:
-                flags.append(_flag(rule, f.name,
-                    f"Field '{f.name}' extracted twice with different values: '{seen[f.name]}' and '{f.value}'"))
+                flags.append(
+                    _flag(
+                        rule,
+                        f.name,
+                        f"Field '{f.name}' extracted twice with different values: '{seen[f.name]}' and '{f.value}'",
+                    )
+                )
         else:
             seen[f.name] = f.value or ""
     return flags
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
+
 
 def _parse_amount(value: str) -> Optional[float]:
     """Extract the largest numeric value from a currency string."""

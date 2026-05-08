@@ -1,4 +1,5 @@
 from typing import Optional
+
 from .base import LLMProvider
 
 
@@ -7,10 +8,16 @@ class OllamaProvider(LLMProvider):
         self._base_url = base_url
 
     async def generate(self, prompt: str, system: Optional[str] = None) -> str:
-        raise NotImplementedError("OllamaProvider not yet implemented. Use ClaudeProvider for demos.")
+        raise NotImplementedError(
+            "OllamaProvider not yet implemented. Use ClaudeProvider for demos."
+        )
 
-    async def generate_structured(self, prompt: str, schema: dict, system: Optional[str] = None) -> dict:
-        raise NotImplementedError("OllamaProvider not yet implemented. Use ClaudeProvider for demos.")
+    async def generate_structured(
+        self, prompt: str, schema: dict, system: Optional[str] = None
+    ) -> dict:
+        raise NotImplementedError(
+            "OllamaProvider not yet implemented. Use ClaudeProvider for demos."
+        )
 
     async def generate_vision(
         self,
@@ -19,4 +26,6 @@ class OllamaProvider(LLMProvider):
         media_type: str = "image/png",
         system: Optional[str] = None,
     ) -> str:
-        raise NotImplementedError("OllamaProvider not yet implemented. Use ClaudeProvider for demos.")
+        raise NotImplementedError(
+            "OllamaProvider not yet implemented. Use ClaudeProvider for demos."
+        )

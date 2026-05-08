@@ -1,0 +1,46 @@
+# Source of truth: dome-docs/templates/ci-python.yml — keep in sync.
+# When changing this template, update each of: dome-process-analyzer,
+# dome-llm-council, dome-data-intelligence, dome-document-intelligence.
+#
+# The env block is intentionally uniform across every Python repo. PA needs
+# ENVIRONMENT=development to bypass the pydantic-settings production validator;
+# LLC needs the three dummy API keys because build_council_config() reads them
+# via os.environ[...]. DI and DocI tolerate the env vars harmlessly.
+
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    name: ci
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    env:
+      ENVIRONMENT: development
+      ANTHROPIC_API_KEY: ci-dummy
+      GOOGLE_AI_API_KEY: ci-dummy
+      OPENAI_API_KEY: ci-dummy
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: backend/requirements*.txt
+      - name: Install dependencies
+        run: pip install -r requirements.txt -r requirements-dev.txt
+      - name: Lint (ruff check)
+        run: ruff check .
+      - name: Format check (ruff format)
+        run: ruff format --check .
+      - name: Type check (mypy)
+        run: mypy .
+      - name: Tests (pytest)
+        run: pytest
