@@ -31,6 +31,19 @@ function cookieDomain(): string {
   return ''
 }
 
+// Returns the auth-gateway base URL for the current environment band.
+// Used to build login/logout redirect URLs that stay within the same band
+// (staging users go to staging.domelayer.com/login; production users to
+// domelayer.com/login). Returns "" in dev — callers should then construct
+// a relative URL.
+export function getAuthSiteUrl(): string {
+  if (typeof window === 'undefined') return ''
+  const host = window.location.hostname
+  if (isStagingHost(host)) return 'https://staging.domelayer.com'
+  if (isProductionHost(host)) return 'https://domelayer.com'
+  return ''
+}
+
 function parseCookieExpiry(expiresAt: string): string {
   const diffSec = Math.max(
     0,
