@@ -1,5 +1,6 @@
 from typing import Literal
 
+from pydantic import model_validator
 from pydantic_settings import BaseSettings
 
 
@@ -22,7 +23,7 @@ class Settings(BaseSettings):
     supabase_service_role_key: str = ""
 
     # App
-    environment: Literal["development", "production"] = "development"
+    environment: Literal["development", "staging", "production"] = "development"
     cors_origins: str = "http://localhost:3000"
     max_file_size_mb: int = 20
     dev_bypass_auth: bool = False
@@ -32,6 +33,24 @@ class Settings(BaseSettings):
         "env_file_encoding": "utf-8",
         "case_sensitive": False,
     }
+
+    @model_validator(mode="after")
+    def validate_required_secrets(self) -> "Settings":
+        if self.environment in ("staging", "production"):
+            missing = [
+                name
+                for name, val in [
+                    ("SUPABASE_URL", self.supabase_url),
+                    ("SUPABASE_SERVICE_ROLE_KEY", self.supabase_service_role_key),
+                ]
+                if not val
+            ]
+            if missing:
+                raise ValueError(
+                    f"Missing required {self.environment} environment variables: "
+                    f"{', '.join(missing)}"
+                )
+        return self
 
 
 settings = Settings()

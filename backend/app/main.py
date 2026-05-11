@@ -34,7 +34,7 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         response.headers["X-Frame-Options"] = "DENY"
         response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
         response.headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()"
-        if settings.environment == "production":
+        if settings.environment in ("staging", "production"):
             response.headers["Strict-Transport-Security"] = "max-age=63072000; includeSubDomains"
         return response
 
