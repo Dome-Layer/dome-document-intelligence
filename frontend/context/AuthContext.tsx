@@ -35,20 +35,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const signOut = useCallback(async () => {
-    const token = getToken()
-    if (token) {
-      try {
-        await fetch(
-          `${process.env.NEXT_PUBLIC_AUTH_BACKEND}/api/v1/auth/session`,
-          {
-            method: 'DELETE',
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        )
-      } catch {
-        // best-effort
-      }
-    }
+    // DocI has no backend /auth/session endpoint, so signOut is client-only:
+    // we discard the access token locally and rely on natural Supabase
+    // session expiry. Other tools (PA/LLC/DI) revoke the token server-side
+    // via supabase.auth.admin.sign_out() — adding that to DocI is tracked
+    // as a separate follow-up.
     clearToken()
     setIsAuthenticated(false)
   }, [])
