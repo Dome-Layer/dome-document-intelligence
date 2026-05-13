@@ -8,6 +8,7 @@ from slowapi.errors import RateLimitExceeded
 from starlette.middleware.base import BaseHTTPMiddleware
 
 from .api.audit import router as audit_router
+from .api.auth import router as auth_router
 from .api.extract import router as extract_router
 from .api.extractions import router as extractions_router
 from .api.rules import router as rules_router
@@ -60,6 +61,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(auth_router, prefix="/api")
 app.include_router(extract_router, prefix="/api")
 app.include_router(rules_router, prefix="/api")
 app.include_router(audit_router, prefix="/api")

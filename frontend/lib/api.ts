@@ -108,6 +108,14 @@ export async function getSavedExtraction(id: string): Promise<SavedExtractionDet
   return handleResponse<SavedExtractionDetail>(res)
 }
 
+export async function deleteSession(): Promise<void> {
+  const res = await fetch(`${API_BASE}/api/auth/session`, {
+    method: 'DELETE',
+    headers: authHeaders(),
+  })
+  if (!res.ok && res.status !== 204) await handleResponse<never>(res)
+}
+
 export async function deleteSavedExtraction(id: string): Promise<void> {
   const res = await fetch(`${API_BASE}/api/extractions/${id}`, {
     method: 'DELETE',
