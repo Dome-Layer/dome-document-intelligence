@@ -68,7 +68,7 @@ app.include_router(audit_router, prefix="/api")
 app.include_router(extractions_router, prefix="/api")
 
 
-@app.get("/api/health", response_model=HealthResponse, tags=["Health"])
+@app.get("/api/v1/health", response_model=HealthResponse, tags=["Health"])
 async def health() -> HealthResponse:
     try:
         from .core.db import get_db
@@ -81,6 +81,6 @@ async def health() -> HealthResponse:
         return HealthResponse(status="degraded")
 
 
-@app.head("/api/health")
+@app.head("/api/v1/health")
 async def health_head() -> None:
     return None
