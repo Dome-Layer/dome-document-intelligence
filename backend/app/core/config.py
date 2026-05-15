@@ -7,6 +7,7 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     # LLM
     llm_provider: Literal["claude", "azure_openai", "ollama"] = "claude"
+    llm_text_model: str = "claude-sonnet-4-6"
     anthropic_api_key: str = ""
 
     # Azure OpenAI (enterprise)
