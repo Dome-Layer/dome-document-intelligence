@@ -65,9 +65,7 @@ async def extract(
         extraction = await extractor.extract(ingested)
     except ValueError as e:
         logger.warning("extraction_user_error", error=str(e))
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(e)
-        )
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(e))
     except Exception as e:
         logger.error("extraction_error", error=str(e))
         # Emit a failed governance event before re-raising
