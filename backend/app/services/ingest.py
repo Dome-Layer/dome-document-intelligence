@@ -10,6 +10,7 @@ logger = get_logger(__name__)
 
 _VISION_THRESHOLD = 100  # chars — below this the PDF is treated as scanned
 _PDF_RENDER_ZOOM = 2.0  # 2× zoom when rasterising a scanned PDF page
+_MAX_IMAGE_BYTES = 3_500_000  # raw bytes; base64 adds ~33%, keeping encoded size under 5 MB
 
 
 class IngestResult:
@@ -70,10 +71,28 @@ class IngestService:
             mat = fitz.Matrix(_PDF_RENDER_ZOOM, _PDF_RENDER_ZOOM)
             pix = page.get_pixmap(matrix=mat)
             img_bytes = pix.tobytes("png")
+            media_type = "image/png"
+
+            if len(img_bytes) > _MAX_IMAGE_BYTES:
+                logger.info("pdf_image_too_large_downscaling", bytes=len(img_bytes))
+                mat = fitz.Matrix(1.0, 1.0)
+                pix = page.get_pixmap(matrix=mat)
+                img_bytes = pix.tobytes("png")
+
+            if len(img_bytes) > _MAX_IMAGE_BYTES:
+                img_bytes = pix.tobytes("jpg")
+                media_type = "image/jpeg"
+
+            if len(img_bytes) > _MAX_IMAGE_BYTES:
+                raise ValueError(
+                    f"Document page image is too large to process even after compression "
+                    f"({len(img_bytes) // 1024 // 1024} MB). "
+                    "Try a text-based PDF or a lower-resolution scan."
+                )
         finally:
             doc.close()
 
-        return IngestResult(None, img_bytes, "image/png", "pdf_vision")
+        return IngestResult(None, img_bytes, media_type, "pdf_vision")
 
     async def _process_xlsx(self, data: bytes) -> IngestResult:
         buf = io.BytesIO(data)
