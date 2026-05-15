@@ -14,6 +14,7 @@ logger = get_logger(__name__)
 MODEL = settings.llm_text_model
 MAX_TOKENS = 16384
 _JSON_INSTRUCTION = "\n\nRespond ONLY with valid JSON. No markdown, no code fences, no explanation."
+_CLAUDE_BASE64_LIMIT = 5 * 1024 * 1024  # Anthropic hard limit for base64-encoded images
 
 
 class ClaudeProvider(LLMProvider):
@@ -53,6 +54,12 @@ class ClaudeProvider(LLMProvider):
         system: Optional[str] = None,
     ) -> str:
         image_b64 = base64.standard_b64encode(image).decode("utf-8")
+        if len(image_b64) > _CLAUDE_BASE64_LIMIT:
+            size_mb = len(image_b64) / 1024 / 1024
+            raise ValueError(
+                f"Image is too large to process ({size_mb:.1f} MB encoded, 5 MB limit). "
+                "Try a lower-resolution image or a text-based PDF."
+            )
         messages = [
             {
                 "role": "user",

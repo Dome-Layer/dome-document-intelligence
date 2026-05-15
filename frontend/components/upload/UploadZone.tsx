@@ -167,7 +167,7 @@ export default function UploadZone({ onFile, onError, disabled }: UploadZoneProp
             PDF · JPG · PNG · XLSX
           </p>
           <p className="mt-1 text-xs text-dome-muted">
-            Up to 20 MB · Document content is never stored
+            Up to 20 MB · Scanned documents auto-optimised · Never stored
           </p>
         </div>
 
