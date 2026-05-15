@@ -34,8 +34,19 @@ jobs:
           python-version: '3.12'
           cache: pip
           cache-dependency-path: backend/requirements*.txt
+      - uses: astral-sh/setup-uv@v5
       - name: Install dependencies
         run: pip install -r requirements.txt -r requirements-dev.txt
+      - name: Verify lock files are up to date
+        run: |
+          uv pip compile requirements.in -o /tmp/req.txt --python-version 3.12
+          tail -n +3 requirements.txt > /tmp/req-local.txt
+          tail -n +3 /tmp/req.txt > /tmp/req-ci.txt
+          diff /tmp/req-local.txt /tmp/req-ci.txt
+          uv pip compile requirements-dev.in -o /tmp/req-dev.txt --python-version 3.12
+          tail -n +3 requirements-dev.txt > /tmp/req-dev-local.txt
+          tail -n +3 /tmp/req-dev.txt > /tmp/req-dev-ci.txt
+          diff /tmp/req-dev-local.txt /tmp/req-dev-ci.txt
       - name: Lint (ruff check)
         run: ruff check .
       - name: Format check (ruff format)
