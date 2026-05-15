@@ -9,7 +9,7 @@ def test_app_imports():
 
 def test_health_endpoint():
     with TestClient(app) as client:
-        response = client.get("/api/health")
+        response = client.get("/api/v1/health")
     assert response.status_code == 200
     body = response.json()
     assert body["status"] in {"ok", "degraded"}
