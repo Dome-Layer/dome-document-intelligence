@@ -1,17 +1,17 @@
 import asyncio
 import base64
 import json
-import os
 from typing import Optional
 
 import anthropic
 
+from ..core.config import settings
 from ..core.logging import get_logger
 from .base import LLMProvider
 
 logger = get_logger(__name__)
 
-MODEL = os.getenv("CLAUDE_MODEL", "claude-sonnet-4-6")
+MODEL = settings.llm_text_model
 MAX_TOKENS = 16384
 _JSON_INSTRUCTION = "\n\nRespond ONLY with valid JSON. No markdown, no code fences, no explanation."
 
