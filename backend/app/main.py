@@ -15,8 +15,10 @@ from .api.rules import router as rules_router
 from .core.config import settings
 from .core.limiter import limiter
 from .core.logging import configure_logging, get_logger
+from .core.sentry import init_sentry
 from .models.schemas import HealthResponse
 
+init_sentry()
 configure_logging()
 logger = get_logger(__name__)
 
