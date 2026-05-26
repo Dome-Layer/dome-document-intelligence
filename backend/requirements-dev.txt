@@ -5,7 +5,9 @@ annotated-doc==0.0.4
 annotated-types==0.7.0
     # via pydantic
 anthropic==0.104.1
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   dome-core
 anyio==4.13.0
     # via
     #   anthropic
@@ -44,11 +46,14 @@ distro==1.9.0
     # via anthropic
 docstring-parser==0.18.0
     # via anthropic
+dome-core @ git+https://github.com/Dome-Layer/dome-core.git@7da8133816cfeca5bf36a7c61abc7e6729576495
+    # via -r requirements.in
 et-xmlfile==2.0.0
     # via openpyxl
 fastapi==0.136.3
     # via
     #   -r requirements.in
+    #   dome-core
     #   sentry-sdk
 filelock==3.29.0
     # via
@@ -136,6 +141,7 @@ pydantic==2.13.4
     # via
     #   -r requirements.in
     #   anthropic
+    #   dome-core
     #   fastapi
     #   postgrest
     #   pydantic-settings
@@ -190,7 +196,9 @@ rich==14.3.4
 ruff==0.6.9
     # via -r requirements-dev.in
 sentry-sdk==2.60.0
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   dome-core
 six==1.17.0
     # via python-dateutil
 slowapi==0.1.9
@@ -206,9 +214,13 @@ strenum==0.4.15
 strictyaml==1.7.3
     # via pyiceberg
 structlog==25.5.0
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   dome-core
 supabase==2.30.0
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   dome-core
 supabase-auth==2.30.0
     # via supabase
 supabase-functions==2.30.0

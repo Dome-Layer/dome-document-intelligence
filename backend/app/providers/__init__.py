@@ -9,7 +9,7 @@ def get_llm_provider() -> LLMProvider:
 
     provider = settings.llm_provider
     if provider == "claude":
-        return ClaudeProvider(api_key=settings.anthropic_api_key)
+        return ClaudeProvider(api_key=settings.anthropic_api_key, model=settings.llm_text_model)
     elif provider == "azure_openai":
         return AzureOpenAIProvider(
             endpoint=settings.azure_openai_endpoint,

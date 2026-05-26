@@ -1,6 +1,6 @@
-from datetime import datetime
 from typing import Optional
 
+from dome_core.governance import GovernanceEvent
 from pydantic import BaseModel
 
 # ── Document extraction models ────────────────────────────────────────────────
@@ -45,23 +45,7 @@ class DocumentIntelligenceResult(BaseModel):
     processing_time_ms: int
 
 
-# ── Governance models ─────────────────────────────────────────────────────────
-
-
-class GovernanceEvent(BaseModel):
-    agent_id: str
-    action_type: str
-    timestamp: datetime
-    input_hash: str
-    input_type: str
-    output_summary: str
-    rules_applied: list[str]
-    rules_triggered: list[str]
-    confidence: Optional[float] = None
-    human_in_loop: str
-    user_id: Optional[str] = None
-    workflow_run_id: Optional[str] = None
-    metadata: dict = {}
+# GovernanceEvent imported from dome_core.governance (re-exported above)
 
 
 # ── Rules models ──────────────────────────────────────────────────────────────

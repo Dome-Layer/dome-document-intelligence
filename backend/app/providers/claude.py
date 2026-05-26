@@ -1,99 +1,18 @@
-import asyncio
-import base64
-import json
-from typing import Optional
-
-import anthropic
+from dome_core.llm.claude import ClaudeProvider
 
 from ..core.config import settings
-from ..core.logging import get_logger
-from .base import LLMProvider
 
-logger = get_logger(__name__)
-
-MODEL = settings.llm_text_model
-MAX_TOKENS = 16384
-_JSON_INSTRUCTION = "\n\nRespond ONLY with valid JSON. No markdown, no code fences, no explanation."
-_CLAUDE_BASE64_LIMIT = 5 * 1024 * 1024  # Anthropic hard limit for base64-encoded images
+_provider: ClaudeProvider | None = None
 
 
-class ClaudeProvider(LLMProvider):
-    def __init__(self, api_key: str) -> None:
-        self._client = anthropic.AsyncAnthropic(api_key=api_key)
-
-    async def generate(self, prompt: str, system: Optional[str] = None) -> str:
-        kwargs: dict = {
-            "model": MODEL,
-            "max_tokens": MAX_TOKENS,
-            "messages": [{"role": "user", "content": prompt}],
-        }
-        if system:
-            kwargs["system"] = system
-        for attempt in range(3):
-            try:
-                response = await self._client.messages.create(**kwargs)
-                return response.content[0].text
-            except anthropic.RateLimitError:
-                if attempt == 2:
-                    raise
-                await asyncio.sleep(2**attempt)
-        raise RuntimeError("Unreachable")
-
-    async def generate_structured(
-        self, prompt: str, schema: dict, system: Optional[str] = None
-    ) -> dict:
-        sys_prompt = (system or "") + _JSON_INSTRUCTION
-        text = await self.generate(prompt, system=sys_prompt)
-        return _parse_json(text)
-
-    async def generate_vision(
-        self,
-        prompt: str,
-        image: bytes,
-        media_type: str = "image/png",
-        system: Optional[str] = None,
-    ) -> str:
-        image_b64 = base64.standard_b64encode(image).decode("utf-8")
-        if len(image_b64) > _CLAUDE_BASE64_LIMIT:
-            size_mb = len(image_b64) / 1024 / 1024
-            raise ValueError(
-                f"Image is too large to process ({size_mb:.1f} MB encoded, 5 MB limit). "
-                "Try a lower-resolution image or a text-based PDF."
-            )
-        messages = [
-            {
-                "role": "user",
-                "content": [
-                    {
-                        "type": "image",
-                        "source": {"type": "base64", "media_type": media_type, "data": image_b64},
-                    },
-                    {"type": "text", "text": prompt},
-                ],
-            }
-        ]
-        kwargs: dict = {"model": MODEL, "max_tokens": MAX_TOKENS, "messages": messages}
-        if system:
-            kwargs["system"] = system
-        for attempt in range(3):
-            try:
-                response = await self._client.messages.create(**kwargs)
-                return response.content[0].text
-            except anthropic.RateLimitError:
-                if attempt == 2:
-                    raise
-                await asyncio.sleep(2**attempt)
-        raise RuntimeError("Unreachable")
+def get_claude_provider() -> ClaudeProvider:
+    global _provider
+    if _provider is None:
+        _provider = ClaudeProvider(
+            api_key=settings.anthropic_api_key,
+            model=settings.llm_text_model,
+        )
+    return _provider
 
 
-def _parse_json(text: str) -> dict:
-    text = text.strip()
-    if text.startswith("```"):
-        lines = text.split("\n")
-        text = "\n".join(lines[1:])
-        text = text.rsplit("```", 1)[0]
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError as e:
-        logger.error("json_parse_error", error=str(e), raw=text[:300])
-        raise ValueError(f"LLM returned invalid JSON: {e}")
+__all__ = ["ClaudeProvider", "get_claude_provider"]
