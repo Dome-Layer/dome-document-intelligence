@@ -64,7 +64,7 @@ export function getToken(): string | null {
 export function setToken(token: string, expiresAt?: string): void {
   if (typeof document === 'undefined') return
   const domain = cookieDomain()
-  const maxAge = expiresAt ? parseCookieExpiry(expiresAt) : '3600'
+  const maxAge = expiresAt ? parseCookieExpiry(expiresAt) : '28800'
   const domainPart = domain ? `; Domain=${domain}` : ''
   const securePart = isHttpsHost() ? '; Secure' : ''
   document.cookie = `${COOKIE_NAME}=${token}; Path=/${domainPart}; SameSite=Lax${securePart}; Max-Age=${maxAge}`
