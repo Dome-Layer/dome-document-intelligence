@@ -1,4 +1,4 @@
-dome-core[anthropic] @ git+https://github.com/Dome-Layer/dome-core.git@v0.1.2
+dome-core[anthropic] @ git+https://github.com/Dome-Layer/dome-core.git@v0.1.3
 fastapi>=0.115.0
 slowapi>=0.1.9
 uvicorn[standard]>=0.32.0
