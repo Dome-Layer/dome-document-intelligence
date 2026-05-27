@@ -1,5 +1,7 @@
 import json
 
+from dome_core.sanitize import sanitize_user_text
+
 from ..core.logging import get_logger
 from ..models.schemas import DocumentProfile, ExtractedField, ExtractionResult
 from ..providers import LLMProvider
@@ -141,7 +143,7 @@ class ExtractionService:
             data = _parse_json_from_text(raw)
         else:
             data = await self._provider.generate_structured(
-                _type_detection_prompt(ingested.text or ""),
+                _type_detection_prompt(sanitize_user_text(ingested.text or "")),
                 schema=_TYPE_DETECTION_SCHEMA,
                 system=_SYSTEM_ANALYST,
             )
@@ -162,7 +164,7 @@ class ExtractionService:
             data = _parse_json_from_text(raw)
         else:
             data = await self._provider.generate_structured(
-                _field_extraction_prompt(ingested.text or "", profile),
+                _field_extraction_prompt(sanitize_user_text(ingested.text or ""), profile),
                 schema=_EXTRACTION_SCHEMA,
                 system=_SYSTEM_ANALYST,
             )

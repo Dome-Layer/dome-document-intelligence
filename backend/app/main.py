@@ -1,7 +1,7 @@
 from contextlib import asynccontextmanager
 from typing import AsyncIterator
 
-from dome_core.middleware import SecurityHeadersMiddleware
+from dome_core.middleware import RequestIDMiddleware, SecurityHeadersMiddleware
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from slowapi import _rate_limit_exceeded_handler
@@ -50,6 +50,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.add_middleware(RequestIDMiddleware)
 
 app.include_router(auth_router, prefix="/api")
 app.include_router(extract_router, prefix="/api")
