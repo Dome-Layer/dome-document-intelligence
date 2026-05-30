@@ -8,22 +8,8 @@ const securityHeaders = [
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
   // camera=self allows the camera capture feature on this tool
   { key: 'Permissions-Policy', value: 'geolocation=(), microphone=(), camera=(self)' },
-  {
-    key: 'Content-Security-Policy',
-    value: [
-      "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
-      "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: blob:",
-      "font-src 'self'",
-      "connect-src 'self' https:",
-      "media-src 'self' blob:",
-      "object-src 'none'",
-      "base-uri 'self'",
-      "form-action 'self'",
-      "frame-ancestors 'none'",
-    ].join('; '),
-  },
+  // Content-Security-Policy is set per-request in middleware.ts (nonce-based
+  // script-src — no 'unsafe-inline'/'unsafe-eval').
 ]
 
 const nextConfig = {
