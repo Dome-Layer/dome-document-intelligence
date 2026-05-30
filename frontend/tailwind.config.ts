@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-// eslint-disable-next-line @typescript-eslint/no-require-imports
+// @ts-expect-error -- dome-ui ships .d.ts but Next.js strict resolution misses the subpath export
 import domePreset from "@dome-layer/dome-ui/tailwind-preset";
 
 const config: Config = {
