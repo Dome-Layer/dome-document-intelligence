@@ -8,6 +8,7 @@ const config: Config = {
     "./components/**/*.{ts,tsx}",
     "./context/**/*.{ts,tsx}",
     "./lib/**/*.{ts,tsx}",
+    "./node_modules/@dome-layer/dome-ui/dist/**/*.js",
   ],
   plugins: [],
 };
