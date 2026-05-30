@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@dome-layer/dome-ui": "github:Dome-Layer/dome-ui#v1.0.1",
+    "@dome-layer/dome-ui": "github:Dome-Layer/dome-ui#v1.1.0",
     "@sentry/nextjs": "^10.53.1",
     "lucide-react": "^0.441.0",
     "next": "^14.2.0",
