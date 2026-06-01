@@ -28,7 +28,7 @@ jobs:
       GOOGLE_AI_API_KEY: ci-dummy
       OPENAI_API_KEY: ci-dummy
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -83,6 +83,6 @@ jobs:
     name: docker-build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Build Docker image (no push)
         run: docker build -t ci-build backend/
