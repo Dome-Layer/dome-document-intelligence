@@ -1,0 +1,17 @@
+MERIDIAN SECURITIES LLP — TRADE CONFIRMATION
+
+Confirmation Number: TC-2025-55013
+Trade Date: 2025-10-14
+Settlement Date: 2025-10-16
+Account: MS-CLIENT-7782
+
+Security: Vanguard FTSE All-World ETF
+ISIN: IE00BK5BQT80
+Side: BUY
+Quantity: 1,200 units
+Price: $108.45
+Gross Consideration: $130,140.00
+Commission: $65.07
+Net Consideration: $130,205.07 USD
+
+Settlement Instructions: DvP via Euroclear

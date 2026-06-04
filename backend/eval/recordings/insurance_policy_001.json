@@ -1,0 +1,118 @@
+{
+  "fields": [
+    {
+      "name": "insurer_name",
+      "value": "Sentinel Insurance Group",
+      "confidence": 0.97,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "policy_number",
+      "value": "POL-AUTO-7741290",
+      "confidence": 0.99,
+      "location_hint": "policy_details",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "policy_type",
+      "value": "Commercial Motor Fleet",
+      "confidence": 0.98,
+      "location_hint": "policy_details",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "insured_name",
+      "value": "Meridian Trading Ltd",
+      "confidence": 0.99,
+      "location_hint": "insured_info",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "effective_date",
+      "value": "2025-06-01",
+      "confidence": 0.99,
+      "location_hint": "policy_details",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "expiry_date",
+      "value": "2026-05-31",
+      "confidence": 0.99,
+      "location_hint": "policy_details",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "sum_insured",
+      "value": "750000.00",
+      "confidence": 0.99,
+      "location_hint": "coverage_terms",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "annual_premium",
+      "value": "9840.00",
+      "confidence": 0.99,
+      "location_hint": "policy_details",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "excess_per_claim",
+      "value": "1000.00",
+      "confidence": 0.98,
+      "location_hint": "coverage_terms",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "insured_vehicle_count",
+      "value": "6",
+      "confidence": 0.97,
+      "location_hint": "vehicle_schedule",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "insured_vehicle_type",
+      "value": "commercial vans",
+      "confidence": 0.97,
+      "location_hint": "vehicle_schedule",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "broker_reference",
+      "value": "BRK-22815",
+      "confidence": 0.99,
+      "location_hint": "policy_details",
+      "data_type": "identifier",
+      "is_critical": false
+    }
+  ],
+  "overall_confidence": 0.9833333333333334,
+  "reference_keys": {
+    "policy_number": "POL-AUTO-7741290",
+    "broker_reference": "BRK-22815"
+  },
+  "document_profile": {
+    "doc_type": "other",
+    "industry_hint": "insurance",
+    "sections": [
+      "header",
+      "policy_details",
+      "insured_info",
+      "coverage_terms",
+      "vehicle_schedule"
+    ],
+    "language": "en",
+    "currency": "USD"
+  }
+}

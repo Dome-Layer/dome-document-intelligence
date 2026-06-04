@@ -1,0 +1,17 @@
+{
+  "doc_id": "invoice_002",
+  "source": "docs/invoice_002.txt",
+  "modality": "text",
+  "expected_profile": {"doc_type": "invoice", "language": "de", "currency": "EUR"},
+  "expected_reference_keys": {"invoice_number": "RE-2025-0457"},
+  "expected_fields": [
+    {"name": "invoice_number", "value": "RE-2025-0457", "data_type": "identifier", "is_critical": true, "match": "normalized", "aliases": ["rechnungsnummer", "invoice_no"]},
+    {"name": "invoice_date", "value": "2025-02-12", "data_type": "date", "match": "normalized", "aliases": ["date", "rechnungsdatum"]},
+    {"name": "due_date", "value": "2025-03-14", "data_type": "date", "match": "normalized", "aliases": ["payment_due", "faelligkeitsdatum"]},
+    {"name": "total_amount", "value": "12198.10", "data_type": "currency", "is_critical": true, "match": "normalized", "aliases": ["gesamtbetrag", "total", "grand_total", "amount_due", "gesamt"]},
+    {"name": "tax", "value": "1947.60", "data_type": "currency", "match": "normalized", "aliases": ["mwst", "vat", "tax_amount"]},
+    {"name": "subtotal", "value": "10250.50", "data_type": "currency", "match": "normalized", "aliases": ["zwischensumme", "net_amount", "sub_total"]},
+    {"name": "customer", "value": "Nordwind Logistik AG", "data_type": "text", "match": "fuzzy", "aliases": ["bill_to", "buyer", "client", "kunde"]}
+  ],
+  "expected_human_in_loop": "recommended"
+}

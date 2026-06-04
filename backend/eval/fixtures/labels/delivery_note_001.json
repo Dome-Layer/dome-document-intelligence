@@ -1,0 +1,17 @@
+{
+  "doc_id": "delivery_note_001",
+  "source": "docs/delivery_note_001.txt",
+  "modality": "text",
+  "expected_profile": {"doc_type": "delivery_note", "language": "en", "currency": null},
+  "expected_reference_keys": {"delivery_note_number": "DN-2025-44120", "po_reference": "PO-88421", "tracking_number": "SF7788123456GB"},
+  "expected_fields": [
+    {"name": "delivery_note_number", "value": "DN-2025-44120", "data_type": "identifier", "is_critical": true, "match": "normalized", "aliases": ["delivery_note_no", "note_number"]},
+    {"name": "dispatch_date", "value": "2025-11-18", "data_type": "date", "match": "normalized", "aliases": ["date", "ship_date"]},
+    {"name": "po_reference", "value": "PO-88421", "data_type": "identifier", "match": "normalized", "aliases": ["po_number", "purchase_order"]},
+    {"name": "tracking_number", "value": "SF7788123456GB", "data_type": "identifier", "match": "normalized", "aliases": ["tracking", "awb"]},
+    {"name": "carrier", "value": "SwiftFreight Express", "data_type": "text", "match": "normalized", "aliases": ["shipper", "courier"]},
+    {"name": "consignee", "value": "Globex Warehouse 7, Dayton, OH", "data_type": "text", "match": "fuzzy", "aliases": ["ship_to", "deliver_to"]},
+    {"name": "weight", "value": "340 kg", "data_type": "text", "match": "fuzzy", "aliases": ["total_weight"]}
+  ],
+  "expected_human_in_loop": "not_required"
+}

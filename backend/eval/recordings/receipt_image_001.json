@@ -1,0 +1,149 @@
+{
+  "fields": [
+    {
+      "name": "store_name",
+      "value": "QUICKMART CONVENIENCE",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "store_number",
+      "value": "142",
+      "confidence": 0.99,
+      "location_hint": "store_info",
+      "data_type": "identifier",
+      "is_critical": false
+    },
+    {
+      "name": "store_location",
+      "value": "Leeds",
+      "confidence": 0.99,
+      "location_hint": "store_info",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "transaction_date",
+      "value": "2025-09-21",
+      "confidence": 0.99,
+      "location_hint": "store_info",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "transaction_time",
+      "value": "14:32",
+      "confidence": 0.99,
+      "location_hint": "store_info",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "transaction_id",
+      "value": "TXN-55920",
+      "confidence": 0.99,
+      "location_hint": "store_info",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_milk_2l",
+      "value": "1.45",
+      "confidence": 0.98,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": false
+    },
+    {
+      "name": "line_item_bread",
+      "value": "0.95",
+      "confidence": 0.98,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": false
+    },
+    {
+      "name": "line_item_coffee_200g",
+      "value": "3.50",
+      "confidence": 0.98,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": false
+    },
+    {
+      "name": "line_item_eggs_dozen",
+      "value": "2.10",
+      "confidence": 0.98,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": false
+    },
+    {
+      "name": "subtotal",
+      "value": "8.00",
+      "confidence": 0.99,
+      "location_hint": "subtotal",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "vat_amount",
+      "value": "0.00",
+      "confidence": 0.99,
+      "location_hint": "tax",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "total_amount",
+      "value": "8.00",
+      "confidence": 0.99,
+      "location_hint": "total",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "currency",
+      "value": "GBP",
+      "confidence": 0.99,
+      "location_hint": "total",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "payment_method",
+      "value": "Card",
+      "confidence": 0.99,
+      "location_hint": "payment_info",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "card_last_four_digits",
+      "value": "1234",
+      "confidence": 0.99,
+      "location_hint": "payment_info",
+      "data_type": "identifier",
+      "is_critical": false
+    }
+  ],
+  "overall_confidence": 0.9875,
+  "reference_keys": {},
+  "document_profile": {
+    "doc_type": "invoice",
+    "industry_hint": "retail",
+    "sections": [
+      "header",
+      "store_info",
+      "line_items",
+      "subtotal",
+      "tax",
+      "total",
+      "payment_info"
+    ],
+    "language": "en",
+    "currency": "GBP"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "doc_id": "invoice_image_001",
+  "source": "docs/invoice_image_001.png",
+  "modality": "image",
+  "expected_profile": {"doc_type": "invoice", "language": "en", "currency": "USD"},
+  "expected_reference_keys": {"invoice_number": "INV-IMG-7781"},
+  "expected_fields": [
+    {"name": "invoice_number", "value": "INV-IMG-7781", "data_type": "identifier", "is_critical": true, "match": "normalized", "aliases": ["invoice_no"]},
+    {"name": "date", "value": "2025-08-12", "data_type": "date", "match": "normalized", "aliases": ["invoice_date"]},
+    {"name": "total_due", "value": "178.20", "data_type": "currency", "is_critical": true, "match": "normalized", "aliases": ["total", "total_amount", "amount_due", "grand_total"]},
+    {"name": "tax", "value": "13.20", "data_type": "currency", "match": "normalized", "aliases": ["tax_amount", "vat"]},
+    {"name": "subtotal", "value": "165.00", "data_type": "currency", "match": "normalized", "aliases": ["sub_total", "net_amount"]},
+    {"name": "bill_to", "value": "Corner Bistro", "data_type": "text", "match": "fuzzy", "aliases": ["customer", "client", "buyer"]}
+  ],
+  "expected_human_in_loop": "recommended"
+}

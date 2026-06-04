@@ -1,0 +1,17 @@
+{
+  "doc_id": "contract_001",
+  "source": "docs/contract_001.txt",
+  "modality": "text",
+  "expected_profile": {"doc_type": "contract", "language": "en", "currency": "USD"},
+  "expected_reference_keys": {"agreement_reference": "MSA-2025-014"},
+  "expected_fields": [
+    {"name": "agreement_reference", "value": "MSA-2025-014", "data_type": "identifier", "is_critical": true, "match": "normalized", "aliases": ["contract_reference", "contract_number", "reference"]},
+    {"name": "effective_date", "value": "2025-01-15", "data_type": "date", "match": "normalized", "aliases": ["start_date", "commencement_date"]},
+    {"name": "term", "value": "24 months", "data_type": "text", "match": "fuzzy", "aliases": ["duration", "contract_term"]},
+    {"name": "total_contract_value", "value": "240000.00", "data_type": "currency", "is_critical": true, "match": "normalized", "aliases": ["contract_value", "total_value", "total"]},
+    {"name": "governing_law", "value": "State of Delaware", "data_type": "text", "match": "normalized", "aliases": ["jurisdiction"]},
+    {"name": "scope_of_services", "value": "Cloud migration advisory and managed support services", "data_type": "text", "match": "fuzzy", "aliases": ["scope", "services", "description"]},
+    {"name": "termination", "value": "60 days written notice", "data_type": "text", "match": "fuzzy", "aliases": ["termination_notice", "notice_period"]}
+  ],
+  "expected_human_in_loop": "recommended"
+}

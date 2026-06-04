@@ -1,0 +1,17 @@
+{
+  "doc_id": "insurance_policy_001",
+  "source": "docs/insurance_policy_001.txt",
+  "modality": "text",
+  "expected_profile": {"doc_type": "insurance_policy", "language": "en", "currency": "USD"},
+  "expected_reference_keys": {"policy_number": "POL-AUTO-7741290", "broker_reference": "BRK-22815"},
+  "expected_fields": [
+    {"name": "policy_number", "value": "POL-AUTO-7741290", "data_type": "identifier", "is_critical": true, "match": "normalized", "aliases": ["policy_no", "policy_id"]},
+    {"name": "effective_date", "value": "2025-06-01", "data_type": "date", "match": "normalized", "aliases": ["start_date", "inception_date"]},
+    {"name": "expiry_date", "value": "2026-05-31", "data_type": "date", "match": "normalized", "aliases": ["expiration_date", "renewal_date"]},
+    {"name": "sum_insured", "value": "750000.00", "data_type": "currency", "is_critical": true, "match": "normalized", "aliases": ["coverage_amount", "insured_amount"]},
+    {"name": "annual_premium", "value": "9840.00", "data_type": "currency", "match": "normalized", "aliases": ["premium", "total_premium"]},
+    {"name": "insured", "value": "Meridian Trading Ltd", "data_type": "text", "match": "fuzzy", "aliases": ["policyholder", "insured_name"]},
+    {"name": "policy_type", "value": "Commercial Motor Fleet", "data_type": "text", "match": "fuzzy", "aliases": ["coverage_type", "product"]}
+  ],
+  "expected_human_in_loop": "recommended"
+}

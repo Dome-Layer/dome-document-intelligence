@@ -1,0 +1,18 @@
+{
+  "doc_id": "trade_confirmation_001",
+  "source": "docs/trade_confirmation_001.txt",
+  "modality": "text",
+  "expected_profile": {"doc_type": "trade_confirmation", "language": "en", "currency": "USD"},
+  "expected_reference_keys": {"confirmation_number": "TC-2025-55013", "isin": "IE00BK5BQT80"},
+  "expected_fields": [
+    {"name": "confirmation_number", "value": "TC-2025-55013", "data_type": "identifier", "is_critical": true, "match": "normalized", "aliases": ["trade_id", "confirmation_id", "trade_reference"]},
+    {"name": "isin", "value": "IE00BK5BQT80", "data_type": "identifier", "is_critical": true, "match": "normalized", "aliases": ["security_id"]},
+    {"name": "trade_date", "value": "2025-10-14", "data_type": "date", "match": "normalized", "aliases": ["date"]},
+    {"name": "settlement_date", "value": "2025-10-16", "data_type": "date", "match": "normalized", "aliases": ["settle_date"]},
+    {"name": "quantity", "value": "1200 units", "data_type": "text", "match": "fuzzy", "aliases": ["units", "qty"]},
+    {"name": "price", "value": "108.45", "data_type": "currency", "match": "normalized", "aliases": ["unit_price", "trade_price"]},
+    {"name": "net_consideration", "value": "130205.07", "data_type": "currency", "is_critical": true, "match": "normalized", "aliases": ["net_amount", "net", "total"]},
+    {"name": "commission", "value": "65.07", "data_type": "currency", "match": "normalized", "aliases": ["fees", "commission_amount"]}
+  ],
+  "expected_human_in_loop": "recommended"
+}

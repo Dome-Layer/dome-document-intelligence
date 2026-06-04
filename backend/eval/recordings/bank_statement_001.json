@@ -1,0 +1,245 @@
+{
+  "fields": [
+    {
+      "name": "bank_name",
+      "value": "Harbour Bank",
+      "confidence": 0.97,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "account_holder_name",
+      "value": "Meridian Trading Ltd",
+      "confidence": 0.99,
+      "location_hint": "account_info",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "account_number",
+      "value": "60-12-34 87654321",
+      "confidence": 0.99,
+      "location_hint": "account_info",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "iban",
+      "value": "GB29 HBUK 6012 3487 6543 21",
+      "confidence": 0.99,
+      "location_hint": "account_info",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "statement_period_start",
+      "value": "2025-09-01",
+      "confidence": 0.97,
+      "location_hint": "account_info",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "statement_period_end",
+      "value": "2025-09-30",
+      "confidence": 0.97,
+      "location_hint": "account_info",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "statement_date",
+      "value": "2025-09-30",
+      "confidence": 0.99,
+      "location_hint": "account_info",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "opening_balance",
+      "value": "12430.55",
+      "confidence": 0.99,
+      "location_hint": "statement_summary",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "closing_balance",
+      "value": "18905.12",
+      "confidence": 0.99,
+      "location_hint": "statement_summary",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "transaction_date_1",
+      "value": "2025-09-03",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "date",
+      "is_critical": false
+    },
+    {
+      "name": "transaction_description_1",
+      "value": "Client Payment - Globex",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "transaction_amount_1",
+      "value": "+8000.00",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": false
+    },
+    {
+      "name": "transaction_balance_1",
+      "value": "20430.55",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": false
+    },
+    {
+      "name": "transaction_date_2",
+      "value": "2025-09-12",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "date",
+      "is_critical": false
+    },
+    {
+      "name": "transaction_description_2",
+      "value": "Supplier - Acme Supplies",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "transaction_amount_2",
+      "value": "-4320.00",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": false
+    },
+    {
+      "name": "transaction_balance_2",
+      "value": "16110.55",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": false
+    },
+    {
+      "name": "transaction_date_3",
+      "value": "2025-09-20",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "date",
+      "is_critical": false
+    },
+    {
+      "name": "transaction_description_3",
+      "value": "Payroll",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "transaction_amount_3",
+      "value": "-2205.43",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": false
+    },
+    {
+      "name": "transaction_balance_3",
+      "value": "13905.12",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": false
+    },
+    {
+      "name": "transaction_date_4",
+      "value": "2025-09-28",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "date",
+      "is_critical": false
+    },
+    {
+      "name": "transaction_description_4",
+      "value": "Interest",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "transaction_amount_4",
+      "value": "+5000.00",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": false
+    },
+    {
+      "name": "transaction_balance_4",
+      "value": "18905.12",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": false
+    },
+    {
+      "name": "account_type",
+      "value": "Current Account",
+      "confidence": 0.95,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "currency",
+      "value": "USD",
+      "confidence": 0.92,
+      "location_hint": "statement_summary",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "net_change",
+      "value": "+6474.57",
+      "confidence": 0.85,
+      "location_hint": "statement_summary",
+      "data_type": "currency",
+      "is_critical": false
+    }
+  ],
+  "overall_confidence": 0.9789285714285715,
+  "reference_keys": {
+    "account_number": "60-12-34 87654321",
+    "iban": "GB29 HBUK 6012 3487 6543 21"
+  },
+  "document_profile": {
+    "doc_type": "bank_statement",
+    "industry_hint": "banking",
+    "sections": [
+      "header",
+      "account_info",
+      "statement_summary",
+      "line_items"
+    ],
+    "language": "en",
+    "currency": "USD"
+  }
+}

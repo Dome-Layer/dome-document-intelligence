@@ -1,0 +1,202 @@
+{
+  "fields": [
+    {
+      "name": "seller_name",
+      "value": "Müller Industrietechnik GmbH",
+      "confidence": 0.99,
+      "location_hint": "seller_info",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "seller_address",
+      "value": "Hauptstraße 42, 80331 München, Deutschland",
+      "confidence": 0.99,
+      "location_hint": "seller_info",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "seller_vat_id",
+      "value": "DE123456789",
+      "confidence": 0.99,
+      "location_hint": "seller_info",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "document_type",
+      "value": "RECHNUNG / INVOICE",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "invoice_number",
+      "value": "RE-2025-0457",
+      "confidence": 0.99,
+      "location_hint": "invoice_metadata",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "invoice_date",
+      "value": "12/02/2025",
+      "confidence": 0.99,
+      "location_hint": "invoice_metadata",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "due_date",
+      "value": "14/03/2025",
+      "confidence": 0.99,
+      "location_hint": "invoice_metadata",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "customer_name",
+      "value": "Nordwind Logistik AG",
+      "confidence": 0.99,
+      "location_hint": "customer_info",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_1_description",
+      "value": "Industriepumpe Typ X",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "line_item_1_quantity",
+      "value": "2",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "line_item_1_unit_price",
+      "value": "4500.00",
+      "confidence": 0.97,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": false
+    },
+    {
+      "name": "line_item_1_total",
+      "value": "9000.00",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": false
+    },
+    {
+      "name": "line_item_2_description",
+      "value": "Wartungsvertrag (12 Monate)",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "line_item_2_quantity",
+      "value": "1",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "line_item_2_unit_price",
+      "value": "1250.50",
+      "confidence": 0.97,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": false
+    },
+    {
+      "name": "line_item_2_total",
+      "value": "1250.50",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": false
+    },
+    {
+      "name": "subtotal",
+      "value": "10250.50",
+      "confidence": 0.99,
+      "location_hint": "subtotal",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "tax_rate",
+      "value": "19",
+      "confidence": 0.99,
+      "location_hint": "tax",
+      "data_type": "percentage",
+      "is_critical": true
+    },
+    {
+      "name": "tax_amount",
+      "value": "1947.60",
+      "confidence": 0.99,
+      "location_hint": "tax",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "total_amount",
+      "value": "12198.10",
+      "confidence": 0.99,
+      "location_hint": "total",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "currency",
+      "value": "EUR",
+      "confidence": 0.99,
+      "location_hint": "total",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "payment_terms",
+      "value": "30 Tage",
+      "confidence": 0.99,
+      "location_hint": "payment_terms",
+      "data_type": "text",
+      "is_critical": true
+    }
+  ],
+  "overall_confidence": 0.9881818181818182,
+  "reference_keys": {
+    "invoice_number": "RE-2025-0457",
+    "seller_vat_id": "DE123456789"
+  },
+  "document_profile": {
+    "doc_type": "invoice",
+    "industry_hint": "procurement",
+    "sections": [
+      "header",
+      "seller_info",
+      "invoice_metadata",
+      "customer_info",
+      "line_items",
+      "subtotal",
+      "tax",
+      "total",
+      "payment_terms"
+    ],
+    "language": "de",
+    "currency": "EUR"
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "fields": [
+    {
+      "name": "broker_name",
+      "value": "Meridian Securities LLP",
+      "confidence": 0.98,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "confirmation_number",
+      "value": "TC-2025-55013",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "trade_date",
+      "value": "2025-10-14",
+      "confidence": 0.99,
+      "location_hint": "trade_details",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "settlement_date",
+      "value": "2025-10-16",
+      "confidence": 0.99,
+      "location_hint": "trade_details",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "account_number",
+      "value": "MS-CLIENT-7782",
+      "confidence": 0.99,
+      "location_hint": "trade_details",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "security_name",
+      "value": "Vanguard FTSE All-World ETF",
+      "confidence": 0.99,
+      "location_hint": "security_info",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "isin",
+      "value": "IE00BK5BQT80",
+      "confidence": 0.99,
+      "location_hint": "security_info",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "trade_side",
+      "value": "BUY",
+      "confidence": 0.99,
+      "location_hint": "trade_details",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "quantity",
+      "value": "1200",
+      "confidence": 0.99,
+      "location_hint": "trade_details",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "price_per_unit",
+      "value": "108.45",
+      "confidence": 0.99,
+      "location_hint": "trade_details",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "gross_consideration",
+      "value": "130140.00",
+      "confidence": 0.99,
+      "location_hint": "transaction_summary",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "commission",
+      "value": "65.07",
+      "confidence": 0.99,
+      "location_hint": "transaction_summary",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "net_consideration",
+      "value": "130205.07",
+      "confidence": 0.99,
+      "location_hint": "transaction_summary",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "currency",
+      "value": "USD",
+      "confidence": 0.99,
+      "location_hint": "transaction_summary",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "settlement_method",
+      "value": "DvP via Euroclear",
+      "confidence": 0.99,
+      "location_hint": "settlement_instructions",
+      "data_type": "text",
+      "is_critical": true
+    }
+  ],
+  "overall_confidence": 0.9893333333333333,
+  "reference_keys": {
+    "confirmation_number": "TC-2025-55013",
+    "account_number": "MS-CLIENT-7782",
+    "isin": "IE00BK5BQT80"
+  },
+  "document_profile": {
+    "doc_type": "trade_confirmation",
+    "industry_hint": "financial_services",
+    "sections": [
+      "header",
+      "trade_details",
+      "security_info",
+      "transaction_summary",
+      "settlement_instructions"
+    ],
+    "language": "en",
+    "currency": "USD"
+  }
+}

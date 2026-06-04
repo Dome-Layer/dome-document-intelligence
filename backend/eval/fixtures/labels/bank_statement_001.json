@@ -1,0 +1,16 @@
+{
+  "doc_id": "bank_statement_001",
+  "source": "docs/bank_statement_001.txt",
+  "modality": "text",
+  "expected_profile": {"doc_type": "bank_statement", "language": "en", "currency": "USD"},
+  "expected_reference_keys": {"account_number": "60-12-34 87654321", "iban": "GB29 HBUK 6012 3487 6543 21"},
+  "expected_fields": [
+    {"name": "account_number", "value": "60-12-34 87654321", "data_type": "identifier", "is_critical": true, "match": "normalized", "aliases": ["account_no"]},
+    {"name": "iban", "value": "GB29 HBUK 6012 3487 6543 21", "data_type": "identifier", "match": "normalized", "aliases": ["iban_number"]},
+    {"name": "statement_date", "value": "2025-09-30", "data_type": "date", "match": "normalized", "aliases": ["date"]},
+    {"name": "opening_balance", "value": "12430.55", "data_type": "currency", "match": "normalized", "aliases": ["opening", "balance_brought_forward"]},
+    {"name": "closing_balance", "value": "18905.12", "data_type": "currency", "is_critical": true, "match": "normalized", "aliases": ["closing", "balance", "ending_balance"]},
+    {"name": "account_holder", "value": "Meridian Trading Ltd", "data_type": "text", "match": "fuzzy", "aliases": ["name", "customer", "holder"]}
+  ],
+  "expected_human_in_loop": "not_required"
+}

@@ -1,0 +1,17 @@
+RIVERSIDE MEDICAL LABORATORY — PATHOLOGY REPORT
+
+Accession Number: LAB-2025-99214
+Collection Date: 2025-10-02
+Report Date: 2025-10-03
+Patient Name: Jordan Sample (synthetic)
+Patient ID: PT-30571
+Date of Birth: 1985-06-12
+Ordering Physician: Dr. A. Practitioner
+
+Test                       Result      Reference Range     Flag
+Haemoglobin (g/dL)          13.8        13.0 - 17.0         Normal
+White Cell Count (10^9/L)   11.4        4.0 - 11.0          High
+Platelets (10^9/L)          250         150 - 400           Normal
+Glucose, fasting (mg/dL)    104         70 - 99             High
+
+Interpretation: Mild leukocytosis; correlate clinically.

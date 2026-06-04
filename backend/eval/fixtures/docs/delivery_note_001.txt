@@ -1,0 +1,16 @@
+SWIFTFREIGHT LOGISTICS — DELIVERY NOTE
+
+Delivery Note No: DN-2025-44120
+Dispatch Date: 2025-11-18
+PO Reference: PO-88421
+Carrier: SwiftFreight Express
+Consignee: Globex Warehouse 7, Dayton, OH
+Tracking Number: SF7788123456GB
+
+Item                         Ordered   Delivered
+Widget Assembly Kit              50         50
+Safety Gloves (box)             100         98
+
+Total Packages: 12
+Weight: 340 kg
+Received By: ____________  (signature on delivery)
