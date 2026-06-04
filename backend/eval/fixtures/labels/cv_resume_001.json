@@ -1,0 +1,17 @@
+{
+  "doc_id": "cv_resume_001",
+  "source": "docs/cv_resume_001.txt",
+  "modality": "text",
+  "expected_profile": {"doc_type": "cv_resume", "language": "en", "currency": null},
+  "expected_reference_keys": {},
+  "expected_fields": [
+    {"name": "name", "value": "Sam Candidate", "data_type": "text", "match": "fuzzy", "aliases": ["full_name", "candidate_name"]},
+    {"name": "email", "value": "sam.candidate@example.com", "data_type": "identifier", "match": "normalized", "aliases": ["email_address"]},
+    {"name": "phone", "value": "+44 7700 900123", "data_type": "text", "match": "fuzzy", "aliases": ["mobile", "telephone", "phone_number"]},
+    {"name": "professional_summary", "value": "Senior software engineer with 8 years building distributed data platforms", "data_type": "text", "match": "fuzzy", "aliases": ["summary", "profile"]},
+    {"name": "current_role", "value": "Staff Engineer, DataWorks Ltd", "data_type": "text", "match": "fuzzy", "aliases": ["current_position", "title", "latest_role"]},
+    {"name": "education", "value": "BSc Computer Science, University of Manchester, 2016", "data_type": "text", "match": "fuzzy", "aliases": ["degree", "qualification"]},
+    {"name": "skills", "value": "Python, Go, Kubernetes, PostgreSQL, distributed systems", "data_type": "text", "match": "fuzzy", "aliases": ["technical_skills", "key_skills"]}
+  ],
+  "expected_human_in_loop": "recommended"
+}

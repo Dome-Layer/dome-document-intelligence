@@ -1,0 +1,18 @@
+{
+  "doc_id": "invoice_001",
+  "source": "docs/invoice_001.txt",
+  "modality": "text",
+  "expected_profile": {"doc_type": "invoice", "language": "en", "currency": "USD"},
+  "expected_reference_keys": {"invoice_number": "INV-2024-0001"},
+  "expected_fields": [
+    {"name": "invoice_number", "value": "INV-2024-0001", "data_type": "identifier", "is_critical": true, "match": "normalized", "aliases": ["invoice_no"]},
+    {"name": "invoice_date", "value": "2024-03-14", "data_type": "date", "match": "normalized", "aliases": ["date"]},
+    {"name": "due_date", "value": "2024-04-13", "data_type": "date", "match": "normalized", "aliases": ["payment_due"]},
+    {"name": "total_due", "value": "4320.00", "data_type": "currency", "is_critical": true, "match": "normalized", "aliases": ["total", "total_amount", "amount_due", "grand_total"]},
+    {"name": "subtotal", "value": "4000.00", "data_type": "currency", "match": "normalized", "aliases": ["sub_total", "net_amount"]},
+    {"name": "tax", "value": "320.00", "data_type": "currency", "match": "normalized", "aliases": ["tax_amount", "vat"]},
+    {"name": "vendor_name", "value": "Acme Supplies Ltd", "data_type": "text", "match": "normalized", "aliases": ["vendor", "supplier", "seller", "from"]},
+    {"name": "bill_to", "value": "Globex Corporation", "data_type": "text", "match": "fuzzy", "aliases": ["customer", "buyer", "client", "bill_to_name"]}
+  ],
+  "expected_human_in_loop": "recommended"
+}

@@ -1,0 +1,14 @@
+GREENFIELD FAMILY CLINIC — PRESCRIPTION
+
+Date: 2025-10-05
+Patient Name: Alex Placeholder (synthetic)
+Date of Birth: 1990-02-20
+Address: 8 Meadow Lane, Bristol, BS1 4ST
+
+Rx:
+  Amoxicillin 500 mg capsules
+  Take one capsule three times daily for 7 days
+  Quantity: 21 capsules
+
+Prescriber: Dr. M. Clinician
+Notes: No known allergies. Review if symptoms persist beyond 5 days.

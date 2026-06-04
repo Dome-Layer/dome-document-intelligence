@@ -1,0 +1,19 @@
+CURRICULUM VITAE
+
+Name: Sam Candidate (synthetic)
+Email: sam.candidate@example.com
+Phone: +44 7700 900123
+Location: Manchester, UK
+
+Professional Summary:
+Senior software engineer with 8 years building distributed data platforms
+and leading small teams.
+
+Experience:
+  - Staff Engineer, DataWorks Ltd (2021 - Present)
+  - Senior Engineer, CloudByte Inc (2017 - 2021)
+
+Education:
+  - BSc Computer Science, University of Manchester, 2016
+
+Skills: Python, Go, Kubernetes, PostgreSQL, distributed systems

@@ -1,0 +1,17 @@
+{
+  "doc_id": "payslip_001",
+  "source": "docs/payslip_001.txt",
+  "modality": "text",
+  "expected_profile": {"doc_type": "payslip", "language": "en", "currency": "USD"},
+  "expected_reference_keys": {"employee_id": "EMP-2048"},
+  "expected_fields": [
+    {"name": "employee_id", "value": "EMP-2048", "data_type": "identifier", "is_critical": true, "match": "normalized", "aliases": ["emp_id", "staff_id"]},
+    {"name": "pay_date", "value": "2025-11-05", "data_type": "date", "match": "normalized", "aliases": ["payment_date", "date"]},
+    {"name": "gross_pay", "value": "5750.00", "data_type": "currency", "match": "normalized", "aliases": ["gross", "gross_salary"]},
+    {"name": "net_pay", "value": "4312.50", "data_type": "currency", "is_critical": true, "match": "normalized", "aliases": ["net", "take_home", "net_salary"]},
+    {"name": "income_tax", "value": "1150.00", "data_type": "currency", "match": "normalized", "aliases": ["tax", "paye"]},
+    {"name": "basic_salary", "value": "5000.00", "data_type": "currency", "match": "normalized", "aliases": ["basic", "base_salary"]},
+    {"name": "employee", "value": "Pat Example", "data_type": "text", "match": "fuzzy", "aliases": ["employee_name", "name"]}
+  ],
+  "expected_human_in_loop": "not_required"
+}

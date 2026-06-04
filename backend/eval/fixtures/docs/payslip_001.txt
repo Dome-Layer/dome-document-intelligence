@@ -1,0 +1,17 @@
+BRIGHTPATH CONSULTING LLC — PAYSLIP
+
+Employee: Pat Example (synthetic)
+Employee ID: EMP-2048
+Pay Period: 2025-10-01 to 2025-10-31
+Pay Date: 2025-11-05
+National Insurance: QQ123456C
+
+Earnings                 Amount
+Basic Salary             $5,000.00
+Performance Bonus        $750.00
+Gross Pay                $5,750.00
+
+Deductions               Amount
+Income Tax               $1,150.00
+Pension (5%)             $287.50
+Net Pay                  $4,312.50 USD

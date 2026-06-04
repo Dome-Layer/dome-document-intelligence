@@ -1,0 +1,17 @@
+{
+  "doc_id": "purchase_order_001",
+  "source": "docs/purchase_order_001.txt",
+  "modality": "text",
+  "expected_profile": {"doc_type": "purchase_order", "language": "en", "currency": "USD"},
+  "expected_reference_keys": {"po_number": "PO-88421"},
+  "expected_fields": [
+    {"name": "po_number", "value": "PO-88421", "data_type": "identifier", "is_critical": true, "match": "normalized", "aliases": ["purchase_order_number", "order_number"]},
+    {"name": "order_date", "value": "2025-11-03", "data_type": "date", "match": "normalized", "aliases": ["date"]},
+    {"name": "required_delivery", "value": "2025-12-01", "data_type": "date", "match": "normalized", "aliases": ["delivery_date", "required_delivery_date"]},
+    {"name": "supplier", "value": "Acme Supplies Ltd", "data_type": "text", "match": "normalized", "aliases": ["vendor", "vendor_name", "seller"]},
+    {"name": "order_total", "value": "14000.00", "data_type": "currency", "is_critical": true, "match": "normalized", "aliases": ["total", "grand_total", "total_amount"]},
+    {"name": "subtotal", "value": "13750.00", "data_type": "currency", "match": "normalized", "aliases": ["sub_total", "net_amount"]},
+    {"name": "payment_terms", "value": "Net 45", "data_type": "text", "match": "fuzzy", "aliases": ["terms", "payment_term"]}
+  ],
+  "expected_human_in_loop": "not_required"
+}

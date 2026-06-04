@@ -1,0 +1,172 @@
+{
+  "fields": [
+    {
+      "name": "full_name",
+      "value": "Sam Candidate",
+      "confidence": 0.95,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "email_address",
+      "value": "sam.candidate@example.com",
+      "confidence": 0.99,
+      "location_hint": "contact_info",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "phone_number",
+      "value": "+44 7700 900123",
+      "confidence": 0.99,
+      "location_hint": "contact_info",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "location",
+      "value": "Manchester, UK",
+      "confidence": 0.99,
+      "location_hint": "contact_info",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "professional_summary",
+      "value": "Senior software engineer with 8 years building distributed data platforms and leading small teams.",
+      "confidence": 0.99,
+      "location_hint": "professional_summary",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "years_of_experience",
+      "value": "8",
+      "confidence": 0.85,
+      "location_hint": "professional_summary",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "current_job_title",
+      "value": "Staff Engineer",
+      "confidence": 0.97,
+      "location_hint": "experience",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "current_employer",
+      "value": "DataWorks Ltd",
+      "confidence": 0.97,
+      "location_hint": "experience",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "current_role_start_date",
+      "value": "2021",
+      "confidence": 0.95,
+      "location_hint": "experience",
+      "data_type": "date",
+      "is_critical": false
+    },
+    {
+      "name": "current_role_end_date",
+      "value": "Present",
+      "confidence": 0.95,
+      "location_hint": "experience",
+      "data_type": "date",
+      "is_critical": false
+    },
+    {
+      "name": "previous_job_title",
+      "value": "Senior Engineer",
+      "confidence": 0.97,
+      "location_hint": "experience",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "previous_employer",
+      "value": "CloudByte Inc",
+      "confidence": 0.97,
+      "location_hint": "experience",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "previous_role_start_date",
+      "value": "2017",
+      "confidence": 0.95,
+      "location_hint": "experience",
+      "data_type": "date",
+      "is_critical": false
+    },
+    {
+      "name": "previous_role_end_date",
+      "value": "2021",
+      "confidence": 0.95,
+      "location_hint": "experience",
+      "data_type": "date",
+      "is_critical": false
+    },
+    {
+      "name": "degree",
+      "value": "BSc Computer Science",
+      "confidence": 0.99,
+      "location_hint": "education",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "university",
+      "value": "University of Manchester",
+      "confidence": 0.99,
+      "location_hint": "education",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "graduation_year",
+      "value": "2016",
+      "confidence": 0.99,
+      "location_hint": "education",
+      "data_type": "date",
+      "is_critical": false
+    },
+    {
+      "name": "skills",
+      "value": "Python, Go, Kubernetes, PostgreSQL, distributed systems",
+      "confidence": 0.99,
+      "location_hint": "skills",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "document_type",
+      "value": "Curriculum Vitae",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": false
+    }
+  ],
+  "overall_confidence": 0.9678947368421053,
+  "reference_keys": {},
+  "document_profile": {
+    "doc_type": "cv_resume",
+    "industry_hint": "technology",
+    "sections": [
+      "header",
+      "contact_info",
+      "professional_summary",
+      "experience",
+      "education",
+      "skills"
+    ],
+    "language": "en",
+    "currency": null
+  }
+}

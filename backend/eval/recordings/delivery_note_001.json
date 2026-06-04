@@ -1,0 +1,175 @@
+{
+  "fields": [
+    {
+      "name": "company_name",
+      "value": "SwiftFreight Logistics",
+      "confidence": 0.97,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "document_type",
+      "value": "Delivery Note",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "delivery_note_number",
+      "value": "DN-2025-44120",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "dispatch_date",
+      "value": "2025-11-18",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "po_reference",
+      "value": "PO-88421",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "carrier",
+      "value": "SwiftFreight Express",
+      "confidence": 0.98,
+      "location_hint": "delivery_info",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "consignee",
+      "value": "Globex Warehouse 7",
+      "confidence": 0.95,
+      "location_hint": "delivery_info",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "consignee_location",
+      "value": "Dayton, OH",
+      "confidence": 0.95,
+      "location_hint": "delivery_info",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "tracking_number",
+      "value": "SF7788123456GB",
+      "confidence": 0.99,
+      "location_hint": "delivery_info",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_1_description",
+      "value": "Widget Assembly Kit",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_1_quantity_ordered",
+      "value": "50",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_1_quantity_delivered",
+      "value": "50",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_2_description",
+      "value": "Safety Gloves (box)",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_2_quantity_ordered",
+      "value": "100",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_2_quantity_delivered",
+      "value": "98",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "total_packages",
+      "value": "12",
+      "confidence": 0.99,
+      "location_hint": "shipment_summary",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "total_weight",
+      "value": "340 kg",
+      "confidence": 0.99,
+      "location_hint": "shipment_summary",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "received_by_signature",
+      "value": null,
+      "confidence": 0.85,
+      "location_hint": "signatures",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "short_delivery_flag",
+      "value": "Yes — Safety Gloves ordered 100, delivered 98 (shortfall: 2)",
+      "confidence": 0.95,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": true
+    }
+  ],
+  "overall_confidence": 0.9747368421052631,
+  "reference_keys": {
+    "delivery_note_number": "DN-2025-44120",
+    "po_reference": "PO-88421",
+    "tracking_number": "SF7788123456GB"
+  },
+  "document_profile": {
+    "doc_type": "other",
+    "industry_hint": "logistics",
+    "sections": [
+      "header",
+      "delivery_info",
+      "line_items",
+      "shipment_summary",
+      "signatures"
+    ],
+    "language": "en",
+    "currency": null
+  }
+}

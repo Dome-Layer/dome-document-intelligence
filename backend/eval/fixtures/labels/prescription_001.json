@@ -1,0 +1,17 @@
+{
+  "doc_id": "prescription_001",
+  "source": "docs/prescription_001.txt",
+  "modality": "text",
+  "expected_profile": {"doc_type": "prescription", "language": "en", "currency": null},
+  "expected_reference_keys": {},
+  "expected_fields": [
+    {"name": "date", "value": "2025-10-05", "data_type": "date", "match": "normalized", "aliases": ["prescription_date", "date_prescribed"]},
+    {"name": "patient_name", "value": "Alex Placeholder", "data_type": "text", "match": "fuzzy", "aliases": ["patient", "name"]},
+    {"name": "date_of_birth", "value": "1990-02-20", "data_type": "date", "match": "normalized", "aliases": ["dob"]},
+    {"name": "medication", "value": "Amoxicillin 500 mg", "data_type": "text", "match": "fuzzy", "aliases": ["drug", "rx", "medicine", "medication_name"]},
+    {"name": "dosage", "value": "one capsule three times daily for 7 days", "data_type": "text", "match": "fuzzy", "aliases": ["directions", "instructions", "sig"]},
+    {"name": "quantity", "value": "21 capsules", "data_type": "text", "match": "fuzzy", "aliases": ["qty", "amount"]},
+    {"name": "prescriber", "value": "Dr. M. Clinician", "data_type": "text", "match": "fuzzy", "aliases": ["doctor", "physician", "prescribed_by"]}
+  ],
+  "expected_human_in_loop": "not_required"
+}

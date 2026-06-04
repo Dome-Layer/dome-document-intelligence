@@ -1,0 +1,12 @@
+SENTINEL INSURANCE GROUP — POLICY SCHEDULE
+
+Policy Number: POL-AUTO-7741290
+Policy Type: Commercial Motor Fleet
+Insured: Meridian Trading Ltd
+Effective Date: 2025-06-01
+Expiry Date: 2026-05-31
+Sum Insured: $750,000.00
+Annual Premium: $9,840.00
+Excess: $1,000.00 per claim
+Insured Vehicles: 6 commercial vans
+Broker Reference: BRK-22815

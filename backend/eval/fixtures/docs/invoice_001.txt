@@ -1,0 +1,21 @@
+ACME SUPPLIES LTD
+123 Commerce Way, Springfield, IL 62701
+VAT: US-ACME-001
+
+INVOICE
+
+Invoice Number: INV-2024-0001
+Invoice Date: 2024-03-14
+Due Date: 2024-04-13
+Bill To: Globex Corporation, 500 Industrial Pkwy, Dayton, OH
+
+Description                 Qty    Unit Price    Amount
+Widget Assembly Kit          10       $250.00    $2,500.00
+On-site Calibration           4       $375.00    $1,500.00
+
+Subtotal: $4,000.00
+Tax (8%): $320.00
+Total Due: $4,320.00 USD
+
+Payment Terms: Net 30
+Remit to: Acme Supplies Ltd

@@ -32,6 +32,30 @@ The key differentiator within the Dome portfolio: this tool is designed to run w
 
 ---
 
+## Evaluation
+
+Extraction quality and the governance rules engine are measured by an auditable, four-layer
+evaluation harness in [`backend/eval/`](backend/eval/) — see **[EVAL.md](EVAL.md)** for the full
+methodology and a sample report.
+
+- **Rules engine** — all 16 governance rules are unit-tested (CI-gated, deterministic).
+- **Extraction** — scored against a committed golden set with type-aware normalization: field
+  precision/recall/F1, value-match, doc-type accuracy, end-to-end human-in-loop agreement.
+- **Confidence calibration** — a reliability table + ECE that checks the model's *stated*
+  confidence against its *actual* accuracy.
+- **Validated LLM judge** — checked against ground truth before it is trusted for fuzzy fields;
+  each live run logs one governance `eval_judgment` event.
+
+```bash
+cd backend
+make eval         # live: re-run the model + validated judge → eval_report.{json,md}
+make eval-score   # offline: score the committed recordings (no network)
+```
+
+CI runs the deterministic layers against recorded outputs and **never** calls a live model.
+
+---
+
 ## Quick start
 
 ### Requirements
@@ -160,9 +184,12 @@ Ollama provider not yet implemented. Target models: Llama 3.2 Vision, Qwen2-VL. 
 ```
 dome-document-intelligence/
 ├── README.md                   This file
+├── EVAL.md                     Evaluation methodology + sample report
 ├── LICENSE
 ├── SECURITY.md
 ├── backend/                    FastAPI service
+│   ├── Makefile                eval / eval-score / test / lint targets
+│   ├── eval/                   Evaluation harness (golden set, scorer, calibration, judge)
 │   ├── app/
 │   │   ├── main.py             App entry point, lifespan, CORS
 │   │   ├── api/                Route handlers (extract, rules, audit)

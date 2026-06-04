@@ -1,0 +1,182 @@
+{
+  "fields": [
+    {
+      "name": "issuing_bank",
+      "value": "First Continental Bank",
+      "confidence": 0.98,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "credit_type",
+      "value": "Irrevocable Documentary Credit",
+      "confidence": 0.98,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "credit_number",
+      "value": "LC-2025-IMP-3398",
+      "confidence": 0.99,
+      "location_hint": "credit_details",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "date_of_issue",
+      "value": "2025-07-01",
+      "confidence": 0.99,
+      "location_hint": "credit_details",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "date_of_expiry",
+      "value": "2025-12-31",
+      "confidence": 0.99,
+      "location_hint": "credit_details",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "applicant_name",
+      "value": "Globex Corporation",
+      "confidence": 0.99,
+      "location_hint": "applicant_beneficiary_info",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "applicant_address",
+      "value": "Dayton, OH, USA",
+      "confidence": 0.97,
+      "location_hint": "applicant_beneficiary_info",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "beneficiary_name",
+      "value": "Shenzhen Components Co.",
+      "confidence": 0.99,
+      "location_hint": "applicant_beneficiary_info",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "beneficiary_address",
+      "value": "Guangdong, China",
+      "confidence": 0.97,
+      "location_hint": "applicant_beneficiary_info",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "advising_bank",
+      "value": "Pacific Trade Bank",
+      "confidence": 0.98,
+      "location_hint": "applicant_beneficiary_info",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "credit_amount",
+      "value": "485000.00",
+      "confidence": 0.99,
+      "location_hint": "credit_details",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "credit_currency",
+      "value": "USD",
+      "confidence": 0.99,
+      "location_hint": "credit_details",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "available_by",
+      "value": "Negotiation",
+      "confidence": 0.98,
+      "location_hint": "credit_details",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "latest_shipment_date",
+      "value": "2025-12-15",
+      "confidence": 0.99,
+      "location_hint": "shipment_terms",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "partial_shipments_allowed",
+      "value": "Not Allowed",
+      "confidence": 0.99,
+      "location_hint": "shipment_terms",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "goods_description",
+      "value": "20,000 units electronic components",
+      "confidence": 0.98,
+      "location_hint": "goods_description",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "goods_quantity",
+      "value": "20000",
+      "confidence": 0.97,
+      "location_hint": "goods_description",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "incoterm",
+      "value": "CIF",
+      "confidence": 0.97,
+      "location_hint": "goods_description",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "port_of_destination",
+      "value": "Long Beach",
+      "confidence": 0.97,
+      "location_hint": "goods_description",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "documents_required",
+      "value": "Commercial Invoice, Bill of Lading, Packing List",
+      "confidence": 0.99,
+      "location_hint": "documents_required",
+      "data_type": "text",
+      "is_critical": true
+    }
+  ],
+  "overall_confidence": 0.9824999999999999,
+  "reference_keys": {
+    "lc_number": "LC-2025-IMP-3398"
+  },
+  "document_profile": {
+    "doc_type": "letter_of_credit",
+    "industry_hint": "commodity_finance",
+    "sections": [
+      "header",
+      "credit_details",
+      "applicant_beneficiary_info",
+      "shipment_terms",
+      "goods_description",
+      "documents_required"
+    ],
+    "language": "en",
+    "currency": "USD"
+  }
+}

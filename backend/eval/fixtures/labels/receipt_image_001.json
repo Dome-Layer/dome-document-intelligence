@@ -1,0 +1,15 @@
+{
+  "doc_id": "receipt_image_001",
+  "source": "docs/receipt_image_001.png",
+  "modality": "image",
+  "expected_profile": {"doc_type": "receipt", "language": "en", "currency": "GBP"},
+  "expected_reference_keys": {"transaction_id": "TXN-55920"},
+  "expected_fields": [
+    {"name": "transaction_id", "value": "TXN-55920", "data_type": "identifier", "is_critical": true, "match": "normalized", "aliases": ["trans_id", "txn_id", "receipt_number"]},
+    {"name": "date", "value": "2025-09-21", "data_type": "date", "match": "normalized", "aliases": ["transaction_date"]},
+    {"name": "total", "value": "8.00", "data_type": "currency", "is_critical": true, "match": "normalized", "aliases": ["total_amount", "amount", "grand_total"]},
+    {"name": "subtotal", "value": "8.00", "data_type": "currency", "match": "normalized", "aliases": ["sub_total", "net_amount"]},
+    {"name": "store", "value": "QuickMart Convenience", "data_type": "text", "match": "fuzzy", "aliases": ["merchant", "store_name", "retailer"]}
+  ],
+  "expected_human_in_loop": "recommended"
+}
