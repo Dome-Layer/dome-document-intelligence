@@ -1,0 +1,16 @@
+{
+  "doc_id": "utility_bill_001",
+  "source": "docs/utility_bill_001.txt",
+  "modality": "text",
+  "expected_profile": {"doc_type": "utility_bill", "language": "en", "currency": "GBP"},
+  "expected_reference_keys": {"account_number": "NG-4471203"},
+  "expected_fields": [
+    {"name": "account_number", "value": "NG-4471203", "data_type": "identifier", "is_critical": true, "match": "normalized", "aliases": ["account_no", "customer_number"]},
+    {"name": "bill_date", "value": "2025-09-30", "data_type": "date", "match": "normalized", "aliases": ["statement_date", "invoice_date"]},
+    {"name": "payment_due", "value": "2025-10-21", "data_type": "date", "match": "normalized", "aliases": ["due_date", "payment_due_date"]},
+    {"name": "usage", "value": "400 kWh", "data_type": "text", "match": "fuzzy", "aliases": ["consumption", "total_usage"]},
+    {"name": "total_amount_due", "value": "133.77", "data_type": "currency", "is_critical": true, "match": "normalized", "aliases": ["total", "amount_due", "total_due", "balance"]},
+    {"name": "supply_address", "value": "14 Oakfield Road, Leeds, LS6 2AB", "data_type": "text", "match": "fuzzy", "aliases": ["service_address", "address"]}
+  ],
+  "expected_human_in_loop": "recommended"
+}

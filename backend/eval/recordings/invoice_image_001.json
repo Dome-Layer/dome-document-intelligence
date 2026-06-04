@@ -1,0 +1,141 @@
+{
+  "fields": [
+    {
+      "name": "supplier_name",
+      "value": "Sunrise Cafe Supplies",
+      "confidence": 0.97,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "document_type",
+      "value": "Invoice",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "invoice_number",
+      "value": "INV-IMG-7781",
+      "confidence": 0.99,
+      "location_hint": "billing_info",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "invoice_date",
+      "value": "2025-08-12",
+      "confidence": 0.99,
+      "location_hint": "billing_info",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "bill_to",
+      "value": "Corner Bistro",
+      "confidence": 0.98,
+      "location_hint": "billing_info",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_1_description",
+      "value": "Espresso Beans 5kg",
+      "confidence": 0.97,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "line_item_1_amount",
+      "value": "120.00",
+      "confidence": 0.97,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": false
+    },
+    {
+      "name": "line_item_2_description",
+      "value": "Paper Cups (1000)",
+      "confidence": 0.97,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "line_item_2_amount",
+      "value": "45.00",
+      "confidence": 0.97,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": false
+    },
+    {
+      "name": "subtotal",
+      "value": "165.00",
+      "confidence": 0.99,
+      "location_hint": "subtotal",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "tax_rate",
+      "value": "8%",
+      "confidence": 0.99,
+      "location_hint": "tax",
+      "data_type": "percentage",
+      "is_critical": false
+    },
+    {
+      "name": "tax_amount",
+      "value": "13.20",
+      "confidence": 0.99,
+      "location_hint": "tax",
+      "data_type": "currency",
+      "is_critical": false
+    },
+    {
+      "name": "total_due",
+      "value": "178.20",
+      "confidence": 0.99,
+      "location_hint": "total",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "currency",
+      "value": "USD",
+      "confidence": 0.99,
+      "location_hint": "total",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "payment_terms",
+      "value": "Card on delivery",
+      "confidence": 0.98,
+      "location_hint": "payment_terms",
+      "data_type": "text",
+      "is_critical": true
+    }
+  ],
+  "overall_confidence": 0.982,
+  "reference_keys": {},
+  "document_profile": {
+    "doc_type": "invoice",
+    "industry_hint": "retail",
+    "sections": [
+      "header",
+      "billing_info",
+      "line_items",
+      "subtotal",
+      "tax",
+      "total",
+      "payment_terms"
+    ],
+    "language": "en",
+    "currency": "USD"
+  }
+}

@@ -1,0 +1,180 @@
+{
+  "fields": [
+    {
+      "name": "supplier_name",
+      "value": "Northern Grid Energy",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "customer_services_phone",
+      "value": "0800-555-0100",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "identifier",
+      "is_critical": false
+    },
+    {
+      "name": "document_type",
+      "value": "Electricity Bill",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "account_number",
+      "value": "NG-4471203",
+      "confidence": 0.99,
+      "location_hint": "account_info",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "bill_date",
+      "value": "2025-09-30",
+      "confidence": 0.99,
+      "location_hint": "account_info",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "billing_period_start",
+      "value": "2025-08-01",
+      "confidence": 0.99,
+      "location_hint": "billing_period",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "billing_period_end",
+      "value": "2025-08-31",
+      "confidence": 0.99,
+      "location_hint": "billing_period",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "payment_due_date",
+      "value": "2025-10-21",
+      "confidence": 0.99,
+      "location_hint": "payment_terms",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "supply_address",
+      "value": "14 Oakfield Road, Leeds, LS6 2AB",
+      "confidence": 0.99,
+      "location_hint": "account_info",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "previous_meter_reading",
+      "value": "24510",
+      "confidence": 0.99,
+      "location_hint": "meter_readings",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "current_meter_reading",
+      "value": "24910",
+      "confidence": 0.99,
+      "location_hint": "meter_readings",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "usage_kwh",
+      "value": "400",
+      "confidence": 0.99,
+      "location_hint": "meter_readings",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "unit_rate",
+      "value": "0.28",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "energy_charge",
+      "value": "112.00",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "standing_charge",
+      "value": "15.40",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "vat_rate",
+      "value": "5",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "percentage",
+      "is_critical": true
+    },
+    {
+      "name": "vat_amount",
+      "value": "6.37",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "total_amount_due",
+      "value": "133.77",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "payment_method",
+      "value": "Direct Debit",
+      "confidence": 0.97,
+      "location_hint": "payment_terms",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "currency",
+      "value": "GBP",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": false
+    }
+  ],
+  "overall_confidence": 0.9890000000000001,
+  "reference_keys": {},
+  "document_profile": {
+    "doc_type": "utility_bill",
+    "industry_hint": "utilities",
+    "sections": [
+      "header",
+      "account_info",
+      "billing_period",
+      "meter_readings",
+      "line_items",
+      "payment_terms"
+    ],
+    "language": "en",
+    "currency": "GBP"
+  }
+}

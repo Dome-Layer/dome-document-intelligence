@@ -1,0 +1,191 @@
+{
+  "fields": [
+    {
+      "name": "issuing_company",
+      "value": "Globex Corporation",
+      "confidence": 0.98,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "po_number",
+      "value": "PO-88421",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "order_date",
+      "value": "2025-11-03",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "required_delivery_date",
+      "value": "2025-12-01",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "supplier_name",
+      "value": "Acme Supplies Ltd",
+      "confidence": 0.99,
+      "location_hint": "supplier_info",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "ship_to_address",
+      "value": "Globex Warehouse 7, 500 Industrial Pkwy, Dayton, OH",
+      "confidence": 0.98,
+      "location_hint": "shipping_info",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_1_description",
+      "value": "Widget Assembly Kit",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_1_quantity",
+      "value": "50",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_1_unit_price",
+      "value": "250.00",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_1_line_total",
+      "value": "12500.00",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_2_description",
+      "value": "Safety Gloves (box)",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_2_quantity",
+      "value": "100",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_2_unit_price",
+      "value": "12.50",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_2_line_total",
+      "value": "1250.00",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "subtotal",
+      "value": "13750.00",
+      "confidence": 0.99,
+      "location_hint": "order_totals",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "shipping_cost",
+      "value": "250.00",
+      "confidence": 0.99,
+      "location_hint": "order_totals",
+      "data_type": "currency",
+      "is_critical": false
+    },
+    {
+      "name": "order_total",
+      "value": "14000.00",
+      "confidence": 0.99,
+      "location_hint": "order_totals",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "currency",
+      "value": "USD",
+      "confidence": 0.99,
+      "location_hint": "order_totals",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "payment_terms",
+      "value": "Net 45",
+      "confidence": 0.99,
+      "location_hint": "payment_terms",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "approved_by_name",
+      "value": "J. Researcher",
+      "confidence": 0.98,
+      "location_hint": "approval",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "approved_by_title",
+      "value": "Procurement Manager",
+      "confidence": 0.98,
+      "location_hint": "approval",
+      "data_type": "text",
+      "is_critical": false
+    }
+  ],
+  "overall_confidence": 0.9880952380952381,
+  "reference_keys": {
+    "po_number": "PO-88421"
+  },
+  "document_profile": {
+    "doc_type": "purchase_order",
+    "industry_hint": "procurement",
+    "sections": [
+      "header",
+      "supplier_info",
+      "shipping_info",
+      "line_items",
+      "order_totals",
+      "payment_terms",
+      "approval"
+    ],
+    "language": "en",
+    "currency": "USD"
+  }
+}

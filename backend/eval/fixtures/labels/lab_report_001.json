@@ -1,0 +1,19 @@
+{
+  "doc_id": "lab_report_001",
+  "source": "docs/lab_report_001.txt",
+  "modality": "text",
+  "expected_profile": {"doc_type": "lab_report", "language": "en", "currency": null},
+  "expected_reference_keys": {"accession_number": "LAB-2025-99214", "patient_id": "PT-30571"},
+  "expected_fields": [
+    {"name": "accession_number", "value": "LAB-2025-99214", "data_type": "identifier", "is_critical": true, "match": "normalized", "aliases": ["accession", "sample_id"]},
+    {"name": "patient_id", "value": "PT-30571", "data_type": "identifier", "is_critical": true, "match": "normalized", "aliases": ["mrn", "patient_number"]},
+    {"name": "collection_date", "value": "2025-10-02", "data_type": "date", "match": "normalized", "aliases": ["collected", "collection"]},
+    {"name": "report_date", "value": "2025-10-03", "data_type": "date", "match": "normalized", "aliases": ["date"]},
+    {"name": "date_of_birth", "value": "1985-06-12", "data_type": "date", "match": "normalized", "aliases": ["dob"]},
+    {"name": "haemoglobin", "value": "13.8", "data_type": "text", "match": "normalized", "aliases": ["hemoglobin", "hb"]},
+    {"name": "white_cell_count", "value": "11.4", "data_type": "text", "match": "normalized", "aliases": ["wbc", "white_blood_cell_count"]},
+    {"name": "glucose", "value": "104", "data_type": "text", "match": "normalized", "aliases": ["fasting_glucose", "glucose_fasting"]},
+    {"name": "interpretation", "value": "Mild leukocytosis", "data_type": "text", "match": "fuzzy", "aliases": ["impression", "comment", "conclusion"]}
+  ],
+  "expected_human_in_loop": "not_required"
+}

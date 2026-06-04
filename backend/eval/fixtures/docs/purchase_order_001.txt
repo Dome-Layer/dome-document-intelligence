@@ -1,0 +1,18 @@
+GLOBEX CORPORATION — PURCHASE ORDER
+
+PO Number: PO-88421
+Order Date: 2025-11-03
+Required Delivery: 2025-12-01
+Supplier: Acme Supplies Ltd
+Ship To: Globex Warehouse 7, 500 Industrial Pkwy, Dayton, OH
+
+Line Items:
+1. Widget Assembly Kit  — Qty 50  — $250.00 ea — $12,500.00
+2. Safety Gloves (box)  — Qty 100 — $12.50 ea  — $1,250.00
+
+Subtotal: $13,750.00
+Shipping: $250.00
+Order Total: $14,000.00 USD
+
+Approved By: J. Researcher, Procurement Manager
+Payment Terms: Net 45

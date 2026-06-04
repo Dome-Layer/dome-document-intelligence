@@ -1,0 +1,15 @@
+HARBOUR BANK — CURRENT ACCOUNT STATEMENT
+
+Account Holder: Meridian Trading Ltd
+Account Number: 60-12-34 87654321
+IBAN: GB29 HBUK 6012 3487 6543 21
+Statement Period: 01 Sep 2025 - 30 Sep 2025
+Statement Date: 2025-09-30
+Opening Balance: $12,430.55
+Closing Balance: $18,905.12
+
+Date         Description                 Amount       Balance
+2025-09-03   Client Payment - Globex     +$8,000.00   $20,430.55
+2025-09-12   Supplier - Acme Supplies    -$4,320.00   $16,110.55
+2025-09-20   Payroll                     -$2,205.43   $13,905.12
+2025-09-28   Interest                    +$5,000.00   $18,905.12

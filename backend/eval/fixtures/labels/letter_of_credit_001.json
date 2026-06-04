@@ -1,0 +1,17 @@
+{
+  "doc_id": "letter_of_credit_001",
+  "source": "docs/letter_of_credit_001.txt",
+  "modality": "text",
+  "expected_profile": {"doc_type": "letter_of_credit", "language": "en", "currency": "USD"},
+  "expected_reference_keys": {"credit_number": "LC-2025-IMP-3398"},
+  "expected_fields": [
+    {"name": "credit_number", "value": "LC-2025-IMP-3398", "data_type": "identifier", "is_critical": true, "match": "normalized", "aliases": ["lc_number", "documentary_credit_number", "reference"]},
+    {"name": "date_of_issue", "value": "2025-07-01", "data_type": "date", "match": "normalized", "aliases": ["issue_date", "issued_date"]},
+    {"name": "date_of_expiry", "value": "2025-12-31", "data_type": "date", "match": "normalized", "aliases": ["expiry_date", "expiration_date"]},
+    {"name": "credit_amount", "value": "485000.00", "data_type": "currency", "is_critical": true, "match": "normalized", "aliases": ["amount", "lc_amount", "total"]},
+    {"name": "beneficiary", "value": "Shenzhen Components Co.", "data_type": "text", "match": "fuzzy", "aliases": ["beneficiary_name"]},
+    {"name": "applicant", "value": "Globex Corporation", "data_type": "text", "match": "fuzzy", "aliases": ["applicant_name"]},
+    {"name": "latest_shipment_date", "value": "2025-12-15", "data_type": "date", "match": "normalized", "aliases": ["shipment_date", "latest_ship_date"]}
+  ],
+  "expected_human_in_loop": "recommended"
+}

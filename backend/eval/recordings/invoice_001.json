@@ -1,0 +1,206 @@
+{
+  "fields": [
+    {
+      "name": "supplier_name",
+      "value": "ACME SUPPLIES LTD",
+      "confidence": 0.98,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "supplier_address",
+      "value": "123 Commerce Way, Springfield, IL 62701",
+      "confidence": 0.98,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "supplier_vat_number",
+      "value": "US-ACME-001",
+      "confidence": 0.97,
+      "location_hint": "header",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "invoice_number",
+      "value": "INV-2024-0001",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "invoice_date",
+      "value": "2024-03-14",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "due_date",
+      "value": "2024-04-13",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "bill_to_name",
+      "value": "Globex Corporation",
+      "confidence": 0.99,
+      "location_hint": "billing_info",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "bill_to_address",
+      "value": "500 Industrial Pkwy, Dayton, OH",
+      "confidence": 0.98,
+      "location_hint": "billing_info",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "line_item_1_description",
+      "value": "Widget Assembly Kit",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_1_quantity",
+      "value": "10",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_1_unit_price",
+      "value": "250.00",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_1_amount",
+      "value": "2500.00",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_2_description",
+      "value": "On-site Calibration",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_2_quantity",
+      "value": "4",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_2_unit_price",
+      "value": "375.00",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "line_item_2_amount",
+      "value": "1500.00",
+      "confidence": 0.99,
+      "location_hint": "line_items",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "subtotal",
+      "value": "4000.00",
+      "confidence": 0.99,
+      "location_hint": "tax_summary",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "tax_rate",
+      "value": "8",
+      "confidence": 0.99,
+      "location_hint": "tax_summary",
+      "data_type": "percentage",
+      "is_critical": true
+    },
+    {
+      "name": "tax_amount",
+      "value": "320.00",
+      "confidence": 0.99,
+      "location_hint": "tax_summary",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "total_due",
+      "value": "4320.00",
+      "confidence": 0.99,
+      "location_hint": "tax_summary",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "currency",
+      "value": "USD",
+      "confidence": 0.99,
+      "location_hint": "tax_summary",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "payment_terms",
+      "value": "Net 30",
+      "confidence": 0.99,
+      "location_hint": "payment_terms",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "remit_to",
+      "value": "Acme Supplies Ltd",
+      "confidence": 0.97,
+      "location_hint": "payment_terms",
+      "data_type": "text",
+      "is_critical": false
+    }
+  ],
+  "overall_confidence": 0.9869565217391304,
+  "reference_keys": {
+    "invoice_number": "INV-2024-0001",
+    "supplier_vat_number": "US-ACME-001"
+  },
+  "document_profile": {
+    "doc_type": "invoice",
+    "industry_hint": "procurement",
+    "sections": [
+      "header",
+      "billing_info",
+      "line_items",
+      "tax_summary",
+      "payment_terms"
+    ],
+    "language": "en",
+    "currency": "USD"
+  }
+}

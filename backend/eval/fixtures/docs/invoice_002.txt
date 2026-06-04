@@ -1,0 +1,20 @@
+Müller Industrietechnik GmbH
+Hauptstraße 42, 80331 München, Deutschland
+USt-IdNr: DE123456789
+
+RECHNUNG / INVOICE
+
+Invoice Number: RE-2025-0457
+Invoice Date: 12/02/2025
+Due Date: 14/03/2025
+Customer: Nordwind Logistik AG
+
+Position                      Menge   Einzelpreis     Betrag
+Industriepumpe Typ X             2      4.500,00 €    9.000,00 €
+Wartungsvertrag (12 Monate)      1      1.250,50 €    1.250,50 €
+
+Zwischensumme: 10.250,50 €
+MwSt (19%): 1.947,60 €
+Gesamtbetrag: 12.198,10 € EUR
+
+Zahlungsziel: 30 Tage

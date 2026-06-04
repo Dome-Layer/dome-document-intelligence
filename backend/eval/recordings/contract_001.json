@@ -1,0 +1,169 @@
+{
+  "fields": [
+    {
+      "name": "document_title",
+      "value": "MASTER SERVICES AGREEMENT",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "agreement_reference",
+      "value": "MSA-2025-014",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "effective_date",
+      "value": "2025-01-15",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "contract_term",
+      "value": "24 months from the Effective Date",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "contract_end_date",
+      "value": "2027-01-15",
+      "confidence": 0.82,
+      "location_hint": "header",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "provider_name",
+      "value": "Brightpath Consulting LLC",
+      "confidence": 0.99,
+      "location_hint": "parties",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "client_name",
+      "value": "Globex Corporation",
+      "confidence": 0.99,
+      "location_hint": "parties",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "scope_of_services",
+      "value": "Cloud migration advisory and managed support services, including quarterly architecture reviews and 24x7 incident response, as detailed in Schedule A",
+      "confidence": 0.97,
+      "location_hint": "scope_of_services",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "referenced_schedule",
+      "value": "Schedule A",
+      "confidence": 0.97,
+      "location_hint": "scope_of_services",
+      "data_type": "identifier",
+      "is_critical": false
+    },
+    {
+      "name": "total_contract_value",
+      "value": "240000.00",
+      "confidence": 0.99,
+      "location_hint": "payment_terms",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "monthly_billing_amount",
+      "value": "10000.00",
+      "confidence": 0.99,
+      "location_hint": "payment_terms",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "billing_frequency",
+      "value": "Monthly",
+      "confidence": 0.99,
+      "location_hint": "payment_terms",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "governing_law",
+      "value": "State of Delaware",
+      "confidence": 0.99,
+      "location_hint": "governing_law",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "termination_notice_period",
+      "value": "60 days written notice",
+      "confidence": 0.99,
+      "location_hint": "termination",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "termination_rights",
+      "value": "Either party may terminate with 60 days written notice",
+      "confidence": 0.99,
+      "location_hint": "termination",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "signatory_name",
+      "value": "A. Director",
+      "confidence": 0.75,
+      "location_hint": "signatures",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "signatory_title",
+      "value": "VP Operations",
+      "confidence": 0.97,
+      "location_hint": "signatures",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "currency",
+      "value": "USD",
+      "confidence": 0.95,
+      "location_hint": "payment_terms",
+      "data_type": "identifier",
+      "is_critical": false
+    }
+  ],
+  "overall_confidence": 0.9616666666666666,
+  "reference_keys": {
+    "contract_ref": "MSA-2025-014",
+    "referenced_schedule": "Schedule A"
+  },
+  "document_profile": {
+    "doc_type": "contract",
+    "industry_hint": "technology",
+    "sections": [
+      "header",
+      "parties",
+      "scope_of_services",
+      "payment_terms",
+      "governing_law",
+      "termination",
+      "signatures",
+      "schedules"
+    ],
+    "language": "en",
+    "currency": "USD"
+  }
+}

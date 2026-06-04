@@ -1,0 +1,149 @@
+{
+  "fields": [
+    {
+      "name": "company_name",
+      "value": "BRIGHTPATH CONSULTING LLC",
+      "confidence": 0.97,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "document_type",
+      "value": "PAYSLIP",
+      "confidence": 0.97,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "employee_name",
+      "value": "Pat Example (synthetic)",
+      "confidence": 0.95,
+      "location_hint": "employee_info",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "employee_id",
+      "value": "EMP-2048",
+      "confidence": 0.99,
+      "location_hint": "employee_info",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "pay_period_start",
+      "value": "2025-10-01",
+      "confidence": 0.99,
+      "location_hint": "employee_info",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "pay_period_end",
+      "value": "2025-10-31",
+      "confidence": 0.99,
+      "location_hint": "employee_info",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "pay_date",
+      "value": "2025-11-05",
+      "confidence": 0.99,
+      "location_hint": "employee_info",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "national_insurance_number",
+      "value": "QQ123456C",
+      "confidence": 0.97,
+      "location_hint": "employee_info",
+      "data_type": "identifier",
+      "is_critical": true
+    },
+    {
+      "name": "basic_salary",
+      "value": "5000.00",
+      "confidence": 0.99,
+      "location_hint": "earnings",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "performance_bonus",
+      "value": "750.00",
+      "confidence": 0.99,
+      "location_hint": "earnings",
+      "data_type": "currency",
+      "is_critical": false
+    },
+    {
+      "name": "gross_pay",
+      "value": "5750.00",
+      "confidence": 0.99,
+      "location_hint": "earnings",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "income_tax",
+      "value": "1150.00",
+      "confidence": 0.99,
+      "location_hint": "deductions",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "pension_deduction",
+      "value": "287.50",
+      "confidence": 0.99,
+      "location_hint": "deductions",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "pension_rate",
+      "value": "5%",
+      "confidence": 0.99,
+      "location_hint": "deductions",
+      "data_type": "percentage",
+      "is_critical": false
+    },
+    {
+      "name": "net_pay",
+      "value": "4312.50",
+      "confidence": 0.99,
+      "location_hint": "deductions",
+      "data_type": "currency",
+      "is_critical": true
+    },
+    {
+      "name": "currency",
+      "value": "USD",
+      "confidence": 0.99,
+      "location_hint": "deductions",
+      "data_type": "text",
+      "is_critical": false
+    }
+  ],
+  "overall_confidence": 0.98375,
+  "reference_keys": {
+    "employee_id": "EMP-2048",
+    "national_insurance_number": "QQ123456C"
+  },
+  "document_profile": {
+    "doc_type": "other",
+    "industry_hint": "hr",
+    "sections": [
+      "header",
+      "employee_info",
+      "earnings",
+      "deductions"
+    ],
+    "language": "en",
+    "currency": "USD"
+  }
+}

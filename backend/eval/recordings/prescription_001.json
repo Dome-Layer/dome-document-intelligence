@@ -1,0 +1,171 @@
+{
+  "fields": [
+    {
+      "name": "clinic_name",
+      "value": "GREENFIELD FAMILY CLINIC",
+      "confidence": 0.97,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "document_type",
+      "value": "PRESCRIPTION",
+      "confidence": 0.99,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "prescription_date",
+      "value": "2025-10-05",
+      "confidence": 0.98,
+      "location_hint": "patient_info",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "patient_name",
+      "value": "Alex Placeholder",
+      "confidence": 0.95,
+      "location_hint": "patient_info",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "patient_name_note",
+      "value": "synthetic",
+      "confidence": 0.97,
+      "location_hint": "patient_info",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "patient_date_of_birth",
+      "value": "1990-02-20",
+      "confidence": 0.98,
+      "location_hint": "patient_info",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "patient_address",
+      "value": "8 Meadow Lane, Bristol, BS1 4ST",
+      "confidence": 0.97,
+      "location_hint": "patient_info",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "patient_city",
+      "value": "Bristol",
+      "confidence": 0.97,
+      "location_hint": "patient_info",
+      "data_type": "text",
+      "is_critical": false
+    },
+    {
+      "name": "patient_postcode",
+      "value": "BS1 4ST",
+      "confidence": 0.97,
+      "location_hint": "patient_info",
+      "data_type": "identifier",
+      "is_critical": false
+    },
+    {
+      "name": "drug_name",
+      "value": "Amoxicillin",
+      "confidence": 0.99,
+      "location_hint": "rx_details",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "drug_strength",
+      "value": "500 mg",
+      "confidence": 0.99,
+      "location_hint": "rx_details",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "drug_form",
+      "value": "capsules",
+      "confidence": 0.99,
+      "location_hint": "rx_details",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "dosage_instructions",
+      "value": "Take one capsule three times daily for 7 days",
+      "confidence": 0.99,
+      "location_hint": "rx_details",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "dosage_frequency",
+      "value": "three times daily",
+      "confidence": 0.98,
+      "location_hint": "rx_details",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "treatment_duration_days",
+      "value": "7",
+      "confidence": 0.98,
+      "location_hint": "rx_details",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "quantity_dispensed",
+      "value": "21 capsules",
+      "confidence": 0.99,
+      "location_hint": "rx_details",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "prescriber_name",
+      "value": "Dr. M. Clinician",
+      "confidence": 0.97,
+      "location_hint": "prescriber_info",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "known_allergies",
+      "value": "No known allergies",
+      "confidence": 0.97,
+      "location_hint": "notes",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "clinical_notes",
+      "value": "Review if symptoms persist beyond 5 days.",
+      "confidence": 0.97,
+      "location_hint": "notes",
+      "data_type": "text",
+      "is_critical": false
+    }
+  ],
+  "overall_confidence": 0.9773684210526316,
+  "reference_keys": {},
+  "document_profile": {
+    "doc_type": "prescription",
+    "industry_hint": "healthcare",
+    "sections": [
+      "header",
+      "patient_info",
+      "rx_details",
+      "prescriber_info",
+      "notes"
+    ],
+    "language": "en",
+    "currency": null
+  }
+}
