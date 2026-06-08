@@ -10,6 +10,7 @@ export function Header() {
     <ToolHeader
       toolName="Document Intelligence"
       width="fluid"
+      showHomeLink={false}
       renderLink={({ href, children, ...rest }) => (
         <Link href={href} {...rest}>
           {children}
