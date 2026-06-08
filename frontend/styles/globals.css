@@ -1,4 +1,5 @@
 @import "@dome-layer/dome-ui/tokens.css";
+@import "@dome-layer/dome-ui/components.css";
 
 @tailwind base;
 @tailwind components;
@@ -54,25 +55,7 @@
   background: var(--color-bg-base);
 }
 
-.app-topbar {
-  height: 64px;
-  display: flex;
-  align-items: center;
-  padding: 0 24px;
-  background: rgba(255, 255, 255, 0.90);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-bottom: 0.5px solid var(--color-border-default);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  flex-shrink: 0;
-}
-
-[data-theme="dark"] .app-topbar {
-  background: rgba(10, 10, 10, 0.90);
-  border-bottom-color: var(--color-border-subtle);
-}
+/* .app-topbar retired — the header now uses the shared dome-ui ToolHeader (.site-header). */
 
 .app-body {
   display: flex;
