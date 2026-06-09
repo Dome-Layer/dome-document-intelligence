@@ -1,5 +1,5 @@
 {
-  "installCommand": "npm ci",
+  "installCommand": "rm -rf node_modules/@dome-layer/dome-ui && npm install",
   "regions": ["fra1"],
   "headers": [
     {
