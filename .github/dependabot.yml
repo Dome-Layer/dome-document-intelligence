@@ -11,6 +11,11 @@ updates:
     groups:
       python-minor-patch:
         update-types: ["minor", "patch"]
+    ignore:
+      - dependency-name: "mypy"
+        versions: [">= 2.0"]
+      - dependency-name: "pytest-asyncio"
+        versions: [">= 1.0"]
   - package-ecosystem: "npm"
     directory: "/frontend"
     schedule:
@@ -19,6 +24,11 @@ updates:
     groups:
       npm-minor-patch:
         update-types: ["minor", "patch"]
+    ignore:
+      - dependency-name: "typescript"
+        versions: [">= 6.0"]
+      - dependency-name: "eslint"
+        versions: [">= 10.0"]
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
