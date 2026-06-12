@@ -39,7 +39,7 @@ distro==1.9.0
     # via anthropic
 docstring-parser==0.18.0
     # via anthropic
-dome-core[anthropic] @ git+https://github.com/Dome-Layer/dome-core.git@v0.3.0
+dome-core @ git+https://github.com/Dome-Layer/dome-core.git@b65bcf0548b102c69b5ae45014cb51f09ad99f56
     # via -r requirements.in
 et-xmlfile==2.0.0
     # via openpyxl
@@ -64,7 +64,7 @@ httpcore==1.0.9
     # via httpx
 httptools==0.8.0
     # via uvicorn
-httpx[http2]==0.28.1
+httpx==0.28.1
     # via
     #   -r requirements.in
     #   anthropic
@@ -140,7 +140,7 @@ pydantic-core==2.46.4
     # via pydantic
 pydantic-settings==2.14.1
     # via -r requirements.in
-pyjwt[crypto]==2.13.0
+pyjwt==2.13.0
     # via
     #   dome-core
     #   supabase-auth
@@ -170,7 +170,7 @@ realtime==2.31.0
     # via supabase
 ruff==0.15.17
     # via -r requirements-dev.in
-sentry-sdk[fastapi]==2.62.0
+sentry-sdk==2.62.0
     # via
     #   -r requirements.in
     #   dome-core
@@ -215,7 +215,7 @@ typing-inspection==0.4.2
     #   pydantic-settings
 urllib3==2.7.0
     # via sentry-sdk
-uvicorn[standard]==0.49.0
+uvicorn==0.49.0
     # via -r requirements.in
 uvloop==0.22.1
     # via uvicorn
