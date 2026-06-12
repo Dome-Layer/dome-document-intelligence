@@ -16,9 +16,9 @@ def _pairs():
     golden = loader.load_golden_set()
     pairs = []
     for g in golden:
-        assert loader.has_recording(
-            g.doc_id
-        ), f"missing recording for {g.doc_id}; run `make eval` and commit eval/recordings/"
+        assert loader.has_recording(g.doc_id), (
+            f"missing recording for {g.doc_id}; run `make eval` and commit eval/recordings/"
+        )
         pairs.append((g, loader.load_recording(g.doc_id)))
     return pairs
 

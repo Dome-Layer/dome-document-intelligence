@@ -24,6 +24,8 @@ export function Sidebar() {
               key={href}
               href={href}
               className={`sidebar-item${isActive ? ' active' : ''}`}
+              title={label}
+              aria-label={label}
             >
               <Icon size={20} strokeWidth={1.5} />
               <span>{label}</span>
