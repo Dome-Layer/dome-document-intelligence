@@ -103,6 +103,20 @@
   background: var(--color-bg-accent);
 }
 
+@media (max-width: 767px) {
+  .app-sidebar {
+    width: 56px;
+  }
+  .sidebar-item {
+    padding: 10px;
+    justify-content: center;
+    gap: 0;
+  }
+  .sidebar-item span {
+    display: none;
+  }
+}
+
 /* ─── Site header ────────────────────────────────────────────────── */
 .site-header {
   background: rgba(255, 255, 255, 0.90);
