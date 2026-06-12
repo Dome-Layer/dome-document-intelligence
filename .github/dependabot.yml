@@ -25,6 +25,9 @@ updates:
       npm-minor-patch:
         update-types: ["minor", "patch"]
     ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@dome-layer/dome-ui"
       - dependency-name: "typescript"
         versions: [">= 6.0"]
       - dependency-name: "eslint"
