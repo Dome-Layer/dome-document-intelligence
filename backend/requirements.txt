@@ -158,11 +158,13 @@ supabase-functions==2.31.0
 typing-extensions==4.15.0
     # via
     #   anthropic
+    #   anyio
     #   fastapi
     #   limits
     #   pydantic
     #   pydantic-core
     #   realtime
+    #   starlette
     #   typing-inspection
 typing-inspection==0.4.2
     # via
