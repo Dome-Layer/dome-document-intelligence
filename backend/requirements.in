@@ -1,6 +1,6 @@
 dome-core[anthropic] @ git+https://github.com/Dome-Layer/dome-core.git@v0.3.0
-fastapi>=0.115.0
-slowapi>=0.1.9
+fastapi>=0.137.0
+slowapi>=0.1.10
 uvicorn[standard]>=0.49.0
 pydantic>=2.9.0
 pydantic-settings>=2.6.0
