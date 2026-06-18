@@ -43,9 +43,7 @@ async def get_current_user(
     if x_service_key:
         if settings.agent_flow_service_key and x_service_key == settings.agent_flow_service_key:
             return None
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid service key"
-        )
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid service key")
 
     if settings.dev_bypass_auth:
         return "00000000-0000-0000-0000-000000000000"
