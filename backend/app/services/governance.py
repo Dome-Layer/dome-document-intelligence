@@ -26,6 +26,7 @@ async def emit_governance_event(
     human_in_loop: str,
     user_id: Optional[str],
     metadata: dict,
+    workflow_run_id: Optional[str] = None,
 ) -> GovernanceEvent:
     event = GovernanceEvent(
         agent_id=AGENT_ID,
@@ -39,6 +40,7 @@ async def emit_governance_event(
         confidence=confidence,
         human_in_loop=human_in_loop,
         user_id=user_id,
+        workflow_run_id=workflow_run_id,
         metadata=metadata,
     )
 

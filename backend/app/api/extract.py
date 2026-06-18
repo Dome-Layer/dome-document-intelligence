@@ -1,6 +1,7 @@
 import time
+from typing import Optional
 
-from fastapi import APIRouter, Depends, File, HTTPException, Request, UploadFile, status
+from fastapi import APIRouter, Depends, File, Header, HTTPException, Request, UploadFile, status
 
 from ..api.deps import get_current_user
 from ..core.config import settings
@@ -31,7 +32,8 @@ _validate = ValidationService()
 async def extract(
     request: Request,
     file: UploadFile = File(...),
-    user_id: str = Depends(get_current_user),
+    user_id: Optional[str] = Depends(get_current_user),
+    x_workflow_run_id: Optional[str] = Header(default=None),
 ) -> DocumentIntelligenceResult:
     # ── Size guard ────────────────────────────────────────────────────────────
     max_bytes = settings.max_file_size_mb * 1024 * 1024
@@ -78,6 +80,7 @@ async def extract(
             confidence=None,
             human_in_loop="required",
             user_id=user_id,
+            workflow_run_id=x_workflow_run_id,
             metadata={"error": str(e), "filename": filename},
         )
         raise HTTPException(
@@ -104,6 +107,7 @@ async def extract(
         confidence=extraction.overall_confidence,
         human_in_loop=validation.human_in_loop,
         user_id=user_id,
+        workflow_run_id=x_workflow_run_id,
         metadata={
             "doc_type": extraction.document_profile.doc_type,
             "language": extraction.document_profile.language,

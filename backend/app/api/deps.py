@@ -1,7 +1,7 @@
 from typing import Optional
 
 from dome_core.auth import AuthError, make_supabase_fallback, verify_jwt
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, Header, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from ..core.config import settings
@@ -28,15 +28,23 @@ _network_fallback = make_supabase_fallback(_supabase_for_fallback)
 
 
 async def get_current_user(
+    x_service_key: Optional[str] = Header(default=None),
     credentials: Optional[HTTPAuthorizationCredentials] = Depends(_bearer),
-) -> str:
-    """Verify Supabase bearer token and return user_id.
+) -> Optional[str]:
+    """Authenticate the caller and return a user_id (or None for a trusted service).
 
-    Verifies the JWT signature locally against Supabase's published JWKS
-    (dome-core ``verify_jwt``), falling back to a live ``get_user`` call only on
-    JWKS-infrastructure failure. When DEV_BYPASS_AUTH=true in .env, skips
-    validation entirely and returns a fixed dev user ID. Never set in production.
+    Accepts either a Supabase bearer token (verified locally against the published
+    JWKS via dome-core ``verify_jwt``, with a live ``get_user`` fallback only on
+    JWKS-infrastructure failure) OR an ``X-Service-Key`` matching
+    AGENT_FLOW_SERVICE_KEY (the P5 agent-flow shim) — in which case there is no user
+    and None is returned. When DEV_BYPASS_AUTH=true in .env, validation is skipped
+    and a fixed dev user ID is returned. Never set in production.
     """
+    if x_service_key:
+        if settings.agent_flow_service_key and x_service_key == settings.agent_flow_service_key:
+            return None
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid service key")
+
     if settings.dev_bypass_auth:
         return "00000000-0000-0000-0000-000000000000"
 

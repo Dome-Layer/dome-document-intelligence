@@ -28,6 +28,8 @@ class Settings(BaseSettings):
     cors_origins: str = "http://localhost:3000"
     max_file_size_mb: int = 20
     dev_bypass_auth: bool = False
+    # Service-to-service auth for the P5 agent-flow shim (X-Service-Key).
+    agent_flow_service_key: str = ""
 
     model_config = {
         "env_file": ".env",
