@@ -4,7 +4,7 @@ annotated-doc==0.0.4
     # via fastapi
 annotated-types==0.7.0
     # via pydantic
-anthropic==0.109.1
+anthropic==0.116.0
     # via
     #   -r requirements.in
     #   dome-core
@@ -35,11 +35,11 @@ distro==1.9.0
     # via anthropic
 docstring-parser==0.18.0
     # via anthropic
-dome-core @ git+https://github.com/Dome-Layer/dome-core.git@b65bcf0548b102c69b5ae45014cb51f09ad99f56
+dome-core[anthropic] @ git+https://github.com/Dome-Layer/dome-core.git@v0.3.0
     # via -r requirements.in
 et-xmlfile==2.0.0
     # via openpyxl
-fastapi==0.136.3
+fastapi==0.139.0
     # via
     #   -r requirements.in
     #   dome-core
@@ -56,7 +56,7 @@ httpcore==1.0.9
     # via httpx
 httptools==0.8.0
     # via uvicorn
-httpx==0.28.1
+httpx[http2]==0.28.1
     # via
     #   -r requirements.in
     #   anthropic
@@ -107,13 +107,13 @@ pydantic==2.13.4
     #   supabase-auth
 pydantic-core==2.46.4
     # via pydantic
-pydantic-settings==2.14.1
+pydantic-settings==2.14.2
     # via -r requirements.in
-pyjwt==2.13.0
+pyjwt[crypto]==2.13.0
     # via
     #   dome-core
     #   supabase-auth
-pymupdf==1.27.2.3
+pymupdf==1.28.0
     # via -r requirements.in
 python-dateutil==2.9.0.post0
     # via pandas
@@ -127,13 +127,13 @@ pyyaml==6.0.3
     # via uvicorn
 realtime==2.31.0
     # via supabase
-sentry-sdk==2.62.0
+sentry-sdk[fastapi]==2.64.0
     # via
     #   -r requirements.in
     #   dome-core
 six==1.17.0
     # via python-dateutil
-slowapi==0.1.9
+slowapi==0.1.10
     # via -r requirements.in
 sniffio==1.3.1
     # via anthropic
@@ -158,13 +158,11 @@ supabase-functions==2.31.0
 typing-extensions==4.15.0
     # via
     #   anthropic
-    #   anyio
     #   fastapi
     #   limits
     #   pydantic
     #   pydantic-core
     #   realtime
-    #   starlette
     #   typing-inspection
 typing-inspection==0.4.2
     # via
@@ -173,7 +171,7 @@ typing-inspection==0.4.2
     #   pydantic-settings
 urllib3==2.7.0
     # via sentry-sdk
-uvicorn==0.49.0
+uvicorn[standard]==0.50.1
     # via -r requirements.in
 uvloop==0.22.1
     # via uvicorn
