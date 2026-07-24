@@ -9,6 +9,7 @@ validated against ground truth, then resolves fuzzy fields, and logs exactly one
 
 from __future__ import annotations
 
+import time
 from pathlib import Path
 
 from app.core.config import settings
@@ -35,14 +36,23 @@ _NON_OBJECTIVE = {"missing", "extra", "deferred", "fuzzy-judge"}
 _DocTriple = tuple[GoldenDoc, ExtractionResult, list[FieldComparison]]
 
 
-async def _get_prediction(gold: GoldenDoc, *, refresh: bool) -> ExtractionResult:
+async def _get_prediction(
+    gold: GoldenDoc, *, refresh: bool
+) -> tuple[ExtractionResult, float | None]:
     if not refresh and loader.has_recording(gold.doc_id):
-        return loader.load_recording(gold.doc_id)
+        return loader.load_recording(gold.doc_id), None
     ingested = await loader.build_ingest(gold)
+    start = time.monotonic()
     result = await ExtractionService(get_llm_provider()).extract(ingested)
+    elapsed = time.monotonic() - start
     loader.save_recording(gold.doc_id, result)
-    logger.info("recorded_extraction", doc_id=gold.doc_id, fields=len(result.fields))
-    return result
+    logger.info(
+        "recorded_extraction",
+        doc_id=gold.doc_id,
+        fields=len(result.fields),
+        seconds=round(elapsed, 2),
+    )
+    return result, elapsed
 
 
 async def _run_judge(per_doc: list[_DocTriple], sample_cap: int) -> JudgeValidation:
@@ -141,9 +151,21 @@ async def run_eval(
         raise SystemExit("No golden docs found under eval/fixtures/labels/.")
 
     per_doc: list[_DocTriple] = []
+    latencies: list[float] = []
     for gold in golden:
-        pred = await _get_prediction(gold, refresh=refresh)
+        pred, elapsed = await _get_prediction(gold, refresh=refresh)
+        if elapsed is not None:
+            latencies.append(elapsed)
         per_doc.append((gold, pred, scorer.compare_fields(pred, gold)))
+
+    if latencies:
+        logger.info(
+            "eval_latency_summary",
+            n=len(latencies),
+            mean_s=round(sum(latencies) / len(latencies), 2),
+            min_s=round(min(latencies), 2),
+            max_s=round(max(latencies), 2),
+        )
 
     judge_validation = await _run_judge(per_doc, judge_sample) if use_judge else None
 

@@ -39,6 +39,7 @@ out/
 
 # ── Claude Code context (internal dev file — not for public repo) ─────────────
 TOOL_CONTEXT.md
+P3_local_deployment_notes.md
 
 # ── Logs ──────────────────────────────────────────────────────────────────────
 *.log

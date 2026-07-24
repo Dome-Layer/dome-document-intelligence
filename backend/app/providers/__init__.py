@@ -17,7 +17,7 @@ def get_llm_provider() -> LLMProvider:
             deployment=settings.azure_openai_deployment,
         )
     elif provider == "ollama":
-        return OllamaProvider(base_url=settings.ollama_url)
+        return OllamaProvider(base_url=settings.ollama_url, model=settings.llm_text_model)
     raise ValueError(f"Unknown LLM provider: {provider}")
 
 
