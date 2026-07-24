@@ -44,10 +44,12 @@ _EXTRACTION_SCHEMA = {
         }
     ],
     "overall_confidence": "float 0.0-1.0 — weighted average reflecting overall extraction quality",
-    "reference_keys": {
-        "description": "structured identifiers e.g. invoice_number, po_number, isin, contract_ref, patient_id, accession_number, case_number, sample_id",
-        "example": {"invoice_number": "INV-2024-001", "patient_id": "PT-98765"},
-    },
+    "reference_keys": (
+        "object mapping identifier type to value, e.g. "
+        '{"invoice_number": "INV-2024-001", "patient_id": "PT-98765"} — include structured '
+        "identifiers found in the document such as invoice_number, po_number, isin, "
+        "contract_ref, patient_id, accession_number, case_number, sample_id"
+    ),
 }
 
 
@@ -218,6 +220,8 @@ def _build_extraction_result(data: dict, profile: DocumentProfile) -> Extraction
             logger.warning("field_parse_error", field=f, error=str(e))
 
     ref_keys_raw = data.get("reference_keys", {})
+    if not isinstance(ref_keys_raw, dict):
+        ref_keys_raw = {}
     # Strip the schema description key if it leaked through
     reference_keys = {
         k: str(v)

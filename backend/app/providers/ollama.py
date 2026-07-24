@@ -20,6 +20,9 @@ _JSON_INSTRUCTION = "\n\nRespond ONLY with valid JSON. No markdown, no code fenc
 # observed up to ~300s+ on some documents), so this is deliberately much larger than a
 # typical cloud-provider timeout.
 _DEFAULT_TIMEOUT = httpx.Timeout(900.0, connect=10.0)
+# qwen3-vl:8b malformed-JSON failures are stochastic, not deterministic — an identical
+# retry has been observed to succeed (see P3_local_deployment_notes.md §4).
+_MAX_JSON_RETRIES = 2
 
 
 class OllamaProvider(LLMProvider):
@@ -68,6 +71,24 @@ class OllamaProvider(LLMProvider):
         return messages
 
     async def _chat(self, messages: list[dict], *, json_mode: bool) -> str:
+        text = await self._post(messages, json_mode=json_mode)
+        if not json_mode:
+            return text
+        for attempt in range(1, _MAX_JSON_RETRIES + 1):
+            try:
+                parse_json_response(text)
+                return text
+            except ValueError as exc:
+                logger.warning(
+                    "ollama_json_parse_retry",
+                    attempt=attempt,
+                    model=self._model,
+                    error=str(exc),
+                )
+                text = await self._post(messages, json_mode=json_mode)
+        return text  # final attempt's text — caller's own parse will raise if still invalid
+
+    async def _post(self, messages: list[dict], *, json_mode: bool) -> str:
         body: dict = {"model": self._model, "messages": messages, "stream": False}
         if json_mode:
             body["format"] = "json"
