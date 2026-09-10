@@ -2,16 +2,32 @@
   "fields": [
     {
       "name": "bank_name",
-      "value": "Harbour Bank",
-      "confidence": 0.97,
+      "value": "HARBOUR BANK",
+      "confidence": 1.0,
       "location_hint": "header",
       "data_type": "text",
       "is_critical": true
     },
     {
-      "name": "account_holder_name",
+      "name": "statement_period",
+      "value": "01 Sep 2025 - 30 Sep 2025",
+      "confidence": 1.0,
+      "location_hint": "header",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "statement_date",
+      "value": "2025-09-30",
+      "confidence": 1.0,
+      "location_hint": "header",
+      "data_type": "date",
+      "is_critical": true
+    },
+    {
+      "name": "account_holder",
       "value": "Meridian Trading Ltd",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "account_info",
       "data_type": "text",
       "is_critical": true
@@ -19,7 +35,7 @@
     {
       "name": "account_number",
       "value": "60-12-34 87654321",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "account_info",
       "data_type": "identifier",
       "is_critical": true
@@ -27,205 +43,157 @@
     {
       "name": "iban",
       "value": "GB29 HBUK 6012 3487 6543 21",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "account_info",
       "data_type": "identifier",
       "is_critical": true
     },
     {
-      "name": "statement_period_start",
-      "value": "2025-09-01",
-      "confidence": 0.97,
-      "location_hint": "account_info",
-      "data_type": "date",
-      "is_critical": true
-    },
-    {
-      "name": "statement_period_end",
-      "value": "2025-09-30",
-      "confidence": 0.97,
-      "location_hint": "account_info",
-      "data_type": "date",
-      "is_critical": true
-    },
-    {
-      "name": "statement_date",
-      "value": "2025-09-30",
-      "confidence": 0.99,
-      "location_hint": "account_info",
-      "data_type": "date",
-      "is_critical": true
-    },
-    {
       "name": "opening_balance",
-      "value": "12430.55",
-      "confidence": 0.99,
-      "location_hint": "statement_summary",
+      "value": "$12,430.55",
+      "confidence": 1.0,
+      "location_hint": "balance_summary",
       "data_type": "currency",
       "is_critical": true
     },
     {
       "name": "closing_balance",
-      "value": "18905.12",
-      "confidence": 0.99,
-      "location_hint": "statement_summary",
+      "value": "$18,905.12",
+      "confidence": 1.0,
+      "location_hint": "balance_summary",
       "data_type": "currency",
       "is_critical": true
     },
     {
-      "name": "transaction_date_1",
+      "name": "transaction_date",
       "value": "2025-09-03",
-      "confidence": 0.99,
-      "location_hint": "line_items",
+      "confidence": 1.0,
+      "location_hint": "transaction_records",
       "data_type": "date",
-      "is_critical": false
+      "is_critical": true
     },
     {
-      "name": "transaction_description_1",
+      "name": "transaction_description",
       "value": "Client Payment - Globex",
-      "confidence": 0.99,
-      "location_hint": "line_items",
+      "confidence": 1.0,
+      "location_hint": "transaction_records",
       "data_type": "text",
-      "is_critical": false
+      "is_critical": true
     },
     {
-      "name": "transaction_amount_1",
-      "value": "+8000.00",
-      "confidence": 0.99,
-      "location_hint": "line_items",
+      "name": "transaction_amount",
+      "value": "+$8,000.00",
+      "confidence": 1.0,
+      "location_hint": "transaction_records",
       "data_type": "currency",
-      "is_critical": false
+      "is_critical": true
     },
     {
-      "name": "transaction_balance_1",
-      "value": "20430.55",
-      "confidence": 0.99,
-      "location_hint": "line_items",
+      "name": "transaction_balance",
+      "value": "$20,430.55",
+      "confidence": 1.0,
+      "location_hint": "transaction_records",
       "data_type": "currency",
-      "is_critical": false
+      "is_critical": true
     },
     {
-      "name": "transaction_date_2",
+      "name": "transaction_date",
       "value": "2025-09-12",
-      "confidence": 0.99,
-      "location_hint": "line_items",
+      "confidence": 1.0,
+      "location_hint": "transaction_records",
       "data_type": "date",
-      "is_critical": false
+      "is_critical": true
     },
     {
-      "name": "transaction_description_2",
+      "name": "transaction_description",
       "value": "Supplier - Acme Supplies",
-      "confidence": 0.99,
-      "location_hint": "line_items",
+      "confidence": 1.0,
+      "location_hint": "transaction_records",
       "data_type": "text",
-      "is_critical": false
+      "is_critical": true
     },
     {
-      "name": "transaction_amount_2",
-      "value": "-4320.00",
-      "confidence": 0.99,
-      "location_hint": "line_items",
+      "name": "transaction_amount",
+      "value": "-$4,320.00",
+      "confidence": 1.0,
+      "location_hint": "transaction_records",
       "data_type": "currency",
-      "is_critical": false
+      "is_critical": true
     },
     {
-      "name": "transaction_balance_2",
-      "value": "16110.55",
-      "confidence": 0.99,
-      "location_hint": "line_items",
+      "name": "transaction_balance",
+      "value": "$16,110.55",
+      "confidence": 1.0,
+      "location_hint": "transaction_records",
       "data_type": "currency",
-      "is_critical": false
+      "is_critical": true
     },
     {
-      "name": "transaction_date_3",
+      "name": "transaction_date",
       "value": "2025-09-20",
-      "confidence": 0.99,
-      "location_hint": "line_items",
+      "confidence": 1.0,
+      "location_hint": "transaction_records",
       "data_type": "date",
-      "is_critical": false
+      "is_critical": true
     },
     {
-      "name": "transaction_description_3",
+      "name": "transaction_description",
       "value": "Payroll",
-      "confidence": 0.99,
-      "location_hint": "line_items",
+      "confidence": 1.0,
+      "location_hint": "transaction_records",
       "data_type": "text",
-      "is_critical": false
+      "is_critical": true
     },
     {
-      "name": "transaction_amount_3",
-      "value": "-2205.43",
-      "confidence": 0.99,
-      "location_hint": "line_items",
+      "name": "transaction_amount",
+      "value": "-$2,205.43",
+      "confidence": 1.0,
+      "location_hint": "transaction_records",
       "data_type": "currency",
-      "is_critical": false
+      "is_critical": true
     },
     {
-      "name": "transaction_balance_3",
-      "value": "13905.12",
-      "confidence": 0.99,
-      "location_hint": "line_items",
+      "name": "transaction_balance",
+      "value": "$13,905.12",
+      "confidence": 1.0,
+      "location_hint": "transaction_records",
       "data_type": "currency",
-      "is_critical": false
+      "is_critical": true
     },
     {
-      "name": "transaction_date_4",
+      "name": "transaction_date",
       "value": "2025-09-28",
-      "confidence": 0.99,
-      "location_hint": "line_items",
+      "confidence": 1.0,
+      "location_hint": "transaction_records",
       "data_type": "date",
-      "is_critical": false
+      "is_critical": true
     },
     {
-      "name": "transaction_description_4",
+      "name": "transaction_description",
       "value": "Interest",
-      "confidence": 0.99,
-      "location_hint": "line_items",
-      "data_type": "text",
-      "is_critical": false
-    },
-    {
-      "name": "transaction_amount_4",
-      "value": "+5000.00",
-      "confidence": 0.99,
-      "location_hint": "line_items",
-      "data_type": "currency",
-      "is_critical": false
-    },
-    {
-      "name": "transaction_balance_4",
-      "value": "18905.12",
-      "confidence": 0.99,
-      "location_hint": "line_items",
-      "data_type": "currency",
-      "is_critical": false
-    },
-    {
-      "name": "account_type",
-      "value": "Current Account",
-      "confidence": 0.95,
-      "location_hint": "header",
+      "confidence": 1.0,
+      "location_hint": "transaction_records",
       "data_type": "text",
       "is_critical": true
     },
     {
-      "name": "currency",
-      "value": "USD",
-      "confidence": 0.92,
-      "location_hint": "statement_summary",
-      "data_type": "text",
+      "name": "transaction_amount",
+      "value": "+$5,000.00",
+      "confidence": 1.0,
+      "location_hint": "transaction_records",
+      "data_type": "currency",
       "is_critical": true
     },
     {
-      "name": "net_change",
-      "value": "+6474.57",
-      "confidence": 0.85,
-      "location_hint": "statement_summary",
+      "name": "transaction_balance",
+      "value": "$18,905.12",
+      "confidence": 1.0,
+      "location_hint": "transaction_records",
       "data_type": "currency",
-      "is_critical": false
+      "is_critical": true
     }
   ],
-  "overall_confidence": 0.9789285714285715,
+  "overall_confidence": 1.0,
   "reference_keys": {
     "account_number": "60-12-34 87654321",
     "iban": "GB29 HBUK 6012 3487 6543 21"
@@ -236,8 +204,8 @@
     "sections": [
       "header",
       "account_info",
-      "statement_summary",
-      "line_items"
+      "balance_summary",
+      "transaction_records"
     ],
     "language": "en",
     "currency": "USD"

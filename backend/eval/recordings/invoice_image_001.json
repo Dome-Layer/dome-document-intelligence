@@ -1,17 +1,9 @@
 {
   "fields": [
     {
-      "name": "supplier_name",
-      "value": "Sunrise Cafe Supplies",
-      "confidence": 0.97,
-      "location_hint": "header",
-      "data_type": "text",
-      "is_critical": true
-    },
-    {
-      "name": "document_type",
-      "value": "Invoice",
-      "confidence": 0.99,
+      "name": "company_name",
+      "value": "SUNRISE CAFE SUPPLIES",
+      "confidence": 0.9,
       "location_hint": "header",
       "data_type": "text",
       "is_critical": true
@@ -19,120 +11,113 @@
     {
       "name": "invoice_number",
       "value": "INV-IMG-7781",
-      "confidence": 0.99,
-      "location_hint": "billing_info",
+      "confidence": 0.9,
+      "location_hint": "invoice_details",
       "data_type": "identifier",
       "is_critical": true
     },
     {
-      "name": "invoice_date",
+      "name": "date",
       "value": "2025-08-12",
-      "confidence": 0.99,
-      "location_hint": "billing_info",
+      "confidence": 0.9,
+      "location_hint": "invoice_details",
       "data_type": "date",
       "is_critical": true
     },
     {
       "name": "bill_to",
       "value": "Corner Bistro",
-      "confidence": 0.98,
-      "location_hint": "billing_info",
+      "confidence": 0.9,
+      "location_hint": "invoice_details",
       "data_type": "text",
       "is_critical": true
     },
     {
       "name": "line_item_1_description",
       "value": "Espresso Beans 5kg",
-      "confidence": 0.97,
+      "confidence": 0.9,
       "location_hint": "line_items",
       "data_type": "text",
-      "is_critical": false
+      "is_critical": true
     },
     {
       "name": "line_item_1_amount",
-      "value": "120.00",
-      "confidence": 0.97,
+      "value": "$120.00",
+      "confidence": 0.9,
       "location_hint": "line_items",
       "data_type": "currency",
-      "is_critical": false
+      "is_critical": true
     },
     {
       "name": "line_item_2_description",
       "value": "Paper Cups (1000)",
-      "confidence": 0.97,
+      "confidence": 0.9,
       "location_hint": "line_items",
       "data_type": "text",
-      "is_critical": false
+      "is_critical": true
     },
     {
       "name": "line_item_2_amount",
-      "value": "45.00",
-      "confidence": 0.97,
+      "value": "$45.00",
+      "confidence": 0.9,
       "location_hint": "line_items",
-      "data_type": "currency",
-      "is_critical": false
-    },
-    {
-      "name": "subtotal",
-      "value": "165.00",
-      "confidence": 0.99,
-      "location_hint": "subtotal",
       "data_type": "currency",
       "is_critical": true
     },
     {
       "name": "tax_rate",
       "value": "8%",
-      "confidence": 0.99,
-      "location_hint": "tax",
+      "confidence": 0.9,
+      "location_hint": "tax_info",
       "data_type": "percentage",
-      "is_critical": false
+      "is_critical": true
     },
     {
       "name": "tax_amount",
-      "value": "13.20",
-      "confidence": 0.99,
-      "location_hint": "tax",
+      "value": "$13.20",
+      "confidence": 0.9,
+      "location_hint": "tax_info",
       "data_type": "currency",
-      "is_critical": false
+      "is_critical": true
+    },
+    {
+      "name": "subtotal",
+      "value": "$165.00",
+      "confidence": 0.9,
+      "location_hint": "total_due",
+      "data_type": "currency",
+      "is_critical": true
     },
     {
       "name": "total_due",
-      "value": "178.20",
-      "confidence": 0.99,
-      "location_hint": "total",
+      "value": "$178.20 USD",
+      "confidence": 0.9,
+      "location_hint": "total_due",
       "data_type": "currency",
       "is_critical": true
     },
     {
-      "name": "currency",
-      "value": "USD",
-      "confidence": 0.99,
-      "location_hint": "total",
-      "data_type": "text",
-      "is_critical": true
-    },
-    {
-      "name": "payment_terms",
+      "name": "payment_method",
       "value": "Card on delivery",
-      "confidence": 0.98,
+      "confidence": 0.9,
       "location_hint": "payment_terms",
       "data_type": "text",
       "is_critical": true
     }
   ],
-  "overall_confidence": 0.982,
-  "reference_keys": {},
+  "overall_confidence": 0.9000000000000001,
+  "reference_keys": {
+    "invoice_number": "INV-IMG-7781"
+  },
   "document_profile": {
     "doc_type": "invoice",
-    "industry_hint": "retail",
+    "industry_hint": "procurement",
     "sections": [
       "header",
-      "billing_info",
+      "invoice_details",
       "line_items",
-      "subtotal",
-      "tax",
-      "total",
+      "tax_info",
+      "total_due",
       "payment_terms"
     ],
     "language": "en",

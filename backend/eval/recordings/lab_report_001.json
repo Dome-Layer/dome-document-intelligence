@@ -1,25 +1,9 @@
 {
   "fields": [
     {
-      "name": "laboratory_name",
-      "value": "Riverside Medical Laboratory",
-      "confidence": 0.98,
-      "location_hint": "header",
-      "data_type": "text",
-      "is_critical": true
-    },
-    {
-      "name": "report_type",
-      "value": "Pathology Report",
-      "confidence": 0.98,
-      "location_hint": "header",
-      "data_type": "text",
-      "is_critical": true
-    },
-    {
       "name": "accession_number",
       "value": "LAB-2025-99214",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "header",
       "data_type": "identifier",
       "is_critical": true
@@ -27,23 +11,23 @@
     {
       "name": "collection_date",
       "value": "2025-10-02",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "header",
       "data_type": "date",
-      "is_critical": true
+      "is_critical": false
     },
     {
       "name": "report_date",
       "value": "2025-10-03",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "header",
       "data_type": "date",
-      "is_critical": true
+      "is_critical": false
     },
     {
       "name": "patient_name",
       "value": "Jordan Sample (synthetic)",
-      "confidence": 0.97,
+      "confidence": 1.0,
       "location_hint": "patient_info",
       "data_type": "text",
       "is_critical": true
@@ -51,7 +35,7 @@
     {
       "name": "patient_id",
       "value": "PT-30571",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "patient_info",
       "data_type": "identifier",
       "is_critical": true
@@ -59,7 +43,7 @@
     {
       "name": "date_of_birth",
       "value": "1985-06-12",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "patient_info",
       "data_type": "date",
       "is_critical": true
@@ -67,149 +51,117 @@
     {
       "name": "ordering_physician",
       "value": "Dr. A. Practitioner",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "patient_info",
       "data_type": "text",
-      "is_critical": true
-    },
-    {
-      "name": "haemoglobin_result",
-      "value": "13.8",
-      "confidence": 0.99,
-      "location_hint": "test_results",
-      "data_type": "text",
-      "is_critical": true
-    },
-    {
-      "name": "haemoglobin_unit",
-      "value": "g/dL",
-      "confidence": 0.99,
-      "location_hint": "test_results",
-      "data_type": "text",
       "is_critical": false
+    },
+    {
+      "name": "haemoglobin_value",
+      "value": "13.8",
+      "confidence": 1.0,
+      "location_hint": "test_results",
+      "data_type": "text",
+      "is_critical": true
     },
     {
       "name": "haemoglobin_reference_range",
       "value": "13.0 - 17.0",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "test_results",
       "data_type": "text",
-      "is_critical": false
+      "is_critical": true
     },
     {
       "name": "haemoglobin_flag",
       "value": "Normal",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "test_results",
       "data_type": "text",
       "is_critical": true
     },
     {
-      "name": "white_cell_count_result",
+      "name": "white_cell_count_value",
       "value": "11.4",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "test_results",
       "data_type": "text",
       "is_critical": true
-    },
-    {
-      "name": "white_cell_count_unit",
-      "value": "10^9/L",
-      "confidence": 0.99,
-      "location_hint": "test_results",
-      "data_type": "text",
-      "is_critical": false
     },
     {
       "name": "white_cell_count_reference_range",
       "value": "4.0 - 11.0",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "test_results",
       "data_type": "text",
-      "is_critical": false
+      "is_critical": true
     },
     {
       "name": "white_cell_count_flag",
       "value": "High",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "test_results",
       "data_type": "text",
       "is_critical": true
     },
     {
-      "name": "platelets_result",
+      "name": "platelets_value",
       "value": "250",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "test_results",
       "data_type": "text",
       "is_critical": true
-    },
-    {
-      "name": "platelets_unit",
-      "value": "10^9/L",
-      "confidence": 0.99,
-      "location_hint": "test_results",
-      "data_type": "text",
-      "is_critical": false
     },
     {
       "name": "platelets_reference_range",
       "value": "150 - 400",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "test_results",
       "data_type": "text",
-      "is_critical": false
+      "is_critical": true
     },
     {
       "name": "platelets_flag",
       "value": "Normal",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "test_results",
       "data_type": "text",
       "is_critical": true
     },
     {
-      "name": "glucose_fasting_result",
+      "name": "glucose_fasting_value",
       "value": "104",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "test_results",
       "data_type": "text",
       "is_critical": true
-    },
-    {
-      "name": "glucose_fasting_unit",
-      "value": "mg/dL",
-      "confidence": 0.99,
-      "location_hint": "test_results",
-      "data_type": "text",
-      "is_critical": false
     },
     {
       "name": "glucose_fasting_reference_range",
       "value": "70 - 99",
-      "confidence": 0.99,
-      "location_hint": "test_results",
-      "data_type": "text",
-      "is_critical": false
-    },
-    {
-      "name": "glucose_fasting_flag",
-      "value": "High",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "test_results",
       "data_type": "text",
       "is_critical": true
     },
     {
-      "name": "interpretation",
+      "name": "glucose_fasting_flag",
+      "value": "High",
+      "confidence": 1.0,
+      "location_hint": "test_results",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "interpretation_text",
       "value": "Mild leukocytosis; correlate clinically.",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "interpretation",
       "data_type": "text",
       "is_critical": true
     }
   ],
-  "overall_confidence": 0.9884615384615384,
+  "overall_confidence": 1.0,
   "reference_keys": {
     "accession_number": "LAB-2025-99214",
     "patient_id": "PT-30571"

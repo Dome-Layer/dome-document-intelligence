@@ -1,166 +1,181 @@
 {
   "fields": [
     {
-      "name": "full_name",
-      "value": "Sam Candidate",
-      "confidence": 0.95,
+      "name": "name",
+      "value": "Sam Candidate (synthetic)",
+      "confidence": 1.0,
       "location_hint": "header",
       "data_type": "text",
       "is_critical": true
     },
     {
-      "name": "email_address",
+      "name": "email",
       "value": "sam.candidate@example.com",
-      "confidence": 0.99,
-      "location_hint": "contact_info",
+      "confidence": 1.0,
+      "location_hint": "header",
       "data_type": "identifier",
       "is_critical": true
     },
     {
       "name": "phone_number",
       "value": "+44 7700 900123",
-      "confidence": 0.99,
-      "location_hint": "contact_info",
+      "confidence": 1.0,
+      "location_hint": "header",
       "data_type": "identifier",
       "is_critical": true
     },
     {
       "name": "location",
       "value": "Manchester, UK",
-      "confidence": 0.99,
-      "location_hint": "contact_info",
+      "confidence": 1.0,
+      "location_hint": "header",
       "data_type": "text",
-      "is_critical": false
+      "is_critical": true
     },
     {
       "name": "professional_summary",
       "value": "Senior software engineer with 8 years building distributed data platforms and leading small teams.",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "professional_summary",
       "data_type": "text",
       "is_critical": true
     },
     {
-      "name": "years_of_experience",
-      "value": "8",
-      "confidence": 0.85,
-      "location_hint": "professional_summary",
-      "data_type": "text",
-      "is_critical": false
-    },
-    {
-      "name": "current_job_title",
+      "name": "exp_job_title_1",
       "value": "Staff Engineer",
-      "confidence": 0.97,
+      "confidence": 1.0,
       "location_hint": "experience",
       "data_type": "text",
       "is_critical": true
     },
     {
-      "name": "current_employer",
+      "name": "exp_company_1",
       "value": "DataWorks Ltd",
-      "confidence": 0.97,
+      "confidence": 1.0,
       "location_hint": "experience",
       "data_type": "text",
       "is_critical": true
     },
     {
-      "name": "current_role_start_date",
+      "name": "exp_start_date_1",
       "value": "2021",
-      "confidence": 0.95,
+      "confidence": 1.0,
       "location_hint": "experience",
-      "data_type": "date",
-      "is_critical": false
+      "data_type": "text",
+      "is_critical": true
     },
     {
-      "name": "current_role_end_date",
+      "name": "exp_end_date_1",
       "value": "Present",
-      "confidence": 0.95,
+      "confidence": 1.0,
       "location_hint": "experience",
-      "data_type": "date",
-      "is_critical": false
+      "data_type": "text",
+      "is_critical": true
     },
     {
-      "name": "previous_job_title",
+      "name": "exp_job_title_2",
       "value": "Senior Engineer",
-      "confidence": 0.97,
+      "confidence": 1.0,
       "location_hint": "experience",
       "data_type": "text",
-      "is_critical": false
+      "is_critical": true
     },
     {
-      "name": "previous_employer",
+      "name": "exp_company_2",
       "value": "CloudByte Inc",
-      "confidence": 0.97,
+      "confidence": 1.0,
       "location_hint": "experience",
       "data_type": "text",
-      "is_critical": false
+      "is_critical": true
     },
     {
-      "name": "previous_role_start_date",
+      "name": "exp_start_date_2",
       "value": "2017",
-      "confidence": 0.95,
+      "confidence": 1.0,
       "location_hint": "experience",
-      "data_type": "date",
-      "is_critical": false
+      "data_type": "text",
+      "is_critical": true
     },
     {
-      "name": "previous_role_end_date",
+      "name": "exp_end_date_2",
       "value": "2021",
-      "confidence": 0.95,
+      "confidence": 1.0,
       "location_hint": "experience",
-      "data_type": "date",
-      "is_critical": false
+      "data_type": "text",
+      "is_critical": true
     },
     {
-      "name": "degree",
+      "name": "edu_degree",
       "value": "BSc Computer Science",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "education",
       "data_type": "text",
       "is_critical": true
     },
     {
-      "name": "university",
+      "name": "edu_university",
       "value": "University of Manchester",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "education",
       "data_type": "text",
-      "is_critical": false
+      "is_critical": true
     },
     {
-      "name": "graduation_year",
+      "name": "edu_year",
       "value": "2016",
-      "confidence": 0.99,
+      "confidence": 1.0,
       "location_hint": "education",
-      "data_type": "date",
-      "is_critical": false
+      "data_type": "text",
+      "is_critical": true
     },
     {
-      "name": "skills",
-      "value": "Python, Go, Kubernetes, PostgreSQL, distributed systems",
-      "confidence": 0.99,
+      "name": "skill_python",
+      "value": "Python",
+      "confidence": 1.0,
       "location_hint": "skills",
       "data_type": "text",
       "is_critical": true
     },
     {
-      "name": "document_type",
-      "value": "Curriculum Vitae",
-      "confidence": 0.99,
-      "location_hint": "header",
+      "name": "skill_go",
+      "value": "Go",
+      "confidence": 1.0,
+      "location_hint": "skills",
       "data_type": "text",
-      "is_critical": false
+      "is_critical": true
+    },
+    {
+      "name": "skill_kubernetes",
+      "value": "Kubernetes",
+      "confidence": 1.0,
+      "location_hint": "skills",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "skill_postgresql",
+      "value": "PostgreSQL",
+      "confidence": 1.0,
+      "location_hint": "skills",
+      "data_type": "text",
+      "is_critical": true
+    },
+    {
+      "name": "skill_distributed_systems",
+      "value": "distributed systems",
+      "confidence": 1.0,
+      "location_hint": "skills",
+      "data_type": "text",
+      "is_critical": true
     }
   ],
-  "overall_confidence": 0.9678947368421053,
+  "overall_confidence": 1.0,
   "reference_keys": {},
   "document_profile": {
     "doc_type": "cv_resume",
     "industry_hint": "technology",
     "sections": [
       "header",
-      "contact_info",
       "professional_summary",
       "experience",
       "education",
