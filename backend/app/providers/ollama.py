@@ -23,6 +23,10 @@ _DEFAULT_TIMEOUT = httpx.Timeout(900.0, connect=10.0)
 # qwen3-vl:8b malformed-JSON failures are stochastic, not deterministic — an identical
 # retry has been observed to succeed (see P3_local_deployment_notes.md §4).
 _MAX_JSON_RETRIES = 2
+# Separately, qwen3-vl:8b sometimes returns syntactically valid but empty JSON
+# (e.g. {"fields": [], ...}) instead of a parse error — also observed to be stochastic
+# per-doc, not a genuine "nothing to extract" case (see P3_local_deployment_notes.md §8).
+_MAX_EMPTY_RETRIES = 2
 
 
 class OllamaProvider(LLMProvider):
@@ -46,8 +50,26 @@ class OllamaProvider(LLMProvider):
             schema, indent=2
         )
         sys_prompt = (system or "") + _JSON_INSTRUCTION
-        text = await self._chat(self._messages(prompt + schema_hint, sys_prompt), json_mode=True)
-        return parse_json_response(text)
+        messages = self._messages(prompt + schema_hint, sys_prompt)
+        text = await self._chat(messages, json_mode=True)
+        data = parse_json_response(text)
+
+        # Schema-driven "did it actually try" check: any top-level key the schema declares
+        # as a list (e.g. extraction's "fields") coming back empty on every such key is a
+        # degenerate response worth reprompting, distinct from the JSON-parse retry above.
+        list_keys = [k for k, v in schema.items() if isinstance(v, list)]
+        for attempt in range(1, _MAX_EMPTY_RETRIES + 1):
+            if not list_keys or any(data.get(k) for k in list_keys):
+                break
+            logger.warning(
+                "ollama_empty_response_retry",
+                attempt=attempt,
+                model=self._model,
+                list_keys=list_keys,
+            )
+            text = await self._chat(messages, json_mode=True)
+            data = parse_json_response(text)
+        return data
 
     async def generate_vision(
         self,

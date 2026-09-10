@@ -32,6 +32,13 @@ Confidence calibration — be conservative:
 - 0.00–0.29: best guess — flag for manual verification
 When uncertain, score lower rather than higher."""
 
+_NO_EMPTY_GUIDANCE = (
+    "An empty fields array is only correct if this document truly contains no "
+    "extractable data whatsoever — that should be extremely rare. If you are unsure about "
+    "a specific value, extract your best guess and assign it a low confidence score rather "
+    "than omitting the field."
+)
+
 _EXTRACTION_SCHEMA = {
     "fields": [
         {
@@ -82,6 +89,8 @@ Document profile (use as context):
 
 {_CONFIDENCE_GUIDANCE}
 
+{_NO_EMPTY_GUIDANCE}
+
 For each field extract: name (snake_case), value, confidence (0.0-1.0), location_hint, data_type, is_critical.
 For location_hint, use section names from the document profile when applicable (e.g. "patient_info", "test_results",
 "header", "line_items") rather than positional descriptions like "line 3".
@@ -105,6 +114,8 @@ Document profile (use as context):
 
 {_CONFIDENCE_GUIDANCE}
 If the image is blurry, low-resolution, or poorly lit, assign lower confidence scores even if values appear plausible.
+
+{_NO_EMPTY_GUIDANCE}
 
 For each field extract: name (snake_case), value, confidence (0.0-1.0), location_hint, data_type, is_critical.
 For location_hint, use section names from the document profile when applicable (e.g. "patient_info", "test_results",
