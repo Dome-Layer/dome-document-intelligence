@@ -8,7 +8,7 @@ anthropic==0.109.1
     # via
     #   -r requirements.in
     #   dome-core
-anyio==4.13.0
+anyio==4.14.2
     # via
     #   anthropic
     #   httpx
