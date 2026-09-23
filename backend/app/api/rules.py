@@ -1,3 +1,5 @@
+from typing import Optional
+
 from fastapi import APIRouter, Depends, HTTPException, status
 
 from ..api.deps import get_current_user
@@ -10,9 +12,40 @@ logger = get_logger(__name__)
 router = APIRouter()
 
 
-async def get_or_seed_rules(user_id: str) -> list[GovernanceRule]:
+def _default_rules() -> list[GovernanceRule]:
+    """The unpersisted default rule set for a service-key caller (no user_id).
+
+    There is no user row to own the governance_rules under, so there is nothing
+    to seed or backfill: default severity/enabled straight from RULES_DEFINITIONS.
+    `id` has no DB row to draw from; `rule_id` is unique and stable, so it stands
+    in (id is never consumed by validation, only by the rule-toggle API surface,
+    which a service caller never reaches).
+    """
+    return [
+        GovernanceRule(
+            id=d["rule_id"],
+            rule_id=d["rule_id"],
+            name=d["name"],
+            description=d["description"],
+            severity=d["severity"],
+            enabled=d["enabled"],
+            config=d["config"],
+        )
+        for d in RULES_DEFINITIONS
+    ]
+
+
+async def get_or_seed_rules(user_id: Optional[str]) -> list[GovernanceRule]:
     """Return user's governance rules, seeding defaults on first access.
-    Also backfills any rules added since the user's initial seed."""
+    Also backfills any rules added since the user's initial seed.
+
+    A service-key caller (agent-flow) has no user_id: `governance_rules` is
+    per-user, so there is nothing to seed or fetch, and the default rule set is
+    returned unpersisted rather than crashing on a NULL/None mismatch.
+    """
+    if user_id is None:
+        return _default_rules()
+
     db = get_db()
     rows = db.table("governance_rules").select("*").eq("user_id", user_id).execute()
 
