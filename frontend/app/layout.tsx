@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { headers } from 'next/headers'
 import { Inter, JetBrains_Mono } from 'next/font/google'
 import '@/styles/globals.css'
 import { Header } from '@/components/layout/Header'
@@ -49,17 +48,16 @@ const themeScript = `
 })();
 `
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const nonce = (await headers()).get('x-nonce') ?? undefined
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <head>
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-        <script nonce={nonce} dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="min-h-screen bg-dome-bg text-dome-text font-sans antialiased">
         <StagingBanner environment={process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT} />

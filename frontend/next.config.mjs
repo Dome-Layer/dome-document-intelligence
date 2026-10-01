@@ -1,27 +1,17 @@
 import { withSentryConfig } from "@sentry/nextjs";
 
-/** @type {import('next').NextConfig} */
-
-const securityHeaders = [
-  { key: 'X-Content-Type-Options', value: 'nosniff' },
-  { key: 'X-Frame-Options', value: 'DENY' },
-  { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-  // camera=self allows the camera capture feature on this tool
-  { key: 'Permissions-Policy', value: 'geolocation=(), microphone=(), camera=(self)' },
-  // Content-Security-Policy is set per-request in middleware.ts (nonce-based
-  // script-src — no 'unsafe-inline'/'unsafe-eval').
-]
-
+/**
+ * A static export (Sprint H phase 2): Cloudflare serves out/ as static assets and the Worker in
+ * worker/ adds the per-request CSP nonce and the security headers (worker/site.ts) that
+ * middleware.ts, vercel.json and headers() used to set. Nothing here may need a server at request
+ * time.
+ *
+ * @type {import('next').NextConfig}
+ */
 const nextConfig = {
   reactStrictMode: true,
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: securityHeaders,
-      },
-    ]
-  },
+  output: 'export',
+  images: { unoptimized: true },
 }
 
 export default withSentryConfig(nextConfig, {

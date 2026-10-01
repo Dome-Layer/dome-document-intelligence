@@ -1,0 +1,87 @@
+import { CSP_DIRECTIVES, SECURITY_HEADERS, SHELL_ROUTES } from './site'
+
+/**
+ * The tool Worker (Sprint H phase 2, dome-docs sprints/SPRINT_H_HOSTING_EVAL.md). The tool is a
+ * static Next.js export in ASSETS; this Worker runs in front of every request except
+ * /_next/static/* (wrangler.jsonc), which is served directly, free and uncounted.
+ *
+ * It keeps the security the Vercel middleware gave:
+ * - every HTML page gets a fresh nonce, in its CSP header (`'nonce-…' 'strict-dynamic'`) and on
+ *   every <script> and script preload in the page. That is safe because the HTML is our own build output: the only
+ *   inline scripts in it are Next's and the theme script, and nothing a visitor sends can reach it.
+ * - HTML is never cached, so a nonce is never reused;
+ * - the security headers that were in vercel.json go on every response.
+ *
+ * Tool-specific values live in site.ts. Keep this file identical across the tools.
+ */
+
+export interface Env {
+  ASSETS: Fetcher
+  /** "true" on staging: every response gets X-Robots-Tag: noindex. */
+  DOME_NOINDEX?: string
+}
+
+export function contentSecurityPolicy(nonce: string): string {
+  const [defaultSrc, ...rest] = CSP_DIRECTIVES
+  return [defaultSrc, `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'`, ...rest].join('; ')
+}
+
+/** A nonce with 128 bits of randomness, base64 encoded. */
+export function makeNonce(): string {
+  const bytes = crypto.getRandomValues(new Uint8Array(16))
+  return btoa(String.fromCharCode(...bytes))
+}
+
+/** The prebuilt page that serves a dynamic route, or undefined for any other path. */
+export function shellFor(pathname: string): string | undefined {
+  for (const { prefix, shell } of SHELL_ROUTES) {
+    if (pathname.startsWith(prefix) && pathname.length > prefix.length) return shell
+  }
+  return undefined
+}
+
+export function isNoindexHost(host: string, env: Env): boolean {
+  return env.DOME_NOINDEX === 'true' || host.endsWith('.workers.dev')
+}
+
+function withHeaders(response: Response, url: URL, env: Env): Response {
+  for (const [key, value] of Object.entries(SECURITY_HEADERS)) response.headers.set(key, value)
+  if (isNoindexHost(url.host, env)) response.headers.set('X-Robots-Tag', 'noindex')
+  return response
+}
+
+export default {
+  async fetch(request: Request, env: Env): Promise<Response> {
+    const url = new URL(request.url)
+    // One canonical URL per page, permanently, as Vercel did (Cloudflare's own redirect is a 307).
+    if (url.pathname.length > 1 && url.pathname.endsWith('/')) {
+      url.pathname = url.pathname.replace(/\/+$/, '')
+      return withHeaders(new Response(null, { status: 308, headers: { Location: url.pathname + url.search } }), url, env)
+    }
+    const shell = shellFor(url.pathname)
+    const assetRequest = shell ? new Request(new URL(shell, url), request) : request
+    const asset = await env.ASSETS.fetch(assetRequest)
+
+    const response = withHeaders(new Response(asset.body, asset), url, env)
+    if (!(response.headers.get('Content-Type') ?? '').includes('text/html')) return response
+
+    response.headers.set('Content-Type', 'text/html; charset=utf-8')
+
+    const nonce = makeNonce()
+    response.headers.set('Content-Security-Policy', contentSecurityPolicy(nonce))
+    response.headers.set('Cache-Control', 'private, no-cache, no-store, max-age=0, must-revalidate')
+    response.headers.delete('ETag')
+    const addNonce = {
+      element(element: Element) {
+        element.setAttribute('nonce', nonce)
+      },
+    }
+    // Script preloads need the nonce too: Chrome checks them against script-src, and with
+    // 'strict-dynamic' an un-nonced preload is blocked (the script itself would still run).
+    return new HTMLRewriter()
+      .on('script', addNonce)
+      .on('link[rel="preload"][as="script"]', addNonce)
+      .on('link[rel="modulepreload"]', addNonce)
+      .transform(response)
+  },
+} satisfies ExportedHandler<Env>
