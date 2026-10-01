@@ -32,10 +32,22 @@ export function makeNonce(): string {
   return btoa(String.fromCharCode(...bytes))
 }
 
-/** The prebuilt page that serves a dynamic route, or undefined for any other path. */
+/**
+ * The prebuilt path that serves a dynamic route, or undefined for any other path. The id segment
+ * is swapped for the shell's and the rest kept, so `/dashboard/abc` gets the shell page and the
+ * client-navigation payloads follow: `/dashboard/abc.txt` gets `/dashboard/_.txt`, and
+ * `/dashboard/abc/__next._tree.txt` gets `/dashboard/_/__next._tree.txt`. `$` in Next's payload
+ * names is percent-encoded, as Cloudflare stores it (the raw form answers with a redirect).
+ */
 export function shellFor(pathname: string): string | undefined {
   for (const { prefix, shell } of SHELL_ROUTES) {
-    if (pathname.startsWith(prefix) && pathname.length > prefix.length) return shell
+    if (!pathname.startsWith(prefix) || pathname.length <= prefix.length) continue
+    const rest = pathname.slice(prefix.length)
+    const slash = rest.indexOf('/')
+    const segment = slash === -1 ? rest : rest.slice(0, slash)
+    const tail = slash === -1 ? '' : rest.slice(slash)
+    const payload = segment.endsWith('.txt') ? '.txt' : ''
+    return (shell + payload + tail).replace(/\$/g, '%24')
   }
   return undefined
 }
