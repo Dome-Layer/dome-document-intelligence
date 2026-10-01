@@ -4,11 +4,12 @@
  */
 
 /**
- * The Content-Security-Policy, except script-src, which index.ts adds with the per-request nonce.
+ * The Content-Security-Policy. index.ts puts the per-response nonce in place of {NONCE}.
  * Copied from the middleware it replaces (2026-10-01), which is what production sent.
  */
 export const CSP_DIRECTIVES = [
   "default-src 'self'",
+  "script-src 'self' 'nonce-{NONCE}' 'strict-dynamic'",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self'",
@@ -33,3 +34,6 @@ export const SECURITY_HEADERS: Record<string, string> = {
  * page takes its key from the query string.
  */
 export const SHELL_ROUTES: { prefix: string; shell: string }[] = []
+
+/** Paths passed through to the backend (env.API_ORIGIN). This tool calls its API directly. */
+export const PROXY_PREFIXES: string[] = []
