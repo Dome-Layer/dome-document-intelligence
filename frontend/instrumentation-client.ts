@@ -1,3 +1,5 @@
+// Browser-side Sentry. Next 15+ loads this file on the client; the older
+// sentry.client.config.ts convention is no longer picked up, so it never ran.
 import * as Sentry from "@sentry/nextjs";
 
 Sentry.init({
@@ -9,3 +11,5 @@ Sentry.init({
   replaysOnErrorSampleRate: 0,
   sendDefaultPii: false,
 });
+
+export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;
