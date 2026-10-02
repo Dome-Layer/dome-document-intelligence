@@ -43,3 +43,6 @@ TOOL_CONTEXT.md
 # ── Logs ──────────────────────────────────────────────────────────────────────
 *.log
 npm-debug.log*
+
+# Wrangler local dev state (wrangler dev)
+.wrangler/
