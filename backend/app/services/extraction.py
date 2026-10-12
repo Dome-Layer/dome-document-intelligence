@@ -72,6 +72,19 @@ Return JSON matching exactly this structure:
 {json.dumps(_TYPE_DETECTION_SCHEMA, indent=2)}"""
 
 
+# Long tables (a statement with dozens of transactions) once produced more output than the
+# token limit allows: four fields per row, cut off mid-answer. Keep the document-level fields,
+# a sample of rows, and a count of what was left out.
+_MAX_REPEATED_ROWS = 10
+
+_REPEATED_ROWS_GUIDANCE = f"""Repeated rows: when the document repeats the same kind of row many times (bank transactions,
+invoice or order lines, test results, payslip lines), extract every document-level field (totals, balances,
+period, counts) and only the first {_MAX_REPEATED_ROWS} rows. If you leave rows out, add one field named
+"rows_not_extracted" whose value is the number of rows left out (data_type "text", is_critical false).
+
+Return compact JSON on a single line, without indentation."""
+
+
 def _field_extraction_prompt(content: str, profile: DocumentProfile) -> str:
     return f"""Extract all significant fields from this document.
 
@@ -85,6 +98,8 @@ For location_hint, use section names from the document profile when applicable (
 "header", "line_items") rather than positional descriptions like "line 3".
 Also identify reference_keys — any structured identifiers present (PO numbers, invoice IDs, ISINs, contract refs,
 patient IDs, accession numbers, case numbers, sample IDs, registration numbers, etc.)
+
+{_REPEATED_ROWS_GUIDANCE}
 
 Return JSON matching exactly this structure:
 {json.dumps(_EXTRACTION_SCHEMA, indent=2)}
@@ -109,6 +124,8 @@ For location_hint, use section names from the document profile when applicable (
 "header", "line_items") rather than positional descriptions like "line 3".
 Also identify reference_keys — any structured identifiers present (PO numbers, invoice IDs, ISINs, contract refs,
 patient IDs, accession numbers, case numbers, sample IDs, registration numbers, etc.)
+
+{_REPEATED_ROWS_GUIDANCE}
 
 Return JSON matching exactly this structure:
 {json.dumps(_EXTRACTION_SCHEMA, indent=2)}"""

@@ -35,7 +35,7 @@ distro==1.9.0
     # via anthropic
 docstring-parser==0.18.0
     # via anthropic
-dome-core @ git+https://github.com/Dome-Layer/dome-core.git@b65bcf0548b102c69b5ae45014cb51f09ad99f56
+dome-core @ git+https://github.com/Dome-Layer/dome-core.git@a0a071c3cfaabcfbc57430d56e44653c3b5c0dd6
     # via -r requirements.in
 et-xmlfile==2.0.0
     # via openpyxl
@@ -76,7 +76,7 @@ jiter==0.15.0
     # via anthropic
 limits==5.8.0
     # via slowapi
-multidict==6.7.1
+multidict==6.9.1
     # via yarl
 numpy==2.4.6
     # via pandas

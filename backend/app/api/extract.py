@@ -1,6 +1,7 @@
 import time
 from typing import Optional
 
+from dome_core.llm import LLMOutputTruncatedError
 from fastapi import APIRouter, Depends, File, Header, HTTPException, Request, UploadFile, status
 
 from ..api.deps import get_current_user
@@ -21,6 +22,36 @@ router = APIRouter()
 
 _ingest = IngestService()
 _validate = ValidationService()
+
+_TRUNCATED_DETAIL = (
+    "This document has more content than one extraction can return, so the result was cut off. "
+    "Try fewer pages, or split the document."
+)
+
+
+async def _record_failed_extraction(
+    *,
+    data: bytes,
+    input_type: str,
+    user_id: Optional[str],
+    workflow_run_id: Optional[str],
+    filename: str,
+    error_type: str,
+    error: str,
+) -> None:
+    """Every failed extraction leaves a governance event, whatever the cause."""
+    await emit_governance_event(
+        input_data=data,
+        input_type=input_type,
+        output_summary="Extraction failed",
+        rules_applied=[],
+        rules_triggered=[],
+        confidence=None,
+        human_in_loop="required",
+        user_id=user_id,
+        workflow_run_id=workflow_run_id,
+        metadata={"error": error, "error_type": error_type, "filename": filename},
+    )
 
 
 @router.post(
@@ -65,27 +96,29 @@ async def extract(
     extractor = ExtractionService(provider)
     try:
         extraction = await extractor.extract(ingested)
-    except ValueError as e:
-        logger.warning("extraction_user_error", error=str(e))
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(e))
     except Exception as e:
-        logger.error("extraction_error", error=str(e))
-        # Emit a failed governance event before re-raising
-        await emit_governance_event(
-            input_data=data,
+        # Ingest has already accepted the file, so a failure here is never the user's input:
+        # a model answer cut off at the token limit, an answer that is not valid JSON, or an
+        # upstream error. Each one is recorded before the error is returned.
+        if isinstance(e, LLMOutputTruncatedError):
+            error_type, code, detail = "output_truncated", 422, _TRUNCATED_DETAIL
+            logger.warning("extraction_truncated", error=str(e), filename=filename)
+        elif isinstance(e, ValueError):
+            error_type, code, detail = "invalid_model_output", 422, str(e)
+            logger.warning("extraction_invalid_output", error=str(e))
+        else:
+            error_type, code, detail = "extraction_error", 502, f"Extraction failed: {e}"
+            logger.error("extraction_error", error=str(e))
+        await _record_failed_extraction(
+            data=data,
             input_type=ingested.input_type,
-            output_summary="Extraction failed",
-            rules_applied=[],
-            rules_triggered=[],
-            confidence=None,
-            human_in_loop="required",
             user_id=user_id,
             workflow_run_id=x_workflow_run_id,
-            metadata={"error": str(e), "filename": filename},
+            filename=filename,
+            error_type=error_type,
+            error=str(e),
         )
-        raise HTTPException(
-            status_code=status.HTTP_502_BAD_GATEWAY, detail=f"Extraction failed: {e}"
-        )
+        raise HTTPException(status_code=code, detail=detail)
 
     # ── Validate ──────────────────────────────────────────────────────────────
     active_rules: list[GovernanceRule] = await get_or_seed_rules(user_id)
