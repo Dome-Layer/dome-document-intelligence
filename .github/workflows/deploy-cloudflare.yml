@@ -89,6 +89,10 @@ jobs:
           echo "scripts=$scripts nonced=$nonced"
           if [ "$nonced" -lt "$scripts" ]; then echo "::error::a script on / has no nonce"; fail=1; fi
           robots=$(echo "$headers" | grep -i '^x-robots-tag' || true)
-          if [ "$IS_PRODUCTION" = "true" ] && [ -n "$robots" ] && [[ "$HOST" != *workers.dev* ]]; then echo "::error::production answered with $robots"; fail=1; fi
-          if [ "$IS_PRODUCTION" != "true" ] && [ -z "$robots" ]; then echo "::error::staging is missing noindex"; fail=1; fi
+          if [ -z "$robots" ]; then echo "::error::missing noindex (every tool host sends it)"; fail=1; fi
+          check /robots.txt 200
+          asset=$(grep -oE '/_next/static/[^"]+[.]js' page.html | head -1)
+          cache=$(curl -sI "$HOST$asset" | tr -d '\r' | grep -i '^cache-control:' || true)
+          echo "$asset $cache"
+          if [[ "$cache" != *immutable* ]]; then echo "::error::$asset is not cached as immutable"; fail=1; fi
           exit $fail

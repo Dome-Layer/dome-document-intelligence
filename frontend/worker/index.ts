@@ -20,7 +20,7 @@ import { CSP_DIRECTIVES, PROXY_PREFIXES, SECURITY_HEADERS, SHELL_ROUTES } from '
 
 export interface Env {
   ASSETS: Fetcher
-  /** "true" on staging: every response gets X-Robots-Tag: noindex. */
+  /** "true" on every tool host (production too, since 2026-10-20): every response gets X-Robots-Tag: noindex. */
   DOME_NOINDEX?: string
   /** The backend that PROXY_PREFIXES go to, for tools that call their API same-origin. */
   API_ORIGIN?: string
