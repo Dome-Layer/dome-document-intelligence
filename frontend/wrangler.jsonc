@@ -18,6 +18,9 @@
     // are free and uncounted when served directly, and they need no nonce.
     "run_worker_first": ["/*", "!/_next/static/*"]
   },
+  // Every host of this tool sends noindex, production included: it is a sign-in app, and the
+  // public page about it is on domelayer.com (SEO audit M5, 2026-10-20).
+  "vars": { "DOME_NOINDEX": "true" },
   "observability": { "enabled": true },
   "env": {
     "staging": {
