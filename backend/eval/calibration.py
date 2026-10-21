@@ -3,7 +3,7 @@
 Buckets predicted fields by the **extraction prompt's own confidence bands** (see
 ``app.services.extraction._CONFIDENCE_GUIDANCE``) and measures the *actual* accuracy
 in each band. Because the prompt claims those bands mean something, this directly
-verifies a stated claim — and reports honestly when it is miscalibrated.
+verifies a stated claim, and reports honestly when it is miscalibrated.
 
 A field's outcome is ``(confidence, correct)``: matched fields use the scorer's
 value verdict; spurious (hallucinated) fields count as incorrect. Fields still
@@ -15,7 +15,7 @@ from __future__ import annotations
 
 from .types import CalibrationBucket, CalibrationReport, FieldComparison
 
-# (label, lo, hi) — half-open [lo, hi); top band's hi is bumped to include 1.0.
+# (label, lo, hi): half-open [lo, hi); top band's hi is bumped to include 1.0.
 # Mirrors the prompt's 0.90/0.70/0.50/0.30 boundaries exactly.
 _BANDS: tuple[tuple[str, float, float], ...] = (
     ("0.90-1.00", 0.90, 1.0001),

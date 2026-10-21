@@ -1,9 +1,9 @@
 """Data models for the evaluation harness.
 
 Two families live here:
-- **Ground-truth labels** (`GoldenDoc`, `ExpectedField`, ...) — what each golden
+- **Ground-truth labels** (`GoldenDoc`, `ExpectedField`, ...): what each golden
   document *should* extract; authored by hand under ``fixtures/labels/``.
-- **Result / report models** (`FieldComparison`, `DocScore`, `EvalReport`, ...) —
+- **Result / report models** (`FieldComparison`, `DocScore`, `EvalReport`, ...):
   the structured output of the scorer / calibration / judge layers, serialised to
   ``eval_report.json``.
 

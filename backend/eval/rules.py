@@ -32,7 +32,7 @@ def default_rules() -> list[GovernanceRule]:
 
 
 def rule(rule_id: str) -> GovernanceRule:
-    """A single canonical rule by id — used to isolate one rule under test."""
+    """A single canonical rule by id, used to isolate one rule under test."""
     return _to_rule(_BY_ID[rule_id])
 
 

@@ -61,7 +61,7 @@ RULES_DEFINITIONS: list[dict] = [
     {
         "rule_id": "overall_low_confidence",
         "name": "Low overall confidence",
-        "description": "Overall extraction confidence < 0.60 — recommend manual review",
+        "description": "Overall extraction confidence < 0.60: recommend manual review",
         "severity": "error",
         "enabled": True,
         "config": {"threshold": 0.60},
@@ -77,7 +77,7 @@ RULES_DEFINITIONS: list[dict] = [
     {
         "rule_id": "unsupported_language",
         "name": "Non-Latin script",
-        "description": "Document contains non-Latin characters — extraction may be partial",
+        "description": "Document contains non-Latin characters, so extraction may be partial",
         "severity": "info",
         "enabled": True,
         "config": {},
@@ -93,7 +93,7 @@ RULES_DEFINITIONS: list[dict] = [
     {
         "rule_id": "short_extraction",
         "name": "Very few fields extracted",
-        "description": "Fewer than 3 fields extracted — likely a scan quality issue or blank page",
+        "description": "Fewer than 3 fields extracted, likely a scan quality issue or blank page",
         "severity": "warning",
         "enabled": True,
         "config": {"min_fields": 3},
@@ -101,7 +101,7 @@ RULES_DEFINITIONS: list[dict] = [
     {
         "rule_id": "missing_date",
         "name": "No date field found",
-        "description": "No date-type field extracted — undated documents may be invalid",
+        "description": "No date-type field extracted; undated documents may be invalid",
         "severity": "warning",
         "enabled": True,
         "config": {},
@@ -117,7 +117,7 @@ RULES_DEFINITIONS: list[dict] = [
     {
         "rule_id": "large_monetary_amount",
         "name": "Large monetary amount",
-        "description": "A currency field exceeds the configured threshold — recommend escalation",
+        "description": "A currency field exceeds the configured threshold: recommend escalation",
         "severity": "warning",
         "enabled": True,
         "config": {"threshold": 100000},
@@ -125,7 +125,7 @@ RULES_DEFINITIONS: list[dict] = [
     {
         "rule_id": "potential_personal_data",
         "name": "Personal data detected",
-        "description": "Fields containing personal data (names, IDs, addresses) — handle per GDPR/HIPAA",
+        "description": "Fields containing personal data (names, IDs, addresses): handle per GDPR/HIPAA",
         "severity": "info",
         "enabled": True,
         "config": {},
@@ -150,7 +150,7 @@ _DATE_PATTERNS = [
     re.compile(r"\b(\d{1,2})[/\-\.](\d{1,2})[/\-\.](\d{2,4})\b"),
 ]
 
-# Field names that are naturally historical — skip past-date anomaly for these
+# Field names that are naturally historical; skip past-date anomaly for these
 _HISTORICAL_DATE_FIELDS = re.compile(
     r"\b(birth|born|dob|date_of_birth|established|founded|incorporated|issue_date|issued_date)\b",
     re.IGNORECASE,
@@ -301,7 +301,7 @@ def _check_very_low_confidence_field(
                 _flag(
                     rule,
                     f.name,
-                    f"Field '{f.name}' has very low confidence {f.confidence:.0%} (below {threshold:.0%}) — manual verification required",
+                    f"Field '{f.name}' has very low confidence {f.confidence:.0%} (below {threshold:.0%}). Manual verification required",
                 )
             )
     return flags
@@ -336,7 +336,7 @@ def _check_currency_mismatch(
             _flag(
                 rule,
                 None,
-                f"Multiple currencies detected: {', '.join(sorted(currency_codes))} — verify FX conversion",
+                f"Multiple currencies detected: {', '.join(sorted(currency_codes))}. Verify FX conversion",
             )
         ]
     return []
@@ -393,7 +393,7 @@ def _check_overall_low_confidence(
             _flag(
                 rule,
                 None,
-                f"Overall extraction confidence {result.overall_confidence:.0%} is below {threshold:.0%} — manual review recommended",
+                f"Overall extraction confidence {result.overall_confidence:.0%} is below {threshold:.0%}. Manual review recommended",
             )
         ]
     return []
@@ -443,7 +443,7 @@ def _check_unsupported_language(
             _flag(
                 rule,
                 None,
-                f"Document language '{lang}' may contain non-Latin script — extraction may be partial",
+                f"Document language '{lang}' may contain non-Latin script, so extraction may be partial",
             )
         ]
 
@@ -454,7 +454,7 @@ def _check_unsupported_language(
                 _flag(
                     rule,
                     f.name,
-                    f"Non-Latin characters detected in field '{f.name}' — extraction accuracy may be reduced",
+                    f"Non-Latin characters detected in field '{f.name}'; extraction accuracy may be reduced",
                 )
             ]
     return []
@@ -478,8 +478,8 @@ def _check_short_extraction(rule: GovernanceRule, result: ExtractionResult) -> l
             _flag(
                 rule,
                 None,
-                f"Only {len(result.fields)} field(s) extracted (minimum {min_fields}) — "
-                "check scan quality or document format",
+                f"Only {len(result.fields)} field(s) extracted (minimum {min_fields}). "
+                "Check scan quality or document format",
             )
         ]
     return []
@@ -488,7 +488,7 @@ def _check_short_extraction(rule: GovernanceRule, result: ExtractionResult) -> l
 def _check_missing_date(rule: GovernanceRule, result: ExtractionResult) -> list[ValidationFlag]:
     has_date = any(f.data_type == "date" for f in result.fields)
     if not has_date:
-        return [_flag(rule, None, "No date field found — verify the document is dated")]
+        return [_flag(rule, None, "No date field found. Verify the document is dated")]
     return []
 
 
@@ -518,7 +518,7 @@ def _check_large_monetary_amount(
                     _flag(
                         rule,
                         f.name,
-                        f"Field '{f.name}' contains a large amount ({f.value}) exceeding {threshold:,} — recommend escalation",
+                        f"Field '{f.name}' contains a large amount ({f.value}) exceeding {threshold:,}. Recommend escalation",
                     )
                 )
     return flags
@@ -535,7 +535,7 @@ def _check_potential_personal_data(
             _flag(
                 rule,
                 None,
-                f"Personal data fields detected: {names}{suffix} — ensure GDPR/HIPAA compliance",
+                f"Personal data fields detected: {names}{suffix}. Ensure GDPR/HIPAA compliance",
             )
         ]
     return []
@@ -577,7 +577,7 @@ def _parse_amount(value: str) -> Optional[float]:
 
 
 def _try_parse_date(value: str) -> Optional[datetime]:
-    """Best-effort date parsing — returns UTC datetime or None."""
+    """Best-effort date parsing; returns UTC datetime or None."""
     value = value.strip()
     # Try ISO format first
     for fmt in ("%Y-%m-%d", "%d/%m/%Y", "%m/%d/%Y", "%d-%m-%Y", "%Y/%m/%d"):

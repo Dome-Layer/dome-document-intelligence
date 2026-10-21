@@ -126,12 +126,12 @@ async def extract(
 
     elapsed_ms = int((time.monotonic() - start_ms) * 1000)
 
-    # ── Governance event (metadata only — no document content) ────────────────
+    # ── Governance event (metadata only, no document content) ────────────────
     await emit_governance_event(
         input_data=data,
         input_type=ingested.input_type,
         output_summary=(
-            f"{extraction.document_profile.doc_type} — "
+            f"{extraction.document_profile.doc_type}: "
             f"{len(extraction.fields)} fields extracted, "
             f"confidence {extraction.overall_confidence:.0%}"
         ),
@@ -152,7 +152,7 @@ async def extract(
         },
     )
 
-    # Document data is never persisted — discard here
+    # Document data is never persisted; discard here
     del data
     del ingested
 

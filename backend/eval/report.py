@@ -48,7 +48,7 @@ def _pct(x: float) -> str:
 def render_markdown(report: EvalReport) -> str:
     agg = report.aggregate
     lines: list[str] = []
-    lines.append("# Document Intelligence — Evaluation Report")
+    lines.append("# Document Intelligence: Evaluation Report")
     lines.append("")
     lines.append(f"- **Generated:** {report.generated_at}")
     lines.append(f"- **Generator model:** `{report.generator_model}`")
@@ -76,7 +76,7 @@ def render_markdown(report: EvalReport) -> str:
     lines.append(
         "> Scored against a **curated key-field set**: P/R/F1 and value-match cover the labeled key "
         "fields (TP = correct value, FP = wrong value, FN = missing/wrong). Predicted fields beyond "
-        "that set are counted as **over-extraction** — not penalized as false positives (unverifiable "
+        "that set are counted as **over-extraction**, not penalized as false positives (unverifiable "
         "without exhaustive labels) and excluded from calibration."
     )
     lines.append("")
@@ -93,7 +93,7 @@ def render_markdown(report: EvalReport) -> str:
     lines.append("| --- | ---: | ---: | ---: | ---: |")
     for b in cal.buckets:
         if b.n == 0:
-            lines.append(f"| {b.band} | 0 | — | — | — |")
+            lines.append(f"| {b.band} | 0 | N/A | N/A | N/A |")
         else:
             lines.append(
                 f"| {b.band} | {b.n} | {_pct(b.mean_confidence)} | {_pct(b.accuracy)} | {b.gap:.3f} |"
@@ -101,7 +101,7 @@ def render_markdown(report: EvalReport) -> str:
     lines.append("")
     lines.append(
         "> Calibration is reported honestly: a large gap in any band means the model's stated "
-        "confidence does not match its real accuracy there — itself a finding worth surfacing."
+        "confidence does not match its real accuracy there, itself a finding worth surfacing."
     )
     lines.append("")
 
