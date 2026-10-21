@@ -46,7 +46,7 @@ export default function UploadPage() {
         const result: DocumentIntelligenceResult = await extractDocument(file)
         clearInterval(advanceInterval)
 
-        // Store result + filename in sessionStorage — no document content, just structured data
+        // Store result + filename in sessionStorage: no document content, just structured data
         const key = `dome_doc_result_${Date.now()}`
         sessionStorage.setItem(key, JSON.stringify({ result, filename: file.name }))
 
@@ -85,7 +85,7 @@ export default function UploadPage() {
               Document Intelligence
             </h1>
             <p className="text-sm text-dome-muted">
-              Upload any document — invoices, lab reports, utility bills, contracts. Extract structured data with governance validation in seconds.
+              Upload any document: invoices, lab reports, utility bills, contracts. Extract structured data with governance validation in seconds.
             </p>
           </div>
 

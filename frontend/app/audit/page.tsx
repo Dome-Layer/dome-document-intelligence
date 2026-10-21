@@ -49,7 +49,7 @@ export default function AuditPage() {
             Audit log
           </h1>
           <p className="text-sm text-dome-muted">
-            Governance events from all processed documents. Metadata only — no document content is stored.
+            Governance events from all processed documents. Metadata only: no document content is stored.
           </p>
         </div>
 

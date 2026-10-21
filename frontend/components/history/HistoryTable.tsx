@@ -78,7 +78,7 @@ export function HistoryTable({ extractions, onDeleted }: HistoryTableProps) {
                 </td>
                 <td>
                   <span className="text-sm text-dome-muted capitalize">
-                    {ex.industry_hint ? ex.industry_hint.replace(/_/g, ' ') : '—'}
+                    {ex.industry_hint ? ex.industry_hint.replace(/_/g, ' ') : 'N/A'}
                   </span>
                 </td>
                 <td>

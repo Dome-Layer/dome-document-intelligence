@@ -55,7 +55,7 @@
   background: var(--color-bg-base);
 }
 
-/* .app-topbar retired — the header now uses the shared dome-ui ToolHeader (.site-header). */
+/* .app-topbar retired: the header now uses the shared dome-ui ToolHeader (.site-header). */
 
 .app-body {
   display: flex;
@@ -275,7 +275,7 @@
 .badge-neutral  { background: var(--color-bg-muted);        color: var(--color-text-secondary); border-color: var(--color-border-default); }
 .badge-accent   { background: var(--color-bg-accent);       color: var(--color-text-accent); border-color: var(--color-border-accent); }
 
-/* Pill — fully rounded variant */
+/* Pill: fully rounded variant */
 .pill { border-radius: 9999px; padding: 4px 12px; }
 
 /* ─── Table ──────────────────────────────────────────────────────── */

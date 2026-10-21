@@ -14,7 +14,7 @@ import type { DocumentIntelligenceResult, SavedExtractionSummary } from '@/lib/t
 
 type SaveState = 'idle' | 'saving' | 'saved' | 'error'
 
-// Inner component — uses useSearchParams(), must be inside <Suspense>
+// Inner component: uses useSearchParams(), must be inside <Suspense>
 function ResultPageContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -212,7 +212,7 @@ function ResultPageContent() {
   )
 }
 
-// Outer shell — wraps the inner component in Suspense as required by Next.js 14
+// Outer shell: wraps the inner component in Suspense as required by Next.js 14
 export default function ResultPage() {
   return (
     <Suspense
