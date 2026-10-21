@@ -89,7 +89,7 @@ function EventRow({ event }: { event: GovernanceEvent }) {
   const timeStr = ts.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })
 
   const docType = (event.metadata?.doc_type as string | undefined) ?? event.action_type
-  const fieldCount = (event.metadata?.field_count as number | undefined) ?? '—'
+  const fieldCount = (event.metadata?.field_count as number | undefined) ?? 'N/A'
 
   const flagCount = event.rules_triggered.length
   const hitlStatus = event.human_in_loop
@@ -119,7 +119,7 @@ function EventRow({ event }: { event: GovernanceEvent }) {
         {event.confidence !== null && event.confidence !== undefined ? (
           <ConfidencePill value={event.confidence} />
         ) : (
-          <span className="text-sm text-dome-muted">—</span>
+          <span className="text-sm text-dome-muted">N/A</span>
         )}
       </td>
       <td>

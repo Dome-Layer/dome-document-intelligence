@@ -21,7 +21,7 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Dome Document Intelligence',
+  title: 'Document Intelligence | DOME',
   description:
     'Upload any document. Extract structured data with governance validation in seconds.',
   icons: {
