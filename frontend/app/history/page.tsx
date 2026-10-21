@@ -78,7 +78,7 @@ export default function HistoryPage() {
             History
           </h1>
           <p className="text-sm text-dome-muted">
-            Saved extractions — click any row to reopen the full result.
+            Saved extractions. Click any row to reopen the full result.
           </p>
         </div>
 

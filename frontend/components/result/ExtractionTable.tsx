@@ -84,7 +84,7 @@ export function ExtractionTable({ fields }: ExtractionTableProps) {
                       {field.location_hint.replace(/_/g, ' ')}
                     </span>
                   ) : (
-                    <span className="text-dome-border">—</span>
+                    <span className="text-dome-muted">N/A</span>
                   )}
                 </td>
                 <td>
@@ -127,7 +127,7 @@ export function ExtractionTable({ fields }: ExtractionTableProps) {
           </span>
           <span>
             Confidence: <span style={{ color: 'var(--color-success)' }}>high ≥85%</span>
-            {' · '}<span style={{ color: 'var(--color-warning)' }}>moderate 60–84%</span>
+            {' · '}<span style={{ color: 'var(--color-warning)' }}>moderate 60 to 84%</span>
             {' · '}<span style={{ color: 'var(--color-error)' }}>low &lt;60%</span>
           </span>
         </div>
