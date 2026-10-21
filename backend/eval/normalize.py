@@ -117,7 +117,7 @@ def values_equivalent(
 
     Returns ``(equivalent, method)`` where ``method`` records how the decision was
     made (e.g. ``currency``, ``date``, ``text``, ``exact``) for the report. ``fuzzy``
-    mode returns ``(False, "deferred")`` — the judge decides later.
+    mode returns ``(False, "deferred")``; the judge decides later.
     """
     if predicted is None or str(predicted).strip() == "":
         return (expected is None or str(expected).strip() == "", "empty")

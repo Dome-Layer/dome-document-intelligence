@@ -7,8 +7,8 @@ aggregate metrics.
 **Curated-golden-set methodology (important):** the golden labels are a curated set of
 *key* fields per document, deliberately **not** an exhaustive list of everything the
 model could extract. So predicted fields with no labeled counterpart are reported as an
-**over-extraction count** (``extra_field_count``) — *not* counted as false positives,
-because we cannot verify them without exhaustive labels — and are excluded from
+**over-extraction count** (``extra_field_count``), *not* counted as false positives,
+because we cannot verify them without exhaustive labels, and are excluded from
 calibration. P/R/F1 are computed over the labeled key fields only:
 
 - **TP** = labeled field extracted with a correct value,

@@ -12,24 +12,24 @@ logger = get_logger(__name__)
 _SYSTEM_ANALYST = (
     "You are a document intelligence specialist. "
     "You extract structured data from any type of document with high precision. "
-    "You always respond with valid JSON only — no markdown, no explanation."
+    "You always respond with valid JSON only: no markdown, no explanation."
 )
 
 _TYPE_DETECTION_SCHEMA = {
-    "doc_type": "string — e.g. invoice, purchase_order, utility_bill, trade_confirmation, letter_of_credit, contract, commodity_report, lab_report, medical_record, clinical_form, prescription, bank_statement, tax_form, cv_resume, other",
-    "industry_hint": "string or null — e.g. healthcare, medical, utilities, financial_services, banking, insurance, legal, hr, procurement, logistics, commodity_finance, real_estate, education, government, retail, technology, other",
-    "sections": "array of strings — sections present e.g. header, patient_info, test_results, line_items, payment_terms, signatures, schedules",
-    "language": "string — ISO 639-1 code e.g. en, fr, de",
-    "currency": "string or null — ISO 4217 code e.g. USD, EUR, GBP",
+    "doc_type": "string, e.g. invoice, purchase_order, utility_bill, trade_confirmation, letter_of_credit, contract, commodity_report, lab_report, medical_record, clinical_form, prescription, bank_statement, tax_form, cv_resume, other",
+    "industry_hint": "string or null, e.g. healthcare, medical, utilities, financial_services, banking, insurance, legal, hr, procurement, logistics, commodity_finance, real_estate, education, government, retail, technology, other",
+    "sections": "array of strings: sections present e.g. header, patient_info, test_results, line_items, payment_terms, signatures, schedules",
+    "language": "string: ISO 639-1 code e.g. en, fr, de",
+    "currency": "string or null: ISO 4217 code e.g. USD, EUR, GBP",
 }
 
 _CONFIDENCE_GUIDANCE = """
-Confidence calibration — be conservative:
-- 0.90–1.00: value is explicitly labelled and unambiguous in the source
-- 0.70–0.89: value is present but required minor interpretation (format, units, abbreviation)
-- 0.50–0.69: value is inferred from context or not directly labelled
-- 0.30–0.49: multiple plausible values exist; you selected the most likely
-- 0.00–0.29: best guess — flag for manual verification
+Confidence calibration (be conservative):
+- 0.90-1.00: value is explicitly labelled and unambiguous in the source
+- 0.70-0.89: value is present but required minor interpretation (format, units, abbreviation)
+- 0.50-0.69: value is inferred from context or not directly labelled
+- 0.30-0.49: multiple plausible values exist; you selected the most likely
+- 0.00-0.29: best guess; flag for manual verification
 When uncertain, score lower rather than higher."""
 
 _EXTRACTION_SCHEMA = {
@@ -37,13 +37,13 @@ _EXTRACTION_SCHEMA = {
         {
             "name": "snake_case field name",
             "value": "extracted value as string, or null",
-            "confidence": "float 0.0-1.0 — see calibration guidance above",
+            "confidence": "float 0.0-1.0, see calibration guidance above",
             "location_hint": "where in document e.g. header, footer, line 3, or null",
             "data_type": "one of: currency, date, text, identifier, percentage",
-            "is_critical": "bool — true if essential to document purpose",
+            "is_critical": "bool: true if essential to document purpose",
         }
     ],
-    "overall_confidence": "float 0.0-1.0 — weighted average reflecting overall extraction quality",
+    "overall_confidence": "float 0.0-1.0, weighted average reflecting overall extraction quality",
     "reference_keys": {
         "description": "structured identifiers e.g. invoice_number, po_number, isin, contract_ref, patient_id, accession_number, case_number, sample_id",
         "example": {"invoice_number": "INV-2024-001", "patient_id": "PT-98765"},
@@ -53,7 +53,7 @@ _EXTRACTION_SCHEMA = {
 
 def _type_detection_prompt(content: str) -> str:
     return f"""Analyse this document and identify its type, structure, language, and currency.
-The document may be from any industry — healthcare, finance, legal, HR, logistics, or personal.
+The document may be from any industry: healthcare, finance, legal, HR, logistics, or personal.
 
 Return JSON matching exactly this structure:
 {json.dumps(_TYPE_DETECTION_SCHEMA, indent=2)}
@@ -66,7 +66,7 @@ Document content:
 
 def _type_detection_vision_prompt() -> str:
     return f"""Analyse this document image and identify its type, structure, language, and currency.
-The document may be from any industry — healthcare, finance, legal, HR, logistics, or personal.
+The document may be from any industry: healthcare, finance, legal, HR, logistics, or personal.
 
 Return JSON matching exactly this structure:
 {json.dumps(_TYPE_DETECTION_SCHEMA, indent=2)}"""
@@ -96,7 +96,7 @@ Document profile (use as context):
 For each field extract: name (snake_case), value, confidence (0.0-1.0), location_hint, data_type, is_critical.
 For location_hint, use section names from the document profile when applicable (e.g. "patient_info", "test_results",
 "header", "line_items") rather than positional descriptions like "line 3".
-Also identify reference_keys — any structured identifiers present (PO numbers, invoice IDs, ISINs, contract refs,
+Also identify reference_keys: any structured identifiers present (PO numbers, invoice IDs, ISINs, contract refs,
 patient IDs, accession numbers, case numbers, sample IDs, registration numbers, etc.)
 
 {_REPEATED_ROWS_GUIDANCE}
@@ -122,7 +122,7 @@ If the image is blurry, low-resolution, or poorly lit, assign lower confidence s
 For each field extract: name (snake_case), value, confidence (0.0-1.0), location_hint, data_type, is_critical.
 For location_hint, use section names from the document profile when applicable (e.g. "patient_info", "test_results",
 "header", "line_items") rather than positional descriptions like "line 3".
-Also identify reference_keys — any structured identifiers present (PO numbers, invoice IDs, ISINs, contract refs,
+Also identify reference_keys: any structured identifiers present (PO numbers, invoice IDs, ISINs, contract refs,
 patient IDs, accession numbers, case numbers, sample IDs, registration numbers, etc.)
 
 {_REPEATED_ROWS_GUIDANCE}

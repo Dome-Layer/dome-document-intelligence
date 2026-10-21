@@ -2,7 +2,7 @@
 
 The honest way to use an LLM judge is to **earn trust before spending it**:
 1. Run the judge on *objective* fields (deterministic ground truth known) and measure
-   judge↔truth agreement — exposed in the report.
+   judge↔truth agreement, exposed in the report.
 2. Only then use it for *fuzzy* fields (semantic value-equivalence) the deterministic
    normalizer cannot settle.
 
@@ -31,9 +31,9 @@ _JUDGE_SYSTEM = (
 )
 
 _VERDICT_SCHEMA = {
-    "equivalent": "boolean — true only if predicted conveys the same meaning as expected",
-    "reason": "string — one concise sentence justifying the verdict",
-    "confidence": "float 0.0-1.0 — your confidence in this verdict",
+    "equivalent": "boolean: true only if predicted conveys the same meaning as expected",
+    "reason": "string: one concise sentence justifying the verdict",
+    "confidence": "float 0.0-1.0, your confidence in this verdict",
 }
 
 

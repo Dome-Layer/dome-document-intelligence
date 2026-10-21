@@ -2,12 +2,12 @@
 
 Four layers:
 - Layer 1a (`tests/test_validation_rules.py`): deterministic tests of the 16-rule
-  ValidationService — the "rules engine decides" half.
+  ValidationService: the "rules engine decides" half.
 - Layer 1b (`scorer`, `normalize`): score LLM extraction against a golden set with
-  type-aware normalization — field P/R/F1, value-match, reference-key / doc-type
+  type-aware normalization: field P/R/F1, value-match, reference-key / doc-type
   accuracy, human-in-loop agreement.
 - Layer 2 (`calibration`): bucket field confidences and measure actual accuracy per
-  bucket — a reliability table + ECE that verifies the extraction prompt's own
+  bucket: a reliability table + ECE that verifies the extraction prompt's own
   calibration claim.
 - Layer 3 (`judge`): a *validated* LLM judge (measured against ground truth before
   it is trusted) for fuzzy semantic value-equivalence; each run logs one

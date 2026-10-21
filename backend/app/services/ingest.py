@@ -8,7 +8,7 @@ from ..core.logging import get_logger
 
 logger = get_logger(__name__)
 
-_VISION_THRESHOLD = 100  # chars — below this the PDF is treated as scanned
+_VISION_THRESHOLD = 100  # chars; below this the PDF is treated as scanned
 _PDF_RENDER_ZOOM = 2.0  # 2× zoom when rasterising a scanned PDF page
 _MAX_IMAGE_BYTES = 3_500_000  # raw bytes; base64 adds ~33%, keeping encoded size under 5 MB
 
@@ -63,7 +63,7 @@ class IngestService:
             logger.info("pdf_text_extracted", chars=len(full_text))
             return IngestResult(full_text, None, None, "pdf_text")
 
-        # Scanned PDF — rasterise first page for Claude Vision
+        # Scanned PDF: rasterise first page for Claude Vision
         logger.info("pdf_scanned_vision_fallback", chars=len(full_text))
         doc = fitz.open(stream=data, filetype="pdf")
         try:

@@ -70,7 +70,7 @@ async def get_or_seed_rules(user_id: Optional[str]) -> list[GovernanceRule]:
             return [_row_to_rule(r) for r in rows.data + new_rows.data]
         return [_row_to_rule(r) for r in rows.data]
 
-    # First access — seed all default rules for this user
+    # First access: seed all default rules for this user
     logger.info("seeding_rules_for_user", user_id=user_id)
     inserts = [
         {
@@ -124,12 +124,17 @@ async def toggle_rule(
     return _row_to_rule(updated.data[0])
 
 
+# Descriptions are not user-editable, so the current wording in RULES_DEFINITIONS
+# wins over the copy stored when a user's rules were first seeded.
+_CANONICAL_DESCRIPTIONS = {d["rule_id"]: d["description"] for d in RULES_DEFINITIONS}
+
+
 def _row_to_rule(row: dict) -> GovernanceRule:
     return GovernanceRule(
         id=str(row["id"]),
         rule_id=row["rule_id"],
         name=row["name"],
-        description=row.get("description", ""),
+        description=_CANONICAL_DESCRIPTIONS.get(row["rule_id"], row.get("description", "")),
         severity=row["severity"],
         enabled=bool(row["enabled"]),
         config=row.get("config") or {},

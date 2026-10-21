@@ -5,7 +5,7 @@
 - ``recordings/*.json``       -> committed ``ExtractionResult`` dumps (the model's
   recorded output; CI scores against these without a network call).
 
-Pure I/O — no model or network access.
+Pure I/O: no model or network access.
 """
 
 from __future__ import annotations
@@ -46,7 +46,7 @@ async def build_ingest(gold: GoldenDoc) -> IngestResult:
         return IngestResult(path.read_text(encoding="utf-8"), None, None, "text")
     if gold.modality == "image" or suffix in _IMAGE_MEDIA:
         return IngestResult(None, path.read_bytes(), _IMAGE_MEDIA.get(suffix, "image/png"), "image")
-    # pdf / xlsx — reuse the production ingest pipeline.
+    # pdf / xlsx: reuse the production ingest pipeline.
     return await IngestService().process(path.read_bytes(), "", path.name)
 
 

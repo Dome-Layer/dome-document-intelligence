@@ -36,7 +36,7 @@ async def get_current_user(
     Accepts either a Supabase bearer token (verified locally against the published
     JWKS via dome-core ``verify_jwt``, with a live ``get_user`` fallback only on
     JWKS-infrastructure failure) OR an ``X-Service-Key`` matching
-    AGENT_FLOW_SERVICE_KEY (the P5 agent-flow shim) — in which case there is no user
+    AGENT_FLOW_SERVICE_KEY (the P5 agent-flow shim), in which case there is no user
     and None is returned. When DEV_BYPASS_AUTH=true in .env, validation is skipped
     and a fixed dev user ID is returned. Never set in production.
     """
