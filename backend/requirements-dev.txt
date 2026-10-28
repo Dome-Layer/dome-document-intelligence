@@ -39,7 +39,7 @@ distro==1.9.0
     # via anthropic
 docstring-parser==0.18.0
     # via anthropic
-dome-core @ git+https://github.com/Dome-Layer/dome-core.git@a0a071c3cfaabcfbc57430d56e44653c3b5c0dd6
+dome-core @ git+https://github.com/Dome-Layer/dome-core.git@313cf619be7c7ba5941945438d30208497ea08a9
     # via -r requirements.in
 et-xmlfile==2.0.0
     # via openpyxl
