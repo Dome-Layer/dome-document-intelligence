@@ -6,6 +6,7 @@ import { Footer } from '@/components/layout/Footer'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { AuthProvider } from '@/context/AuthContext'
 import { StagingBanner } from '@dome-layer/dome-ui'
+import { THEME_INIT_SCRIPT } from '@dome-layer/dome-ui/utils'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -31,23 +32,6 @@ export const metadata: Metadata = {
   },
 }
 
-// Runs before first paint to prevent theme flash.
-// Reads cookie first (shared across all *.domelayer.com subdomains),
-// then falls back to localStorage, then OS preference.
-const themeScript = `
-(function() {
-  try {
-    var cookie = document.cookie.split('; ').find(function(r){ return r.startsWith('dome-theme='); });
-    var cookieVal = cookie ? cookie.split('=')[1] : null;
-    var saved = (cookieVal === 'dark' || cookieVal === 'light') ? cookieVal : localStorage.getItem('dome-theme');
-    var theme = (saved === 'dark' || saved === 'light')
-      ? saved
-      : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', theme);
-  } catch (e) {}
-})();
-`
-
 export default function RootLayout({
   children,
 }: {
@@ -56,8 +40,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <head>
+        {/* Sets the theme before first paint, so there is no flash; the rule lives in dome-ui. */}
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
       <body className="min-h-screen bg-dome-bg text-dome-text font-sans antialiased">
         <StagingBanner environment={process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT} />
