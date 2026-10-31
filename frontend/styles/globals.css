@@ -117,37 +117,6 @@
   }
 }
 
-/* ─── Site header ────────────────────────────────────────────────── */
-.site-header {
-  background: rgba(255, 255, 255, 0.90);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-bottom: 0.5px solid var(--color-border-default);
-}
-
-[data-theme="dark"] .site-header {
-  background: rgba(10, 10, 10, 0.90);
-  border-bottom-color: var(--color-border-subtle);
-}
-
-/* ─── Theme toggle button ────────────────────────────────────────── */
-.theme-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-md);
-  border: 0.5px solid var(--color-border-default);
-  background: transparent;
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  transition: background var(--duration-fast) ease, color var(--duration-fast) ease;
-  flex-shrink: 0;
-}
-.theme-toggle:hover { background: var(--color-bg-muted); color: var(--color-text-primary); }
-.theme-toggle:focus-visible { box-shadow: 0 0 0 3px var(--color-focus-ring); outline: none; }
-
 /* ─── Focus ring ─────────────────────────────────────────────────── */
 *:focus-visible {
   outline: 2px solid rgba(0, 128, 255, 0.5);
