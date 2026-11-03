@@ -39,6 +39,7 @@ def test_normalize_percentage():
 def test_normalize_date_formats():
     assert normalize_date("2024-01-15") == "2024-01-15"
     assert normalize_date("15/01/2024") == "2024-01-15"
+    assert normalize_date("15.01.2024") == "2024-01-15"
     assert normalize_date("Jan 15, 2024") == "2024-01-15"
     assert normalize_date("15 January 2024") == "2024-01-15"
     assert normalize_date("not a date") is None

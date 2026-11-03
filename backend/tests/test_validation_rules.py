@@ -14,7 +14,7 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 
 from app.models.schemas import DocumentProfile, ExtractedField, ExtractionResult
-from app.services.validation import RULES_DEFINITIONS, ValidationService
+from app.services.validation import RULES_DEFINITIONS, ValidationService, _try_parse_date
 from eval.rules import default_rules, rule
 
 _NOW = datetime.now(timezone.utc)
@@ -289,6 +289,37 @@ def test_missing_date():
 def test_expired_due_date_flags_past_due():
     res = _eval(_result([_field("due_date", value=_d(-10), data_type="date")]), "expired_due_date")
     assert [(f.rule_id, f.field_name) for f in res.flags] == [("expired_due_date", "due_date")]
+
+
+def _dotted(days: int) -> str:
+    """A date as German, Dutch and Italian documents write it: DD.MM.YYYY."""
+    return (_NOW + timedelta(days=days)).strftime("%d.%m.%Y")
+
+
+def test_date_rules_read_dotted_dates():
+    # A German invoice's past due date (01.10.2026 on 2026-11-03) was never flagged before.
+    res = _eval(
+        _result([_field("due_date", value=_dotted(-10), data_type="date")]), "expired_due_date"
+    )
+    assert [(f.rule_id, f.field_name) for f in res.flags] == [("expired_due_date", "due_date")]
+    assert (
+        _eval(
+            _result([_field("due_date", value=_dotted(10), data_type="date")]), "expired_due_date"
+        ).flags
+        == []
+    )
+    future = _result([_field("ship_date", value=_dotted(200), data_type="date")])
+    assert len(_eval(future, "future_date_anomaly").flags) == 1
+    past = _result([_field("report_date", value=_dotted(-6 * 365), data_type="date")])
+    assert len(_eval(past, "past_date_anomaly").flags) == 1
+
+
+def test_try_parse_date_dotted_forms():
+    assert _try_parse_date("01.10.2026") == datetime(2026, 10, 1, tzinfo=timezone.utc)
+    assert _try_parse_date("1.10.26") == datetime(2026, 10, 1, tzinfo=timezone.utc)
+    assert _try_parse_date("fällig am 01.10.2026") == datetime(2026, 10, 1, tzinfo=timezone.utc)
+    assert _try_parse_date("31.02.2026") is None  # not a real day
+    assert _try_parse_date("1.2.3") is None  # a version number, not a date
 
 
 def test_expired_due_date_future_and_non_due_ok():
