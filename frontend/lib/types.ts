@@ -29,7 +29,10 @@ export interface ValidationFlag {
   rule_name: string
   severity: 'info' | 'warning' | 'error'
   field_name: string | null
+  /** The English record of what was flagged. */
   message: string
+  /** The values the message was built from, so the interface can word it (absent on results saved before 2026-11-03). */
+  params?: Record<string, string | number | string[]>
 }
 
 export interface DocumentIntelligenceResult {

@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 from ..core.logging import get_logger
-from ..models.schemas import ExtractionResult, GovernanceRule, ValidationFlag
+from ..models.schemas import ExtractionResult, FlagParam, GovernanceRule, ValidationFlag
 
 logger = get_logger(__name__)
 
@@ -262,13 +262,16 @@ class ValidationService:
 # ── Rule implementations ──────────────────────────────────────────────────────
 
 
-def _flag(rule: GovernanceRule, field_name: Optional[str], message: str) -> ValidationFlag:
+def _flag(
+    rule: GovernanceRule, field_name: Optional[str], message: str, **params: FlagParam
+) -> ValidationFlag:
     return ValidationFlag(
         rule_id=rule.rule_id,
         rule_name=rule.name,
         severity=rule.severity,
         field_name=field_name,
         message=message,
+        params=params,
     )
 
 
@@ -285,6 +288,9 @@ def _check_low_confidence_field(
                     rule,
                     f.name,
                     f"Field '{f.name}' has confidence {f.confidence:.0%} (below {threshold:.0%})",
+                    field=f.name,
+                    confidence=f.confidence,
+                    threshold=threshold,
                 )
             )
     return flags
@@ -302,6 +308,9 @@ def _check_very_low_confidence_field(
                     rule,
                     f.name,
                     f"Field '{f.name}' has very low confidence {f.confidence:.0%} (below {threshold:.0%}). Manual verification required",
+                    field=f.name,
+                    confidence=f.confidence,
+                    threshold=threshold,
                 )
             )
     return flags
@@ -313,7 +322,9 @@ def _check_missing_critical_value(
     flags = []
     for f in result.fields:
         if f.is_critical and (f.value is None or str(f.value).strip() == ""):
-            flags.append(_flag(rule, f.name, f"Critical field '{f.name}' has no value"))
+            flags.append(
+                _flag(rule, f.name, f"Critical field '{f.name}' has no value", field=f.name)
+            )
     return flags
 
 
@@ -337,6 +348,7 @@ def _check_currency_mismatch(
                 rule,
                 None,
                 f"Multiple currencies detected: {', '.join(sorted(currency_codes))}. Verify FX conversion",
+                currencies=sorted(currency_codes),
             )
         ]
     return []
@@ -357,6 +369,9 @@ def _check_future_date_anomaly(
                         rule,
                         f.name,
                         f"Field '{f.name}' has a date more than {days} days in the future: {f.value}",
+                        field=f.name,
+                        days=days,
+                        value=f.value,
                     )
                 )
     return flags
@@ -379,6 +394,9 @@ def _check_past_date_anomaly(
                         rule,
                         f.name,
                         f"Field '{f.name}' has a date more than {years} years in the past: {f.value}",
+                        field=f.name,
+                        years=years,
+                        value=f.value,
                     )
                 )
     return flags
@@ -394,6 +412,8 @@ def _check_overall_low_confidence(
                 rule,
                 None,
                 f"Overall extraction confidence {result.overall_confidence:.0%} is below {threshold:.0%}. Manual review recommended",
+                confidence=result.overall_confidence,
+                threshold=threshold,
             )
         ]
     return []
@@ -444,6 +464,7 @@ def _check_unsupported_language(
                 rule,
                 None,
                 f"Document language '{lang}' may contain non-Latin script, so extraction may be partial",
+                language=lang,
             )
         ]
 
@@ -455,6 +476,7 @@ def _check_unsupported_language(
                     rule,
                     f.name,
                     f"Non-Latin characters detected in field '{f.name}'; extraction accuracy may be reduced",
+                    field=f.name,
                 )
             ]
     return []
@@ -466,7 +488,12 @@ def _check_amount_zero(rule: GovernanceRule, result: ExtractionResult) -> list[V
         if f.data_type == "currency":
             if f.value is None or str(f.value).strip() in ("", "0", "0.0", "0.00"):
                 flags.append(
-                    _flag(rule, f.name, f"Currency field '{f.name}' has a zero or empty value")
+                    _flag(
+                        rule,
+                        f.name,
+                        f"Currency field '{f.name}' has a zero or empty value",
+                        field=f.name,
+                    )
                 )
     return flags
 
@@ -480,6 +507,8 @@ def _check_short_extraction(rule: GovernanceRule, result: ExtractionResult) -> l
                 None,
                 f"Only {len(result.fields)} field(s) extracted (minimum {min_fields}). "
                 "Check scan quality or document format",
+                count=len(result.fields),
+                min_fields=min_fields,
             )
         ]
     return []
@@ -500,7 +529,13 @@ def _check_expired_due_date(rule: GovernanceRule, result: ExtractionResult) -> l
             parsed = _try_parse_date(f.value)
             if parsed and parsed < now:
                 flags.append(
-                    _flag(rule, f.name, f"Field '{f.name}' is a past due/expiry date: {f.value}")
+                    _flag(
+                        rule,
+                        f.name,
+                        f"Field '{f.name}' is a past due/expiry date: {f.value}",
+                        field=f.name,
+                        value=f.value,
+                    )
                 )
     return flags
 
@@ -519,6 +554,9 @@ def _check_large_monetary_amount(
                         rule,
                         f.name,
                         f"Field '{f.name}' contains a large amount ({f.value}) exceeding {threshold:,}. Recommend escalation",
+                        field=f.name,
+                        value=f.value,
+                        threshold=threshold,
                     )
                 )
     return flags
@@ -536,6 +574,7 @@ def _check_potential_personal_data(
                 rule,
                 None,
                 f"Personal data fields detected: {names}{suffix}. Ensure GDPR/HIPAA compliance",
+                fields=pii_fields,
             )
         ]
     return []
@@ -554,6 +593,9 @@ def _check_duplicate_field_name(
                         rule,
                         f.name,
                         f"Field '{f.name}' extracted twice with different values: '{seen[f.name]}' and '{f.value}'",
+                        field=f.name,
+                        first=seen[f.name],
+                        second=f.value or "",
                     )
                 )
         else:

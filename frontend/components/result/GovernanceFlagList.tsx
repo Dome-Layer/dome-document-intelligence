@@ -1,11 +1,16 @@
+'use client'
+
 import type { ValidationFlag } from '@/lib/types'
 import { AlertCircle, AlertTriangle, Info } from 'lucide-react'
+import { useFmt, useT } from '@/lib/i18n'
+import { flagMessage, ruleName } from '@/lib/labels'
 
 interface GovernanceFlagListProps {
   flags: ValidationFlag[]
 }
 
 export function GovernanceFlagList({ flags }: GovernanceFlagListProps) {
+  const t = useT()
   if (flags.length === 0) {
     return (
       <div className="rounded-xl border border-dome-success-border bg-dome-success-subtle px-5 py-4 flex items-center gap-3">
@@ -14,7 +19,7 @@ export function GovernanceFlagList({ flags }: GovernanceFlagListProps) {
             <path d="M3 9.5L7 13.5L15 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </div>
-        <p className="text-sm text-dome-text font-medium">No governance issues detected</p>
+        <p className="text-sm text-dome-text font-medium">{t.flags.none}</p>
       </div>
     )
   }
@@ -23,16 +28,16 @@ export function GovernanceFlagList({ flags }: GovernanceFlagListProps) {
     <div className="flex flex-col gap-2">
       <div className="flex flex-wrap gap-x-4 gap-y-1 mb-1 text-xs text-dome-muted">
         <span className="flex items-center gap-1.5">
-          <span className="badge badge-error" style={{ fontSize: '0.5625rem' }}>error</span>
-          manual review required
+          <span className="badge badge-error" style={{ fontSize: '0.5625rem' }}>{t.flags.severity.error}</span>
+          {t.flags.legend.error}
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="badge badge-warning" style={{ fontSize: '0.5625rem' }}>warning</span>
-          attention recommended
+          <span className="badge badge-warning" style={{ fontSize: '0.5625rem' }}>{t.flags.severity.warning}</span>
+          {t.flags.legend.warning}
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="badge badge-neutral" style={{ fontSize: '0.5625rem' }}>info</span>
-          informational
+          <span className="badge badge-neutral" style={{ fontSize: '0.5625rem' }}>{t.flags.severity.info}</span>
+          {t.flags.legend.info}
         </span>
       </div>
       {flags.map((flag, i) => (
@@ -43,6 +48,8 @@ export function GovernanceFlagList({ flags }: GovernanceFlagListProps) {
 }
 
 function FlagRow({ flag }: { flag: ValidationFlag }) {
+  const t = useT()
+  const f = useFmt()
   const config = SEVERITY_CONFIG[flag.severity]
 
   return (
@@ -52,15 +59,15 @@ function FlagRow({ flag }: { flag: ValidationFlag }) {
       <config.Icon size={16} strokeWidth={1.5} className={`flex-shrink-0 mt-0.5 ${config.iconClass}`} />
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
-          <span className={`badge ${config.badgeClass}`}>{flag.severity}</span>
-          <span className="text-sm font-medium text-dome-text">{flag.rule_name}</span>
+          <span className={`badge ${config.badgeClass}`}>{t.flags.severity[flag.severity] ?? flag.severity}</span>
+          <span className="text-sm font-medium text-dome-text">{ruleName(t, flag.rule_id, flag.rule_name)}</span>
           {flag.field_name && (
             <span className="text-xs text-dome-muted font-mono">
               {flag.field_name}
             </span>
           )}
         </div>
-        <p className="text-sm text-dome-muted mt-0.5">{flag.message}</p>
+        <p className="text-sm text-dome-muted mt-0.5">{flagMessage(t, f, flag)}</p>
       </div>
     </div>
   )

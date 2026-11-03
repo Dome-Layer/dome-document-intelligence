@@ -6,6 +6,7 @@ import { PageContent } from '@/components/layout/PageContent'
 import { AuditLogTable } from '@/components/audit/AuditLogTable'
 import { getAuditLog, APIError } from '@/lib/api'
 import type { GovernanceEvent } from '@/lib/types'
+import { useT } from '@/lib/i18n'
 
 const PAGE_SIZE = 20
 
@@ -18,7 +19,8 @@ interface AuditState {
 export default function AuditPage() {
   const [state, setState] = useState<AuditState | null>(null)
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const t = useT()
+  const [error, setError] = useState<APIError | 'failed' | null>(null)
 
   const load = useCallback(async (page: number) => {
     setLoading(true)
@@ -27,11 +29,7 @@ export default function AuditPage() {
       const data = await getAuditLog(page, PAGE_SIZE)
       setState({ events: data.events, total: data.total, page: data.page })
     } catch (err) {
-      setError(
-        err instanceof APIError
-          ? `Error ${err.status}: ${err.message}`
-          : 'Failed to load audit log'
-      )
+      setError(err instanceof APIError ? err : 'failed')
     } finally {
       setLoading(false)
     }
@@ -46,16 +44,18 @@ export default function AuditPage() {
       <PageContent size="wide">
         <div className="mb-6">
           <h1 className="text-xl font-semibold text-dome-text mb-1" style={{ letterSpacing: '-0.01em' }}>
-            Audit log
+            {t.audit.title}
           </h1>
           <p className="text-sm text-dome-muted">
-            Governance events from all processed documents. Metadata only: no document content is stored.
+            {t.audit.lead}
           </p>
         </div>
 
         {error && (
           <div className="rounded-lg border border-dome-error-border bg-dome-error-subtle px-4 py-3 mb-4">
-            <p className="text-sm text-dome-error">{error}</p>
+            <p className="text-sm text-dome-error">
+              {error === 'failed' ? t.audit.failed : t.errors.status(error.status, error.message)}
+            </p>
           </div>
         )}
 

@@ -2,6 +2,8 @@
 
 import { useCallback, useRef, useState } from 'react'
 import { Upload, Camera } from 'lucide-react'
+import { useT } from '@/lib/i18n'
+import type { Messages } from '@/lib/messages'
 
 interface UploadZoneProps {
   onFile: (file: File) => void
@@ -15,21 +17,22 @@ const ACCEPTED_TYPES = ['application/pdf', 'image/jpeg', 'image/png', 'image/jpg
 const ACCEPTED_EXTENSIONS = ['.pdf', '.jpg', '.jpeg', '.png', '.xlsx']
 const ACCEPT_ATTR = ACCEPTED_EXTENSIONS.join(',')
 
-function validateFile(file: File): string | null {
+function validateFile(file: File, t: Messages): string | null {
   const ext = '.' + file.name.split('.').pop()?.toLowerCase()
   const validExt = ACCEPTED_EXTENSIONS.includes(ext)
   const validType = ACCEPTED_TYPES.some(t => file.type === t) || validExt
   if (!validType) {
-    return `Unsupported file type. Accepted formats: PDF, JPG, PNG, XLSX.`
+    return t.upload.unsupported
   }
   const maxBytes = 20 * 1024 * 1024
   if (file.size > maxBytes) {
-    return `File too large. Maximum size is 20 MB.`
+    return t.upload.tooLarge
   }
   return null
 }
 
 export default function UploadZone({ onFile, onError, disabled }: UploadZoneProps) {
+  const t = useT()
   const [isDragging, setIsDragging] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -39,11 +42,11 @@ export default function UploadZone({ onFile, onError, disabled }: UploadZoneProp
 
   const handle = useCallback(
     (file: File) => {
-      const err = validateFile(file)
+      const err = validateFile(file, t)
       if (err) { onError(err); return }
       onFile(file)
     },
-    [onFile, onError],
+    [onFile, onError, t],
   )
 
   const onDrop = useCallback(
@@ -78,7 +81,7 @@ export default function UploadZone({ onFile, onError, disabled }: UploadZoneProp
         }
       }, 50)
     } catch {
-      onError('Camera access denied or not available.')
+      onError(t.upload.cameraDenied)
     }
   }
 
@@ -96,7 +99,7 @@ export default function UploadZone({ onFile, onError, disabled }: UploadZoneProp
     canvas.height = video.videoHeight
     canvas.getContext('2d')?.drawImage(video, 0, 0)
     canvas.toBlob(blob => {
-      if (!blob) { onError('Failed to capture photo.'); return }
+      if (!blob) { onError(t.upload.captureFailed); return }
       const file = new File([blob], `capture_${Date.now()}.jpg`, { type: 'image/jpeg' })
       closeCamera()
       handle(file)
@@ -120,16 +123,16 @@ export default function UploadZone({ onFile, onError, disabled }: UploadZoneProp
             onClick={capturePhoto}
             className="btn btn-primary"
             style={{ borderRadius: '9999px', width: 56, height: 56, padding: 0 }}
-            aria-label="Capture photo"
+            aria-label={t.upload.capture}
           >
             <Camera size={22} strokeWidth={1.5} />
           </button>
           <button
             onClick={closeCamera}
             className="btn btn-neutral btn-sm"
-            aria-label="Cancel"
+            aria-label={t.upload.cancel}
           >
-            Cancel
+            {t.upload.cancel}
           </button>
         </div>
       </div>
@@ -161,18 +164,18 @@ export default function UploadZone({ onFile, onError, disabled }: UploadZoneProp
 
         <div className="text-center">
           <p className="text-base font-medium text-dome-text">
-            {isDragging ? 'Drop it here' : 'Drop your document here'}
+            {isDragging ? t.upload.dropping : t.upload.drop}
           </p>
           <p className="mt-1 text-sm text-dome-muted">
             PDF · JPG · PNG · XLSX
           </p>
           <p className="mt-1 text-xs text-dome-muted">
-            Up to 20 MB · Scanned documents auto-optimised · Never stored
+            {t.upload.limits}
           </p>
         </div>
 
         <span className="rounded-lg border border-dome-border bg-dome-elevated px-4 py-2 text-sm font-medium text-dome-text transition-colors hover:border-dome-border-accent hover:text-dome-accent">
-          Browse files
+          {t.upload.browse}
         </span>
 
         <input
@@ -194,7 +197,7 @@ export default function UploadZone({ onFile, onError, disabled }: UploadZoneProp
           style={{ gap: 8 }}
         >
           <Camera size={16} strokeWidth={1.5} />
-          Capture with camera
+          {t.upload.camera}
         </button>
       ) : null}
     </div>

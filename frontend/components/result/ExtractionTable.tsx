@@ -1,28 +1,26 @@
+'use client'
+
 import { FileDown } from 'lucide-react'
 import type { ExtractedField } from '@/lib/types'
+import { useFmt, useT } from '@/lib/i18n'
+import { humanize, labelFor } from '@/lib/labels'
+import type { Fmt, Messages } from '@/lib/messages'
 import { ConfidencePill } from './ConfidencePill'
 
 interface ExtractionTableProps {
   fields: ExtractedField[]
 }
 
-const TYPE_LABELS: Record<string, string> = {
-  currency: 'Currency',
-  date: 'Date',
-  text: 'Text',
-  identifier: 'Identifier',
-  percentage: 'Percentage',
-}
-
-function exportCSV(fields: ExtractedField[]) {
-  const headers = ['Field', 'Value', 'Section', 'Type', 'Confidence', 'Critical']
+/** Headers and yes/no in the visitor's language; field names, values and data types stay as extracted. */
+function exportCSV(fields: ExtractedField[], t: Messages, fmt: Fmt) {
+  const headers = t.table.csvHeaders
   const rows = fields.map(f => [
     f.name,
     f.value ?? '',
     f.location_hint ?? '',
     f.data_type,
-    `${Math.round(f.confidence * 100)}%`,
-    f.is_critical ? 'Yes' : 'No',
+    fmt.pct(f.confidence),
+    f.is_critical ? t.table.yes : t.table.no,
   ])
   const csv = [headers, ...rows]
     .map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(','))
@@ -37,10 +35,12 @@ function exportCSV(fields: ExtractedField[]) {
 }
 
 export function ExtractionTable({ fields }: ExtractionTableProps) {
+  const t = useT()
+  const fmt = useFmt()
   if (fields.length === 0) {
     return (
       <div className="text-center py-12 text-dome-muted text-sm">
-        No fields extracted.
+        {t.table.noFields}
       </div>
     )
   }
@@ -51,11 +51,11 @@ export function ExtractionTable({ fields }: ExtractionTableProps) {
         <table className="dome-table">
           <thead>
             <tr>
-              <th>Field</th>
-              <th>Value</th>
-              <th>Section</th>
-              <th>Type</th>
-              <th>Confidence</th>
+              <th>{t.table.field}</th>
+              <th>{t.table.value}</th>
+              <th>{t.table.section}</th>
+              <th>{t.table.type}</th>
+              <th>{t.table.confidence}</th>
             </tr>
           </thead>
           <tbody>
@@ -68,28 +68,28 @@ export function ExtractionTable({ fields }: ExtractionTableProps) {
                     </span>
                     {field.is_critical && (
                       <span className="badge badge-error" style={{ fontSize: '0.5625rem', padding: '2px 5px' }}>
-                        Critical
+                        {t.table.critical}
                       </span>
                     )}
                   </div>
                 </td>
                 <td>
                   <span className="text-dome-text text-sm">
-                    {field.value ?? <span className="text-dome-muted italic">empty</span>}
+                    {field.value ?? <span className="text-dome-muted italic">{t.table.empty}</span>}
                   </span>
                 </td>
                 <td>
                   {field.location_hint ? (
-                    <span className="text-xs text-dome-muted capitalize">
-                      {field.location_hint.replace(/_/g, ' ')}
+                    <span className="text-xs text-dome-muted">
+                      {humanize(field.location_hint)}
                     </span>
                   ) : (
-                    <span className="text-dome-muted">N/A</span>
+                    <span className="text-dome-muted">{t.table.none}</span>
                   )}
                 </td>
                 <td>
                   <span className="badge badge-neutral" style={{ fontSize: '0.625rem' }}>
-                    {TYPE_LABELS[field.data_type] ?? field.data_type}
+                    {labelFor(t.dataTypes, field.data_type)}
                   </span>
                 </td>
                 <td>
@@ -122,22 +122,22 @@ export function ExtractionTable({ fields }: ExtractionTableProps) {
       <div className="flex items-center justify-between flex-wrap gap-3 mt-3">
         <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-xs text-dome-muted">
           <span className="flex items-center gap-1.5">
-            <span className="badge badge-error" style={{ fontSize: '0.5625rem', padding: '2px 5px' }}>Critical</span>
-            essential to document purpose
+            <span className="badge badge-error" style={{ fontSize: '0.5625rem', padding: '2px 5px' }}>{t.table.critical}</span>
+            {t.table.criticalLegend}
           </span>
           <span>
-            Confidence: <span style={{ color: 'var(--color-success)' }}>high ≥85%</span>
-            {' · '}<span style={{ color: 'var(--color-warning)' }}>moderate 60 to 84%</span>
-            {' · '}<span style={{ color: 'var(--color-error)' }}>low &lt;60%</span>
+            {t.table.confidenceLegend} <span style={{ color: 'var(--color-success)' }}>{t.table.high}</span>
+            {' · '}<span style={{ color: 'var(--color-warning)' }}>{t.table.moderate}</span>
+            {' · '}<span style={{ color: 'var(--color-error)' }}>{t.table.low}</span>
           </span>
         </div>
         <button
-          onClick={() => exportCSV(fields)}
+          onClick={() => exportCSV(fields, t, fmt)}
           className="flex items-center gap-1.5 text-xs text-dome-muted hover:text-dome-text transition-colors"
-          title="Export to CSV (opens in Excel)"
+          title={t.table.exportTitle}
         >
           <FileDown size={13} strokeWidth={1.5} />
-          Export CSV
+          {t.table.exportCsv}
         </button>
       </div>
     </div>

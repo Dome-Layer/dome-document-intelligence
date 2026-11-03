@@ -1,10 +1,14 @@
+'use client'
+
 import { AlertCircle, AlertTriangle } from 'lucide-react'
+import { useT } from '@/lib/i18n'
 
 interface HumanInLoopBannerProps {
   status: 'not_required' | 'recommended' | 'required'
 }
 
 export function HumanInLoopBanner({ status }: HumanInLoopBannerProps) {
+  const t = useT()
   if (status === 'not_required') return null
 
   const isRequired = status === 'required'
@@ -32,12 +36,10 @@ export function HumanInLoopBanner({ status }: HumanInLoopBannerProps) {
       )}
       <div>
         <p className={`text-sm font-semibold ${isRequired ? 'text-dome-error' : 'text-dome-warning'}`}>
-          {isRequired ? 'Human review required' : 'Human review recommended'}
+          {isRequired ? t.review.requiredTitle : t.review.recommendedTitle}
         </p>
         <p className="text-sm text-dome-muted mt-0.5">
-          {isRequired
-            ? 'One or more critical governance rules were triggered. This extraction must be reviewed by a human before use.'
-            : 'One or more warnings were raised. Review this extraction before relying on it for decisions.'}
+          {isRequired ? t.review.requiredBody : t.review.recommendedBody}
         </p>
       </div>
     </div>

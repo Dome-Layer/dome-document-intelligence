@@ -1,9 +1,13 @@
+'use client'
+
+import { useFmt } from '@/lib/i18n'
+
 interface ConfidencePillProps {
   value: number
 }
 
 export function ConfidencePill({ value }: ConfidencePillProps) {
-  const pct = Math.round(value * 100)
+  const f = useFmt()
 
   let colorClass: string
   if (value >= 0.85) {
@@ -16,7 +20,7 @@ export function ConfidencePill({ value }: ConfidencePillProps) {
 
   return (
     <span className={`badge pill ${colorClass}`} style={{ fontSize: '0.6875rem' }}>
-      {pct}%
+      {f.pct(value)}
     </span>
   )
 }
