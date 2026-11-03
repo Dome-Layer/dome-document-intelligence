@@ -5,13 +5,14 @@ import { useRouter } from 'next/navigation'
 import { Eye, Trash2, FileText } from 'lucide-react'
 import { ConfidencePill } from '@/components/result/ConfidencePill'
 import { deleteSavedExtraction, APIError } from '@/lib/api'
-import { DOC_TYPE_LABELS } from '@/components/result/DocumentProfileCard'
 import type { SavedExtractionSummary } from '@/lib/types'
+import { useIntlLocale, useT } from '@/lib/i18n'
+import { labelFor } from '@/lib/labels'
 
-const HITL_CONFIG = {
-  not_required: { label: 'Passed', className: 'badge-success' },
-  recommended: { label: 'Review', className: 'badge-warning' },
-  required: { label: 'Required', className: 'badge-error' },
+const HITL_CLASS = {
+  not_required: 'badge-success',
+  recommended: 'badge-warning',
+  required: 'badge-error',
 } as const
 
 interface HistoryTableProps {
@@ -21,28 +22,30 @@ interface HistoryTableProps {
 
 export function HistoryTable({ extractions, onDeleted }: HistoryTableProps) {
   const router = useRouter()
+  const t = useT()
+  const intlLocale = useIntlLocale()
   const [deletingId, setDeletingId] = useState<string | null>(null)
 
   if (extractions.length === 0) {
     return (
       <div className="rounded-xl border border-dome-border bg-dome-surface flex flex-col items-center justify-center py-16 gap-3">
         <FileText size={32} strokeWidth={1} className="text-dome-muted" />
-        <p className="text-sm text-dome-muted">No saved documents yet.</p>
+        <p className="text-sm text-dome-muted">{t.history.empty}</p>
         <button onClick={() => router.push('/')} className="btn btn-secondary btn-sm mt-1">
-          Upload a document
+          {t.history.uploadCta}
         </button>
       </div>
     )
   }
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Delete this saved extraction?')) return
+    if (!confirm(t.history.confirmDelete)) return
     setDeletingId(id)
     try {
       await deleteSavedExtraction(id)
       onDeleted(id)
     } catch (err) {
-      alert(err instanceof APIError ? err.message : 'Delete failed')
+      alert(err instanceof APIError ? err.message : t.history.deleteFailed)
     } finally {
       setDeletingId(null)
     }
@@ -53,32 +56,35 @@ export function HistoryTable({ extractions, onDeleted }: HistoryTableProps) {
       <table className="dome-table">
         <thead>
           <tr>
-            <th>Document</th>
-            <th>Type</th>
-            <th>Industry</th>
-            <th>Confidence</th>
-            <th>Review</th>
-            <th>Saved</th>
+            <th>{t.history.columns.document}</th>
+            <th>{t.history.columns.type}</th>
+            <th>{t.history.columns.industry}</th>
+            <th>{t.history.columns.confidence}</th>
+            <th>{t.history.columns.review}</th>
+            <th>{t.history.columns.saved}</th>
             <th style={{ width: 80 }} />
           </tr>
         </thead>
         <tbody>
           {extractions.map(ex => {
-            const hitl = HITL_CONFIG[ex.human_in_loop as keyof typeof HITL_CONFIG] ?? { label: ex.human_in_loop, className: 'badge-neutral' }
-            const docLabel = DOC_TYPE_LABELS[ex.doc_type] ?? ex.doc_type.replace(/_/g, ' ')
+            const hitl = {
+              label: t.review.short[ex.human_in_loop] ?? ex.human_in_loop,
+              className: HITL_CLASS[ex.human_in_loop] ?? 'badge-neutral',
+            }
+            const docLabel = labelFor(t.docTypes, ex.doc_type)
             return (
               <tr key={ex.id}>
                 <td>
                   <span className="text-sm font-medium text-dome-text truncate max-w-xs block">
-                    {ex.filename ?? <span className="text-dome-muted italic">camera capture</span>}
+                    {ex.filename ?? <span className="text-dome-muted italic">{t.history.cameraCapture}</span>}
                   </span>
                 </td>
                 <td>
-                  <span className="text-sm text-dome-text capitalize">{docLabel}</span>
+                  <span className="text-sm text-dome-text">{docLabel}</span>
                 </td>
                 <td>
-                  <span className="text-sm text-dome-muted capitalize">
-                    {ex.industry_hint ? ex.industry_hint.replace(/_/g, ' ') : 'N/A'}
+                  <span className="text-sm text-dome-muted">
+                    {ex.industry_hint ? labelFor(t.industries, ex.industry_hint) : t.history.none}
                   </span>
                 </td>
                 <td>
@@ -89,7 +95,7 @@ export function HistoryTable({ extractions, onDeleted }: HistoryTableProps) {
                 </td>
                 <td>
                   <span className="text-xs text-dome-muted whitespace-nowrap">
-                    {new Date(ex.saved_at).toLocaleDateString(undefined, { day: '2-digit', month: 'short', year: 'numeric' })}
+                    {new Date(ex.saved_at).toLocaleDateString(intlLocale, { day: '2-digit', month: 'short', year: 'numeric' })}
                   </span>
                 </td>
                 <td>
@@ -97,7 +103,8 @@ export function HistoryTable({ extractions, onDeleted }: HistoryTableProps) {
                     <button
                       onClick={() => router.push(`/result?id=${ex.id}`)}
                       className="btn btn-ghost btn-sm p-1.5"
-                      title="View"
+                      title={t.history.view}
+                      aria-label={t.history.view}
                     >
                       <Eye size={14} strokeWidth={1.5} />
                     </button>
@@ -105,7 +112,8 @@ export function HistoryTable({ extractions, onDeleted }: HistoryTableProps) {
                       onClick={() => handleDelete(ex.id)}
                       disabled={deletingId === ex.id}
                       className="btn btn-ghost btn-sm p-1.5 text-dome-muted hover:text-dome-error"
-                      title="Delete"
+                      title={t.history.delete}
+                      aria-label={t.history.delete}
                     >
                       {deletingId === ex.id
                         ? <div className="spinner" style={{ width: 12, height: 12 }} />

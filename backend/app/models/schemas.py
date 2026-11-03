@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Union
 
 from dome_core.governance import GovernanceEvent
 from pydantic import BaseModel
@@ -30,12 +30,19 @@ class ExtractionResult(BaseModel):
     document_profile: DocumentProfile
 
 
+# A value a flag's message was built from (a field name, a confidence, a threshold, a list of
+# currencies), so the interface can word the message in the visitor's language. The English
+# `message` stays the record of what was flagged.
+FlagParam = Union[str, int, float, list[str]]
+
+
 class ValidationFlag(BaseModel):
     rule_id: str
     rule_name: str
     severity: str  # "info" | "warning" | "error"
     field_name: Optional[str] = None
     message: str
+    params: dict[str, FlagParam] = {}
 
 
 class DocumentIntelligenceResult(BaseModel):

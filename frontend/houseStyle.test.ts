@@ -10,7 +10,7 @@ import { describe, expect, it } from 'vitest'
 const ROOT = __dirname
 const SKIP = new Set(['node_modules', 'out', 'coverage', 'public'])
 const TEXT = /(\.(ts|tsx|js|mjs|cjs|css|json|jsonc)|^\.env\..*example)$/
-const DASH = /[\u2013\u2014]/
+const DASH = /[\u2013\u2014]|&(mdash|ndash|#821[12]|#x201[34]);/i
 
 function sourceFiles(dir: string): string[] {
   return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {

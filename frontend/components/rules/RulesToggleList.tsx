@@ -3,12 +3,15 @@
 import { useState } from 'react'
 import type { GovernanceRule } from '@/lib/types'
 import { toggleRule, APIError } from '@/lib/api'
+import { useFmt, useT } from '@/lib/i18n'
+import { ruleDescription, ruleName } from '@/lib/labels'
 
 interface RulesToggleListProps {
   initialRules: GovernanceRule[]
 }
 
 export function RulesToggleList({ initialRules }: RulesToggleListProps) {
+  const t = useT()
   const [rules, setRules] = useState<GovernanceRule[]>(initialRules)
   const [toggling, setToggling] = useState<Set<string>>(new Set())
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -30,7 +33,7 @@ export function RulesToggleList({ initialRules }: RulesToggleListProps) {
       setRules(prev =>
         prev.map(r => r.rule_id === rule.rule_id ? { ...r, enabled: rule.enabled } : r)
       )
-      const message = err instanceof APIError ? err.message : 'Failed to update rule'
+      const message = err instanceof APIError ? err.message : t.rulesPage.updateFailed
       setErrors(prev => ({ ...prev, [rule.rule_id]: message }))
     } finally {
       setToggling(prev => { const next = new Set(prev); next.delete(rule.rule_id); return next })
@@ -40,7 +43,7 @@ export function RulesToggleList({ initialRules }: RulesToggleListProps) {
   if (rules.length === 0) {
     return (
       <div className="text-center py-12 text-dome-muted text-sm">
-        No rules found.
+        {t.rulesPage.none}
       </div>
     )
   }
@@ -74,6 +77,9 @@ const SEVERITY_CLASSES = {
 } as const
 
 function RuleCard({ rule, isToggling, error, onToggle }: RuleCardProps) {
+  const t = useT()
+  const f = useFmt()
+  const name = ruleName(t, rule.rule_id, rule.name)
   return (
     <div className={`rounded-xl border px-5 py-4 flex items-start gap-4 transition-opacity ${
       rule.enabled ? 'border-dome-border bg-dome-surface' : 'border-dome-border bg-dome-bg opacity-60'
@@ -81,11 +87,11 @@ function RuleCard({ rule, isToggling, error, onToggle }: RuleCardProps) {
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap mb-1">
           <span className={`badge ${SEVERITY_CLASSES[rule.severity]}`}>
-            {rule.severity}
+            {t.flags.severity[rule.severity] ?? rule.severity}
           </span>
-          <span className="text-sm font-semibold text-dome-text">{rule.name}</span>
+          <span className="text-sm font-semibold text-dome-text">{name}</span>
         </div>
-        <p className="text-sm text-dome-muted">{rule.description}</p>
+        <p className="text-sm text-dome-muted">{ruleDescription(t, f, rule)}</p>
         {error && (
           <p className="text-xs text-dome-error mt-1">{error}</p>
         )}
@@ -94,7 +100,7 @@ function RuleCard({ rule, isToggling, error, onToggle }: RuleCardProps) {
       <button
         role="switch"
         aria-checked={rule.enabled}
-        aria-label={`${rule.enabled ? 'Disable' : 'Enable'} ${rule.name}`}
+        aria-label={rule.enabled ? t.rulesPage.disable(name) : t.rulesPage.enable(name)}
         onClick={onToggle}
         disabled={isToggling}
         className="flex-shrink-0 mt-0.5 relative inline-flex h-5 w-9 items-center rounded-full transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"

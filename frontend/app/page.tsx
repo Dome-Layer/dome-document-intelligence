@@ -6,6 +6,7 @@ import AuthGuard from '@/components/AuthGuard'
 import { PageContent } from '@/components/layout/PageContent'
 import UploadZone from '@/components/upload/UploadZone'
 import { extractDocument, APIError } from '@/lib/api'
+import { useT } from '@/lib/i18n'
 import type { DocumentIntelligenceResult } from '@/lib/types'
 
 type Step = 'detecting' | 'extracting' | 'validating'
@@ -15,16 +16,11 @@ type State =
   | { status: 'running'; step: Step; filename: string }
   | { status: 'error'; message: string }
 
-const STEP_LABELS: Record<Step, string> = {
-  detecting: 'Detecting document type…',
-  extracting: 'Extracting fields…',
-  validating: 'Applying governance rules…',
-}
-
 const STEP_ORDER: Step[] = ['detecting', 'extracting', 'validating']
 
 export default function UploadPage() {
   const router = useRouter()
+  const t = useT()
   const [state, setState] = useState<State>({ status: 'idle' })
 
   const runExtraction = useCallback(
@@ -55,14 +51,14 @@ export default function UploadPage() {
         clearInterval(advanceInterval)
         const message =
           err instanceof APIError
-            ? `Error ${err.status}: ${err.message}`
+            ? t.errors.status(err.status, err.message)
             : err instanceof Error
             ? err.message
-            : 'An unexpected error occurred'
+            : t.errors.unexpected
         setState({ status: 'error', message })
       }
     },
-    [router],
+    [router, t],
   )
 
   const onFile = useCallback(
@@ -85,7 +81,7 @@ export default function UploadPage() {
               Document Intelligence
             </h1>
             <p className="text-sm text-dome-muted">
-              Upload any document: invoices, lab reports, utility bills, contracts. Extract structured data with governance validation in seconds.
+              {t.upload.lead}
             </p>
           </div>
 
@@ -106,7 +102,7 @@ export default function UploadPage() {
                 onClick={() => setState({ status: 'idle' })}
                 className="mt-2 text-xs text-dome-muted underline hover:text-dome-text"
               >
-                Try again
+                {t.upload.tryAgain}
               </button>
             </div>
           )}
@@ -117,11 +113,12 @@ export default function UploadPage() {
 }
 
 function ProcessingCard({ step, filename }: { step: Step; filename: string }) {
+  const t = useT()
   return (
     <div className="rounded-xl border border-dome-border bg-dome-surface p-8 flex flex-col items-center gap-5 text-center">
       <div className="spinner spinner-lg" />
       <div>
-        <p className="text-base font-medium text-dome-text mb-1">{STEP_LABELS[step]}</p>
+        <p className="text-base font-medium text-dome-text mb-1">{t.upload.steps[step]}</p>
         <p className="text-xs text-dome-muted truncate max-w-xs">{filename}</p>
       </div>
       <div className="flex gap-1.5">

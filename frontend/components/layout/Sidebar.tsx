@@ -3,21 +3,24 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Upload, Shield, FileText, Clock } from 'lucide-react'
+import { useT } from '@/lib/i18n'
 
 const NAV_ITEMS = [
-  { href: '/', label: 'Upload', icon: Upload },
-  { href: '/history', label: 'History', icon: Clock },
-  { href: '/rules', label: 'Rules', icon: Shield },
-  { href: '/audit', label: 'Audit log', icon: FileText },
-]
+  { href: '/', key: 'upload', icon: Upload },
+  { href: '/history', key: 'history', icon: Clock },
+  { href: '/rules', key: 'rules', icon: Shield },
+  { href: '/audit', key: 'audit', icon: FileText },
+] as const
 
 export function Sidebar() {
   const pathname = usePathname()
+  const t = useT()
 
   return (
     <aside className="app-sidebar">
       <nav>
-        {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
+        {NAV_ITEMS.map(({ href, key, icon: Icon }) => {
+          const label = t.nav[key]
           const isActive = href === '/' ? pathname === '/' : pathname.startsWith(href)
           return (
             <Link
