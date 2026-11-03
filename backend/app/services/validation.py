@@ -621,17 +621,32 @@ def _parse_amount(value: str) -> Optional[float]:
 def _try_parse_date(value: str) -> Optional[datetime]:
     """Best-effort date parsing; returns UTC datetime or None."""
     value = value.strip()
-    # Try ISO format first
-    for fmt in ("%Y-%m-%d", "%d/%m/%Y", "%m/%d/%Y", "%d-%m-%Y", "%Y/%m/%d"):
+    # Try ISO format first. DD.MM.YYYY is how German, Dutch and Italian documents write dates;
+    # without it no date rule ever fired on them (found on a German invoice, 2026-11-03).
+    for fmt in (
+        "%Y-%m-%d",
+        "%d/%m/%Y",
+        "%m/%d/%Y",
+        "%d-%m-%Y",
+        "%Y/%m/%d",
+        "%d.%m.%Y",
+        "%d.%m.%y",
+    ):
         try:
             return datetime.strptime(value, fmt).replace(tzinfo=timezone.utc)
         except ValueError:
             continue
-    # Try partial match for YYYY-MM-DD
+    # Try partial match for YYYY-MM-DD, then DD.MM.YYYY ("fällig am 01.10.2026")
     m = re.search(r"(\d{4})-(\d{2})-(\d{2})", value)
     if m:
         try:
             return datetime(int(m.group(1)), int(m.group(2)), int(m.group(3)), tzinfo=timezone.utc)
+        except ValueError:
+            pass
+    m = re.search(r"\b(\d{1,2})\.(\d{1,2})\.(\d{4})\b", value)
+    if m:
+        try:
+            return datetime(int(m.group(3)), int(m.group(2)), int(m.group(1)), tzinfo=timezone.utc)
         except ValueError:
             pass
     return None
